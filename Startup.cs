@@ -1,7 +1,6 @@
 ﻿using ExpenseApp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -42,8 +41,17 @@ namespace ExpenseApp
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            // Allow pages to be iframed by Microsoft Teams
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("Content-Security-Policy",
+                    "frame-ancestors teams.microsoft.com *.teams.microsoft.com *.skype.com");
 
-            app.UseMvc(routes => 
+                await next();
+            });
+
+            app.UseMvc(routes =>
             {
                 routes.MapRoute("Default",
                     "{controller=Home}/{action=Index}/{id?}"
