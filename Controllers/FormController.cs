@@ -67,7 +67,10 @@ namespace ExpenseApp.Controllers
                     new ExpenseEntry()
                     {
                         Date = new DateTime(2018, 8, 1),
-                        Account = Account.Airfare,
+                        Account = new Account()
+                        {
+                            Name = "Airfare"
+                        },
                         Description = "Flight from LAX to SG",
                         Transport = 1000,
                         ReceiptId = "21312"
@@ -75,7 +78,10 @@ namespace ExpenseApp.Controllers
                     new ExpenseEntry()
                     {
                         Date = new DateTime(2018, 8, 28),
-                        Account = Account.EmployeeMoraleMeals,
+                        Account = new Account()
+                        {
+                            Name = "Employee Morale - Meals"
+                        },
                         Description = "Provided meal for lunch meeting",
                         Meals = 40,
                         ReceiptId = null
