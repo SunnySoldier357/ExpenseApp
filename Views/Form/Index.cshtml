@@ -8,19 +8,42 @@
 <h1>Sandeep's Expenses</h1>
 
 <main>
-  <p class="search-box">
+  <div class="filter">
+    <h2>Filter</h2>
+    <h3>Status</h3>
+    <button>Saved</button>
+    <button>Submitted</button>
+    <button>Approved</button>
+    <button>Rejected</button>
+  </div>
+  
+  <p class="radio-container">
     Search: 
     <input type="search">
-    <input type="radio"
+    <input class="radio-button" 
+           type="radio"
            name="search-type"
            value="statementNumber"
            checked> Statement Number 
-    <input type="radio"
+    <input class="radio-button" 
+           type="radio"
            name="search-type"
            value="title"> Title
   </p>
   
-  <aside class="filter">
-    
-  </aside>
+  <table>
+    <tr>
+      <th>Statement Number</th>
+      <th>Title</th> 
+      <th>Status</th>
+    </tr>
+    @foreach (var listing in Model)
+    {
+      <tr>
+        <td>@listing.StatementNumber</td>
+        <td>@listing.Title</td>
+        <td>@listing.ListingStatus</td>
+      </tr>
+    }
+  </table>
 </main>

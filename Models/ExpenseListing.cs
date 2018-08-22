@@ -1,16 +1,8 @@
 namespace ExpenseApp.Models
-{
-    public enum Status
-    {
-        Saved,
-        Submitted,
-        Approved,
-        Rejected,
-        Paid
-    }
-    
+{    
     public class ExpenseListing
     {
+        public string StatementNumber { get; set; }
         public string Title { get; set; }
         public Status ListingStatus { get; set; }
     }

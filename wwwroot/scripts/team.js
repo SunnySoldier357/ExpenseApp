@@ -1,5 +1,3 @@
-import * as microsoftTeams from "MicrosoftTeams.min.js";
-
 (function() 
 {
     microsoftTeams.initialize();
