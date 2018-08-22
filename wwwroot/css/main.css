@@ -1,3 +1,6 @@
+/* Global Styles 
+------------------------*/
+
 /* Border box fix */
 
 html {
@@ -8,15 +11,43 @@ html {
     box-sizing: inherit;
 }
 
+h1 {
+    text-align: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* grid-column-gap: 10px; */
+    /* grid-row-gap: 20px; */
+    grid-gap: 10px;
+}
+
+.grid-item {
+    text-align: center;
+}
+
 .filter {
-    float: right;
-    background: #A2A6E7;
+    float: right; 
+    background: #18424E;
     padding: 10px;
+    margin-left: 20px;
+}
+
+.filter h2 {
+    text-align: center;
+}
+
+.filter button {
+    display: block
 }
 
 table, th, td {
-    border: 1px solid black;
     border-collapse: collapse;
+}
+
+td input[type="date"] {
+    max-width: 150px;
 }
 
 th, td {
@@ -24,15 +55,69 @@ th, td {
     text-align: left;
 }
 
-table tr:nth-child(even) {
+#expense-table tr :nth-child(1) {
+    width: 30%;
+}
+
+#expense-table tr :nth-child(2) {
+    width: 60%;
+}
+
+#expense-table tr :nth-child(3) {
+    width: 10%;
+}
+
+/* Light Theme
+------------------------*/
+
+.theme-light .filter {
+    background-color: #C4E4ED;
+}
+
+.theme-light table, .theme-light th, .theme-light td {
+    border: 1px solid black;
+}
+
+.theme-light table tr:nth-child(even) {
     background-color: #eee;
 }
 
-table tr:nth-child(odd) {
-    background-color: #fff;
+.theme-light table tr:nth-child(odd) {
+    background-color: white;
 }
 
-table th {
+.theme-light table th {
     background-color: black;
     color: white;
+}
+
+/* Dark Theme
+------------------------*/
+
+.theme-dark table, .theme-dark th, .theme-dark td {
+    border: 1px solid white;
+}
+
+.theme-dark table tr:nth-child(even) {
+    background-color: #303030;
+}
+
+.theme-dark table tr:nth-child(odd) {
+    background-color: black;
+}
+
+.theme-dark table th {
+    background-color: white;
+    color: black;
+}
+
+/* High Contrast Theme 
+------------------------*/
+
+.theme-contrast table, .theme-contrast th, .theme-contrast td {
+    border: 1px solid white;
+}
+
+.theme-contrast table th {
+    color: yellow;
 }
