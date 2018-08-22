@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ExpenseApp.Models
+namespace ExpenseApp.Models.DB
 {
     public enum Status : int
     {
@@ -13,9 +14,9 @@ namespace ExpenseApp.Models
         Paid
     }
     
+    [ModelMetadataType (typeof (ExpenseFormAttributes))]
     public class ExpenseForm
     {
-        [Key]
         public string StatementNumber { get; set; }
         
         public string EmployeeId { get; set; }

@@ -1,4 +1,4 @@
-namespace ExpenseApp.Models
+namespace ExpenseApp.Models.DB
 {
     public class Receipt
     {

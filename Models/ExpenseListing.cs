@@ -1,3 +1,5 @@
+using ExpenseApp.Models.DB;
+
 namespace ExpenseApp.Models
 {    
     public class ExpenseListing

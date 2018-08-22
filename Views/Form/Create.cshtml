@@ -1,5 +1,155 @@
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model ExpenseApp.Models.DB.ExpenseForm
 @{
   Layout = "_Layout";
 }
 
 @section Title { New Expense Form }
+
+<h1>Skill-Up Expense Report</h1>
+
+<form asp-action="Create">
+  
+  @Html.AntiForgeryToken()
+  
+  <div asp-validation-summary="All" 
+       class="input-validation-error"></div>
+       
+  <!-- Title -->
+  <div class="input-container">
+    <label class="label" 
+           asp-for="Title"></label>
+    <input type="text" 
+           asp-for="Title" 
+           class="input-field" />
+    <span asp-validation-for="Title" 
+          class="error-label"></span>
+  </div>
+  
+  <!-- Purpose -->
+  <div class="input-container">
+    <label class="label" 
+           asp-for="Purpose"></label>
+    <input type="text" 
+           asp-for="Purpose" 
+           class="input-field" />
+    <span asp-validation-for="Purpose" 
+          class="error-label"></span>
+  </div>
+  
+  <!-- Statement Number -->
+  <div class="input-container">
+    <label class="label" 
+           asp-for="StatementNumber"></label>
+    <input type="text" 
+           asp-for="StatementNumber" 
+           class="input-field" 
+           readonly/>
+  </div>
+  
+  <!-- Period -->
+  <div class="input-container">
+    <label class="label" 
+           asp-for="From"></label>
+    <input type="date"
+           asp-for="From" 
+           class="input-field" />
+    <span asp-validation-for="From" 
+          class="error-label"></span>
+  </div>
+  
+  <h2>Consultant Information</h2>
+  
+  <!-- Name -->
+  <div class="input-container">
+    <label asp-for="Employee.Name"></label>
+    <input type="text" 
+           asp-for="Employee.Name" 
+           class="input-field" 
+           readonly/>
+  </div>
+  
+  <!-- Project -->
+  <div class="input-container">
+    <label class="label" 
+           asp-for="Project"></label>
+    <input type="text"
+           asp-for="Project" 
+           class="input-field" 
+           placeholder="CLIENT-PROJECT" />
+    <span asp-validation-for="Project" 
+          class="error-label"></span>
+  </div>
+  
+  <!-- Location -->
+  <div class="input-container">
+    <label class="label" 
+           asp-for="Employee.Location"></label>
+    <input type="text"
+           asp-for="Employee.Location" 
+           class="input-field" 
+           readonly/>
+  </div>
+  
+  <!-- Approver -->
+  <div class="input-container">
+    <label class="label" 
+           asp-for="Employee.Approver.Name"></label>
+    <input type="text"
+           asp-for="Employee.Approver.Name" 
+           class="input-field" 
+           readonly />
+  </div>
+  
+  <h2>All Expense Claims</h2>
+  
+  <!-- Expense Claim Table -->
+  <table class="table">
+    <tr>
+      <th>Date</th>
+      <th>Account</th>
+      <th>Description</th>
+      <th>Hotel</th>
+      <th>Transport</th>
+      <th>Fuel</th>
+      <th>Meals</th>
+      <th>Phone</th>
+      <th>Entertainment</th>
+      <th>Misc.</th>
+      <th>Total</th>
+      <th>Receipt</th>
+    </tr>
+    @foreach (var entry in Model.Entries)
+    {
+      <tr>
+        <td>@entry.Date</td>
+        <td>@entry.Account</td>
+        <td>@entry.Description</td>
+        <td>@entry.Hotel</td>
+        <td>@entry.Transport</td>
+        <td>@entry.Fuel</td>
+        <td>@entry.Meals</td>
+        <td>@entry.Phone</td>
+        <td>@entry.Entertainment</td>
+        <td>@entry.Misc</td>
+        <td>@entry.Total</td>
+        <td>
+          <input type="checkbox"
+                 checked="@(entry.ReceiptId != null)">
+        </td>
+      </tr>
+    }
+  </table>
+  
+  <!-- Comment -->
+  <div class="input-container">
+    <label class="label" 
+           asp-for="Comment"></label>
+    <input type="text"
+           asp-for="Comment" 
+           class="input-field" />
+    <span asp-validation-for="Comment" 
+          class="error-label"></span>
+  </div>
+  
+</form>

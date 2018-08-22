@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using ExpenseApp.Models;
+using ExpenseApp.Models.DB;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseApp.Controllers
@@ -40,7 +43,46 @@ namespace ExpenseApp.Controllers
         
         public IActionResult Create()
         {
-            return View();
+            var form = new ExpenseForm()
+            {
+                StatementNumber = "0818-MICROSOFT-AURORA-01",
+                Title = "Microsoft Aurora Project Claim",
+                Purpose = "Do something",
+                From = new DateTime(2018, 8, 1),
+                To = new DateTime(2018, 8, 28),
+                Project = "MICROSOFT-AURORA",
+                Comment = "A sample comment",
+                Status = Status.Saved,
+                Employee = new Employee()
+                {
+                    Name = "Sandeep Singh Sidhu",
+                    Location = "Orange Studios US",
+                    Approver = new Employee()
+                    {
+                        Name = "JPS Kohli"
+                    }
+                },
+                Entries = new List<ExpenseEntry>()
+                {
+                    new ExpenseEntry()
+                    {
+                        Date = new DateTime(2018, 8, 1),
+                        Account = Account.Airfare,
+                        Description = "Flight from LAX to SG",
+                        Transport = 1000,
+                        ReceiptId = "21312"
+                    },
+                    new ExpenseEntry()
+                    {
+                        Date = new DateTime(2018, 8, 28),
+                        Account = Account.EmployeeMoraleMeals,
+                        Description = "Provided meal for lunch meeting",
+                        Meals = 40,
+                        ReceiptId = null
+                    }
+                }
+            };
+            return View(form);
         }
         
         [HttpPost]
