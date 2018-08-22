@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseApp.Controllers
 {
-    public class HomeController : Controller
+    public class FormController : Controller
     {
         public IActionResult Index()
         {

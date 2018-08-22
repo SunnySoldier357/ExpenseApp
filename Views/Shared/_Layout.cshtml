@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
   
   <head>
@@ -6,13 +6,26 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1">
     <title>@RenderSection("Title", true)</title>
+    
     <link rel="stylesheet"
-          href="~/css/main.css">
-    <script src="~/scripts/team.js"
+          type="text/css"
+          href="@Url.Content("~/css/team.css")">
+    <link rel="stylesheet"
+          type="text/css"
+          href="@Url.Content("~/css/main.css")">
+    <script src="@Url.Content("~/scripts/MicrosoftTeams.min.js")"
+            type="text/javascript"
+            defer></script>
+    <script src="@Url.Content("~/scripts/team.js")"
+            type="text/javascript"
             defer></script>
   </head>
   
-  <body>
-    @RenderBody()
+  <body class="theme-light">
+    <div class="surface">
+      <div class="panel">
+        @RenderBody()
+      </div>
+    </div>
   </body>
 </html>

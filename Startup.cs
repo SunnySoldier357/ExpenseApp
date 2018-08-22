@@ -54,9 +54,11 @@ namespace ExpenseApp
             app.UseMvc(routes =>
             {
                 routes.MapRoute("Default",
-                    "{controller=Home}/{action=Index}/{id?}"
+                    "{controller=Form}/{action=Index}/{id?}"
                 );
             });
+
+            app.UseFileServer();
         }
     }
 }
