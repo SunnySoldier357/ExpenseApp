@@ -119,7 +119,7 @@
       <th>Fuel</th>
       <th>Meals</th>
       <th>Phone</th>
-      <th>Entertainment</th>
+      <th>Ent.</th>
       <th>Misc.</th>
       <th>Total</th>
       <th>Receipt</th>
@@ -135,18 +135,49 @@
           <select asp-for="@entry.Account"
                   asp-items="@{new SelectList(ViewBag.Accounts, "Id", "Name")}"></select>
         </td>
-        <td>@entry.Description</td>
-        <td>@entry.Hotel</td>
-        <td>@entry.Transport</td>
-        <td>@entry.Fuel</td>
-        <td>@entry.Meals</td>
-        <td>@entry.Phone</td>
-        <td>@entry.Entertainment</td>
-        <td>@entry.Misc</td>
+        <td>
+          <input class="input-field" 
+                 type="text"
+                 asp-for="@entry.Description">
+        </td>
+        <td>
+          <input class="input-field" 
+                 type="number"
+                 asp-for="@entry.Hotel">
+        </td>
+        <td>
+          <input class="input-field" 
+                 type="number"
+                 asp-for="@entry.Transport">
+        </td>
+        <td>
+          <input class="input-field" 
+                 type="number"
+                 asp-for="@entry.Fuel">
+        </td>
+        <td>
+          <input class="input-field" 
+                 type="number"
+                 asp-for="@entry.Meals">
+        </td>
+        <td>
+          <input class="input-field" 
+                 type="number"
+                 asp-for="@entry.Phone">
+        </td>
+        <td>
+          <input class="input-field" 
+                 type="number"
+                 asp-for="@entry.Entertainment">
+        </td>
+        <td>
+          <input class="input-field" 
+                 type="number"
+                 asp-for="@entry.Misc">
+        </td>
         <td>@entry.Total</td>
         <td>
-          <input type="checkbox"
-                 checked="@(entry.ReceiptId != null)">
+          <input type="file">
         </td>
       </tr>
     }
