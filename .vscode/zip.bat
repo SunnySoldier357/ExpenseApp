@@ -1,0 +1,1 @@
+powershell.exe -nologo -noprofile -command "& { $(get-location); Compress-Archive -Path Manifest/color.png, Manifest/manifest.json, Manifest/outline.png -DestinationPath bin/manifest.zip -Force }"

@@ -10,6 +10,14 @@
                 "${workspaceFolder}/ExpenseApp.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "zip",
+            "command": "",
+            "type": "shell",
+            "args": [
+                "${workspaceFolder}/.vscode/zip.bat",
+            ]
         }
     ]
 }

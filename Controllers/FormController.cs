@@ -40,7 +40,7 @@ namespace ExpenseApp.Controllers
 
             return View(listings);
         }
-        
+
         public IActionResult Create()
         {
             var form = new ExpenseForm()
@@ -88,13 +88,70 @@ namespace ExpenseApp.Controllers
                     }
                 }
             };
+
+            ViewBag.Accounts = getAccounts();
+
             return View(form);
         }
-        
+
         [HttpPost]
         public IActionResult Create(ExpenseForm form)
         {
             return View();
+        }
+
+        private List<Account> getAccounts()
+        {
+            return new List<Account>()
+            {
+                new Account { Name = "Airfare" },
+                new Account { Name = "Broadband – Home" },
+                new Account { Name = "Broadband – Travel" },
+                new Account { Name = "Car Rental" },
+                new Account { Name = "Cargo, Parcel, Shipping" },
+                new Account { Name = "Catering" },
+                new Account { Name = "Cell Phone" },
+                new Account { Name = "Training" },
+                new Account { Name = "Conference/Seminar" },
+                new Account { Name = "Dues/Subscriptions" },
+                new Account { Name = "Employee Morale" },
+                new Account { Name = "Employee Morale – Meals" },
+                new Account { Name = "Employee Development/Training" },
+                new Account { Name = "Entertainment" },
+                new Account { Name = "Event Services" },
+                new Account { Name = "Event Sponsorships" },
+                new Account { Name = "Event Venues & Site Selection" },
+                new Account { Name = "Events" },
+                new Account { Name = "Expense – Multi Purpose" },
+                new Account { Name = "Gift Cert / Tangible Gifts" },
+                new Account { Name = "Hardware" },
+                new Account { Name = "Hardware Development" },
+                new Account { Name = "Hotel" },
+                new Account { Name = "Infrastructure & Ops Support" },
+                new Account { Name = "Maintenance – Repairs" },
+                new Account { Name = "Marketing Services" },
+                new Account { Name = "Meals – Entertainment" },
+                new Account { Name = "Meals – Multipurpose" },
+                new Account { Name = "Meals – Travel" },
+                new Account { Name = "Meals for Meetings" },
+                new Account { Name = "Membership & Dues" },
+                new Account { Name = "Mileage" },
+                new Account { Name = "Not for Reimbursement – Others" },
+                new Account { Name = "Other Travel Expenses" },
+                new Account { Name = "Parking" },
+                new Account { Name = "Personal" },
+                new Account { Name = "Phone/Fax" },
+                new Account { Name = "Postage" },
+                new Account { Name = "Supplies – Computer Equipment" },
+                new Account { Name = "Supplies – General Office" },
+                new Account { Name = "Supplies – Reference Material" },
+                new Account { Name = "Tips/Gratuity" },
+                new Account { Name = "Transportation – Others" },
+                new Account { Name = "Transportation – Rail" },
+                new Account { Name = "Transportation – Taxi" },
+                new Account { Name = "Travel Fee" },
+                new Account { Name = "Visas/Vaccinations" }
+            };
         }
     }
 }

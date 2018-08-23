@@ -128,14 +128,12 @@
     {
       <tr>
         <td>
-          <input class="input-field"
-                 type="date"
+          <input type="date"
                  asp-for="@entry.Date">
         </td>
         <td>
-          <select class="input-field"
-                  asp-for="@entry.Account"
-                  asp-items="@{new SelectList(typeof(ExpenseApp.Models.DB.Account).GetProperties())}"></select>
+          <select asp-for="@entry.Account"
+                  asp-items="@{new SelectList(ViewBag.Accounts, "Id", "Name")}"></select>
         </td>
         <td>@entry.Description</td>
         <td>@entry.Hotel</td>
