@@ -110,88 +110,94 @@
   
   <!-- Expense Claim Table -->
   <table class="table">
-    <tr>
-      <th>Date</th>
-      <th>Account</th>
-      <th>Description</th>
-      <th>Hotel</th>
-      <th>Transport</th>
-      <th>Fuel</th>
-      <th>Meals</th>
-      <th>Phone</th>
-      <th>Ent.</th>
-      <th>Misc.</th>
-      <th>Total</th>
-      <th>Receipt</th>
-    </tr>
-    @foreach (var entry in Model.Entries)
-    {
+    <thead>
       <tr>
-        <td>
-          <input type="date"
-                 asp-for="@entry.Date">
-        </td>
-        <td>
-          <select asp-for="@entry.Account"
-                  asp-items="@{new SelectList(ViewBag.Accounts, "Id", "Name")}"></select>
-        </td>
-        <td>
-          <input class="input-field" 
-                 type="text"
-                 asp-for="@entry.Description">
-        </td>
-        <td>
-          <input class="input-field" 
-                 type="number"
-                 asp-for="@entry.Hotel">
-        </td>
-        <td>
-          <input class="input-field" 
-                 type="number"
-                 asp-for="@entry.Transport">
-        </td>
-        <td>
-          <input class="input-field" 
-                 type="number"
-                 asp-for="@entry.Fuel">
-        </td>
-        <td>
-          <input class="input-field" 
-                 type="number"
-                 asp-for="@entry.Meals">
-        </td>
-        <td>
-          <input class="input-field" 
-                 type="number"
-                 asp-for="@entry.Phone">
-        </td>
-        <td>
-          <input class="input-field" 
-                 type="number"
-                 asp-for="@entry.Entertainment">
-        </td>
-        <td>
-          <input class="input-field" 
-                 type="number"
-                 asp-for="@entry.Misc">
-        </td>
-        <td>@entry.Total</td>
-        <td>
-          <input type="file">
-        </td>
+        <th>Date</th>
+        <th>Account</th>
+        <th>Description</th>
+        <th>Hotel</th>
+        <th>Transport</th>
+        <th>Fuel</th>
+        <th>Meals</th>
+        <th>Phone</th>
+        <th>Ent.</th>
+        <th>Misc.</th>
+        <th>Total</th>
+        <th>Receipt</th>
       </tr>
-    }
+    </thead>
+    <tbody>
+      @foreach (var entry in Model.Entries)
+      {
+        <tr>
+          <td>
+            <input type="date"
+                  asp-for="@entry.Date">
+          </td>
+          <td>
+            <select asp-for="@entry.Account"
+                    asp-items="@{new SelectList(ViewBag.Accounts, "Name", "Name")}"></select>
+          </td>
+          <td>
+            <input class="input-field" 
+                  type="text"
+                  asp-for="@entry.Description">
+          </td>
+          <td>
+            <input class="input-field" 
+                  type="number"
+                  asp-for="@entry.Hotel">
+          </td>
+          <td>
+            <input class="input-field" 
+                  type="number"
+                  asp-for="@entry.Transport">
+          </td>
+          <td>
+            <input class="input-field" 
+                  type="number"
+                  asp-for="@entry.Fuel">
+          </td>
+          <td>
+            <input class="input-field" 
+                  type="number"
+                  asp-for="@entry.Meals">
+          </td>
+          <td>
+            <input class="input-field" 
+                  type="number"
+                  asp-for="@entry.Phone">
+          </td>
+          <td>
+            <input class="input-field" 
+                  type="number"
+                  asp-for="@entry.Entertainment">
+          </td>
+          <td>
+            <input class="input-field" 
+                  type="number"
+                  asp-for="@entry.Misc">
+          </td>
+          <td>@entry.Total</td>
+          <td>
+            <input type="file">
+          </td>
+        </tr>
+      }
+    </tbody>
   </table>
   
   <!-- Comment -->
-  <div class="input-container">
+  <div class="textarea-container">
     <label class="label" 
            asp-for="Comment"></label>
-    <input type="text"
-           asp-for="Comment" 
-           class="input-field" />
+    <textarea class="input-field textarea-field multiline"
+              asp-for="Comment"></textarea>
     <span asp-validation-for="Comment" 
           class="error-label"></span>
   </div>
   
+  <button class="button-primary"
+          type="submit">Submit</button>
+  <button class="button-secondary">Save</button>
 </form>

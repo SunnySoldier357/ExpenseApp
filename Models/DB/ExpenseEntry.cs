@@ -1,11 +1,24 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExpenseApp.Models.DB
 {
     public class ExpenseEntry
     {
-        public string Id { get; set; }
+        private string _cost;
+
+        private decimal _hotel;
+        private decimal _transport;
+        private decimal _fuel;
+        private decimal _meals;
+        private decimal _phone;
+        private decimal _entertainment;
+        private decimal _misc;
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
 
         /*
         public string ExpenseFormId { get; set; }
@@ -14,28 +27,98 @@ namespace ExpenseApp.Models.DB
         public DateTime Date { get; set; }
         public virtual Account Account { get; set; }
         public string Description { get; set; }
-        public string Cost { get; set; }
+        public string Cost 
+        {
+            get => _cost;
+            set
+            {
+                _cost = value.ToUpper();
+
+                string[] costs = value.ToUpper().Split(';');
+                for (int i = 0; i < costs.Length - 1; i++)
+                {
+                    switch (costs[i].Substring(0, 1))
+                    {
+                        case "A":
+                            _hotel = decimal.Parse(costs[i].Substring(1));
+                            break;
+
+                        case "B":
+                            _transport = decimal.Parse(costs[i].Substring(1));
+                            break;
+
+                        case "C":
+                            _fuel = decimal.Parse(costs[i].Substring(1));
+                            break;
+
+                        case "D":
+                            _meals = decimal.Parse(costs[i].Substring(1));
+                            break;
+
+                        case "E":
+                            _phone = decimal.Parse(costs[i].Substring(1));
+                            break;
+
+                        case "F":
+                            _entertainment = decimal.Parse(costs[i].Substring(1));
+                            break;
+
+                        default:
+                            _misc = decimal.Parse(costs[i].Substring(1));
+                            break;
+                    }
+                }
+            }
+        }
         
         [NotMapped]
-        public decimal Hotel { get; set; }
+        public decimal Hotel 
+        {
+            get { return _hotel; }
+            set { AddCostGroup('A', value); }
+        }
         
         [NotMapped]
-        public decimal Transport { get; set; }
+        public decimal Transport 
+        {
+            get { return _transport; }
+            set { AddCostGroup('B', value); }
+        }
         
         [NotMapped]
-        public decimal Fuel { get; set; }
+        public decimal Fuel 
+        {
+            get { return _fuel; }
+            set { AddCostGroup('C', value); }
+        }
         
         [NotMapped]
-        public decimal Meals { get; set; }
+        public decimal Meals 
+        {
+            get { return _meals; }
+            set { AddCostGroup('D', value); }
+        }
         
         [NotMapped]
-        public decimal Phone { get; set; }
+        public decimal Phone 
+        {
+            get { return _phone; }
+            set { AddCostGroup('E', value); }
+        }
         
         [NotMapped]
-        public decimal Entertainment { get; set; }
+        public decimal Entertainment 
+        {
+            get { return _entertainment; }
+            set { AddCostGroup('F', value); }
+        }
         
         [NotMapped]
-        public decimal Misc { get; set; }
+        public decimal Misc 
+        {
+            get { return _misc; }
+            set { AddCostGroup('G', value); }
+        }
         
         [NotMapped]
         public decimal Total 
@@ -45,5 +128,19 @@ namespace ExpenseApp.Models.DB
         }
 
         public string ReceiptId { get; set; } = null;
+        
+        private void AddCostGroup(char group, decimal cost)
+        {
+            if (_cost.Contains(group))
+            {
+                int index = _cost.IndexOf(group);
+                int endIndex = _cost.IndexOf(';', index);
+                Cost = Cost.Replace(
+                    _cost.Substring(index, endIndex - index + 1), 
+                    string.Format("{0}{1:0.00};", group, cost));
+            }
+            else
+                Cost += string.Format("{0}{1:0.00};", group, cost);
+        }
     }
 }

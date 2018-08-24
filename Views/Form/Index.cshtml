@@ -37,18 +37,22 @@
   
   
   <table id="expense-table">
-    <tr>
-      <th>Statement Number</th>
-      <th>Title</th> 
-      <th>Status</th>
-    </tr>
-    @foreach (var listing in Model)
-    {
+    <thead>
       <tr>
-        <td>@listing.StatementNumber</td>
-        <td>@listing.Title</td>
-        <td>@listing.ListingStatus</td>
+        <th>Statement Number</th>
+        <th>Title</th> 
+        <th>Status</th>
       </tr>
-    }
+    </thead>
+    <tbody>
+      @foreach (var listing in Model)
+      {
+        <tr>
+          <td>@listing.StatementNumber</td>
+          <td>@listing.Title</td>
+          <td>@listing.ListingStatus</td>
+        </tr>
+      }
+    </tbody>
   </table>
 </main>

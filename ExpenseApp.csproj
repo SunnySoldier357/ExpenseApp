@@ -3,14 +3,30 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>9f4854db-f7b6-426a-b0e3-08d799fbec5d</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/6004b73c-d1ea-4223-9236-0dcd8b925ae0/resourcegroups/ExpenseApp/providers/microsoft.insights/components/expenseteamsapp</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/6004b73c-d1ea-4223-9236-0dcd8b925ae0/resourcegroups/ExpenseApp/providers/microsoft.insights/components/expenseteamsapp</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20180823234114_Initial.cs" />
+    <Compile Remove="Migrations\20180823234114_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20180823235033_Initial.cs" />
+    <Compile Remove="Migrations\20180823235033_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20180823235611_Initial.cs" />
+    <Compile Remove="Migrations\20180823235611_Initial.Designer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>

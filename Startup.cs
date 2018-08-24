@@ -1,6 +1,8 @@
 ﻿using ExpenseApp.Models;
+using ExpenseApp.Models.DB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +29,13 @@ namespace ExpenseApp
             {
                 EnableDeveloperExceptions =
                     configuration.GetValue<bool>("FeatureToggles:EnableDeveloperExceptions")
+            });
+
+            services.AddDbContext<EmployeeDataContext>(options =>
+            {
+                string connectionString = configuration
+                    .GetConnectionString("EmployeeDataContext");
+                options.UseSqlServer(connectionString);
             });
 
             services.AddMvc();

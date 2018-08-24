@@ -1,8 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace ExpenseApp.Models.DB
 {
     public class Account
     {
-        public string Id { get; set; }
+        [Key]
         public string Name { get; set; }
     }
 }

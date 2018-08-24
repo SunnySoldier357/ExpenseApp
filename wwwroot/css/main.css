@@ -42,6 +42,10 @@ h1 {
     display: block
 }
 
+form table td {
+    padding: 5px 10px;
+}
+
 table, th, td {
     border-collapse: collapse;
 }
