@@ -1,8 +1,14 @@
-﻿@model ExpenseApp.Models.DB.Account
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model ExpenseApp.Models.DB.Account
 
 @{
-  ViewData["Title"] = "Delete";
   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Title { Account Delete }
+
+@section Header {
+  <h2>Delete Account</h2>
 }
 
 <h2>Delete</h2>
@@ -13,9 +19,30 @@
   <hr />
   <dl class="dl-horizontal"></dl>
 
-  <form asp-action="Delete">
-    <input type="hidden" asp-for="Name" />
-    <input type="submit" value="Delete" class="btn btn-default" /> |
-    <a asp-action="Index">Back to List</a>
+  <form asp-controller="Admin"
+        asp-action="Delete">
+    <div class="error-label"
+         asp-validation-summary="ModelOnly"></div>
+
+    <div class="input-container field-group">
+      <label class="label"
+             asp-for="Name"></label>
+      <div>
+        <input class="input-field"
+               type="text"
+               asp-for="Name" 
+               readonly/>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <a class="button-secondary"
+         href="@Url.Action("List", "Admin")">Cancel</a>
+      <button class="button-primary"
+              type="submit">
+        Delete
+      </button>
+    </div>
+
   </form>
 </div>

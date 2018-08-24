@@ -372,7 +372,7 @@
 .theme-light .error-label {
     border: 0;
     color: #C50E2E;
-    float: right;
+    /*float: right;*/
     font-family: 'Segoe UI', Tahoma, Helvetica, Sans-Serif;
     font-size: 0.75rem;
     font-weight: 400;

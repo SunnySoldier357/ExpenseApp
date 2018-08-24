@@ -11,6 +11,31 @@ html {
     box-sizing: inherit;
 }
 
+*:target {
+    -webkit-animation: 5s ease-in target-fade;
+    -moz-animation: 5s ease-in target-fade;
+}
+
+@-webkit-keyframes target-fade {
+    0% {
+        background-color: rgba(255,255,0,0.8);
+    }
+
+    100% {
+        background-color: rgba(255,255,0,0);
+    }
+}
+
+@-moz-keyframes target-fade {
+    0% {
+        background-color: rgba(255,255,0,0.8);
+    }
+
+    100% {
+        background-color: rgba(255,255,0,0);
+    }
+}
+
 h1 {
     text-align: center;
 }
@@ -28,19 +53,53 @@ h1 {
 }
 
 .filter {
-    float: right; 
+    float: right;
     background: #18424E;
     padding: 10px;
     margin-left: 20px;
 }
 
-.filter h2 {
+    .filter h2 {
+        text-align: center;
+    }
+
+    .filter button {
+        display: block
+    }
+
+a.button-primary {
+    text-decoration: none;
     text-align: center;
+    display: inline-block;
 }
 
-.filter button {
-    display: block
+a.button-secondary {
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
 }
+
+.button-group {
+    float: right;
+    margin-top: 10px;
+}
+
+.field-group {
+    overflow: hidden;
+}
+
+    .field-group label {
+        float: left;
+    }
+
+    .field-group div {
+        overflow: hidden;
+        margin-left: 10px;
+    }
+
+    .field-group label::after {
+        content: ":";
+    }
 
 form table td {
     padding: 5px 10px;
@@ -50,9 +109,9 @@ table, th, td {
     border-collapse: collapse;
 }
 
-td input[type="date"] {
-    max-width: 150px;
-}
+    td input[type="date"] {
+        max-width: 150px;
+    }
 
 th, td {
     padding: 15px;
@@ -82,18 +141,18 @@ th, td {
     border: 2px solid black;
 }
 
-.theme-light table tr:nth-child(even) {
-    background-color: #eee;
-}
+    .theme-light table tr:nth-child(even) {
+        background-color: #eee;
+    }
 
-.theme-light table tr:nth-child(odd) {
-    background-color: white;
-}
+    .theme-light table tr:nth-child(odd) {
+        background-color: white;
+    }
 
-.theme-light table th {
-    background-color: black;
-    color: white;
-}
+    .theme-light table th {
+        background-color: black;
+        color: white;
+    }
 
 /* Dark Theme
 ------------------------*/
@@ -102,18 +161,18 @@ th, td {
     border: 2px solid #464775;
 }
 
-.theme-dark table tr:nth-child(even) {
-    background-color: #222;
-}
+    .theme-dark table tr:nth-child(even) {
+        background-color: #222;
+    }
 
-.theme-dark table tr:nth-child(odd) {
-    background-color: black;
-}
+    .theme-dark table tr:nth-child(odd) {
+        background-color: black;
+    }
 
-.theme-dark table th {
-    background-color: #464775;
-    color: white;
-}
+    .theme-dark table th {
+        background-color: #464775;
+        color: white;
+    }
 
 /* High Contrast Theme 
 ------------------------*/
@@ -122,6 +181,6 @@ th, td {
     border: 2px solid white;
 }
 
-.theme-contrast table th {
-    color: yellow;
-}
+    .theme-contrast table th {
+        color: yellow;
+    }

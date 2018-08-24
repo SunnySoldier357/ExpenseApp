@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ExpenseApp.Models.DB.Account>
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model IEnumerable<ExpenseApp.Models.DB.Account>
 
 @{
   Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,8 +11,16 @@
   <h2>Accounts</h2>
 }
 
+<p class="error-label">
+  @if (null != ViewBag.Message)
+  {
+    @ViewBag.Message
+  }
+</p>
+
 <p>
-  <a asp-action="Create">Create New</a>
+  <a class="button-primary"
+     asp-action="Create">Create New</a>
 </p>
 <table class="table">
   <thead>
@@ -23,11 +32,17 @@
   <tbody>
     @foreach (var item in Model)
     {
-      <tr>
+      <tr id="@item.Slug">
         <td>@item.Name</td>
         <td>
-          <a asp-action="Edit" asp-route-id="@item.Name">Edit</a> |
-          <a asp-action="Delete" asp-route-id="@item.Name">Delete</a>
+          @Html.ActionLink("Edit", "Edit", "Admin", new
+          {
+            slug = item.Slug
+          }) |
+          @Html.ActionLink("Delete", "Delete", "Admin", new
+          {
+            slug = item.Slug
+          })
         </td>
       </tr>
     }
