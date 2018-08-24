@@ -20,7 +20,7 @@
   <dl class="dl-horizontal"></dl>
 
   <form asp-controller="Admin"
-        asp-action="Delete">
+        asp-action="AccountDelete">
     <div class="error-label"
          asp-validation-summary="ModelOnly"></div>
 
@@ -37,7 +37,7 @@
 
     <div class="button-group">
       <a class="button-secondary"
-         href="@Url.Action("List", "Admin")">Cancel</a>
+         href="@Url.Action("AccountList", "Admin")">Cancel</a>
       <button class="button-primary"
               type="submit">
         Delete

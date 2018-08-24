@@ -23,10 +23,13 @@ namespace ExpenseApp.Controllers
             return View();
         }
 
+        // Accounts
+
         [Route("accounts/{message?}")]
-        public IActionResult List(string message)
+        public IActionResult AccountList(string message)
         {
-            ViewBag.Message = message;
+            if (message != null)
+                ViewBag.Message = message.Replace('?', '/');
 
             var accounts = _db.Accounts
                 .OrderBy(a => a.Name)
@@ -36,13 +39,13 @@ namespace ExpenseApp.Controllers
         }
 
         [HttpGet, Route("accounts/create")]
-        public IActionResult Create()
+        public IActionResult AccountCreate()
         {
             return View();
         }
 
         [HttpPost, Route("accounts/create")]
-        public IActionResult Create(Account account)
+        public IActionResult AccountCreate(Account account)
         {
             if (!ModelState.IsValid)
                 return View();
@@ -63,11 +66,11 @@ namespace ExpenseApp.Controllers
                 return View();
             }
 
-            return RedirectToAction("List", "Admin", account.Slug);
+            return RedirectToAction("AccountList", "Admin", account.Slug);
         }
 
         [HttpGet, Route("accounts/edit/{slug}")]
-        public IActionResult Edit(string slug)
+        public IActionResult AccountEdit(string slug)
         {
             var account = _db.Accounts.FirstOrDefault(a => a.Slug == slug);
 
@@ -78,7 +81,7 @@ namespace ExpenseApp.Controllers
         }
 
         [HttpPost, Route("accounts/edit/{slug}")]
-        public IActionResult Edit(string slug, Account updated)
+        public IActionResult AccountEdit(string slug, Account updated)
         {
             Account account = _db.Accounts.FirstOrDefault(a => a.Slug == slug);
 
@@ -103,18 +106,18 @@ namespace ExpenseApp.Controllers
                 return View();
             }
 
-            return RedirectToAction("List", "Admin", updated.Slug);
+            return RedirectToAction("AccountList", "Admin", updated.Slug);
         }
 
         [HttpGet, Route("accounts/delete/{slug}")]
-        public IActionResult Delete(string slug)
+        public IActionResult AccountDelete(string slug)
         {
             var account = _db.Accounts.FirstOrDefault(a => a.Slug == slug);
             return View(account);
         }
 
         [HttpPost, Route("accounts/delete/{slug}")]
-        public IActionResult Delete(string slug, Account deleted)
+        public IActionResult AccountDelete(string slug, Account deleted)
         {
             var account = _db.Accounts.FirstOrDefault(
                 a => a.Slug == slug && a.Name == deleted.Name);
@@ -124,17 +127,17 @@ namespace ExpenseApp.Controllers
                 _db.Accounts.Remove(account);
                 _db.SaveChanges();
 
-                return RedirectToAction("List", new
+                return RedirectToAction("AccountList", new
                 {
                     message = string.Format("The Account \"{0}\" has been successfully deleted.", 
-                        account.Name)
+                        account.Name.Replace('/', '?'))
                 });
             }
 
-            return RedirectToAction("List", new
+            return RedirectToAction("AccountList", new
             {
                 message = string.Format("There was an error in deleting the Account \"{0}\".",
-                        account.Name)
+                        account.Name.Replace('/', '?'))
             });
         }
     }

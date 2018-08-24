@@ -31,6 +31,9 @@ namespace ExpenseApp.Models.DB
 
                 string slug = Name.ToLower();
 
+                // Replace slashes with dashes
+                slug = slug.Replace('/', '-');
+
                 //  Remove Invalid Chars           
                 slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
 
