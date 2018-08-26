@@ -15,24 +15,19 @@ namespace ExpenseApp.Models.DB
     
     public class ExpenseForm
     {
-        public ExpenseForm()
-        {
-            Entries = new List<ExpenseEntry>();
-        }
-        
+        public ExpenseForm() : this(null) { }
+
         public ExpenseForm(Employee signedInEmployee)
         {
             Entries = new List<ExpenseEntry>();
             Employee = signedInEmployee;
-            EmployeeId = signedInEmployee.Id;
         }
         
         [Key]
         [Display(Name = "Statement Number: ")]
         public string StatementNumber { get; set; }
         
-        public Guid EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+        public Employee Employee { get; set; }
         
         [Required]
         public string Title { get; set; }

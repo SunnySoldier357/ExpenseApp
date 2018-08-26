@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpenseApp.Migrations
 {
-    [DbContext(typeof(EmployeeDataContext))]
+    [DbContext(typeof(ExpenseDBDataContext))]
     [Migration("20180824002819_Initial")]
     partial class Initial
     {

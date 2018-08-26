@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ExpenseApp.Models;
 using ExpenseApp.Models.DB;
+using ExpenseApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseApp.Controllers
 {
     public class FormController : Controller
     {
-        private readonly EmployeeDataContext _db;
+        private readonly ExpenseDBDataContext _db;
 
         public Employee SignedInEmployee;
 
-        public FormController(EmployeeDataContext db)
+        public FormController(ExpenseDBDataContext db)
         {
             _db = db;
 
@@ -26,10 +26,10 @@ namespace ExpenseApp.Controllers
         public IActionResult Index()
         {
             var forms = from f in _db.ExpenseForms
-                        where f.EmployeeId == SignedInEmployee.Id
+                        where f.Employee.Id == SignedInEmployee.Id
                         select new { f.StatementNumber, f.Title, f.Status };
 
-            List <ExpenseListing> listings = new List<ExpenseListing>();
+            List<ExpenseListing> listings = new List<ExpenseListing>();
             
             foreach (var item in forms)
             {

@@ -7,6 +7,8 @@ namespace ExpenseApp.Models.DB
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        public string ReceiptImage { get; set; }
+
+        public byte[] ReceiptImage { get; set; }
+        public string FileName { get; set; }
     }
 }

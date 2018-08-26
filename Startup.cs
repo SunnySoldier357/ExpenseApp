@@ -31,7 +31,7 @@ namespace ExpenseApp
                     configuration.GetValue<bool>("FeatureToggles:EnableDeveloperExceptions")
             });
 
-            services.AddDbContext<EmployeeDataContext>(options =>
+            services.AddDbContext<ExpenseDBDataContext>(options =>
             {
                 string connectionString = configuration
                     .GetConnectionString("EmployeeDataContext");

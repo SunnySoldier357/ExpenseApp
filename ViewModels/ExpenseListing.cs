@@ -1,6 +1,6 @@
 using ExpenseApp.Models.DB;
 
-namespace ExpenseApp.Models
+namespace ExpenseApp.ViewModels
 {    
     public class ExpenseListing
     {

@@ -10,12 +10,9 @@ namespace ExpenseApp.Controllers
     [Route("admin")]
     public class AdminController : Controller
     {
-        private readonly EmployeeDataContext _db;
+        private readonly ExpenseDBDataContext _db;
 
-        public AdminController(EmployeeDataContext db)
-        {
-            _db = db;
-        }
+        public AdminController(ExpenseDBDataContext db) => _db = db;
 
         public IActionResult Index()
         {
@@ -39,10 +36,7 @@ namespace ExpenseApp.Controllers
         }
 
         [HttpGet, Route("accounts/create")]
-        public IActionResult AccountCreate()
-        {
-            return View();
-        }
+        public IActionResult AccountCreate() => View();
 
         [HttpPost, Route("accounts/create")]
         public IActionResult AccountCreate(Account account)
@@ -140,5 +134,8 @@ namespace ExpenseApp.Controllers
                         account.Name.Replace('/', '?'))
             });
         }
+
+        [Route("approvers")]
+        public IActionResult ApproverList() => View(_db.Employees.ToList());
     }
 }

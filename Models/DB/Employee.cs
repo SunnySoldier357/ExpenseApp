@@ -21,7 +21,7 @@ namespace ExpenseApp.Models.DB
         
         [Required]
         [ForeignKey("ApproverId")]
-        public virtual Employee Approver { get; set; }
+        public Employee Approver { get; set; }
 
         public List<ExpenseForm> Forms;
 

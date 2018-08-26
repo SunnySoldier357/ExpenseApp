@@ -20,12 +20,8 @@ namespace ExpenseApp.Models.DB
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        /*
-        public string ExpenseFormId { get; set; }
-        public virtual ExpenseForm ExpenseForm { get; set; }
-        */
         public DateTime Date { get; set; }
-        public virtual Account Account { get; set; }
+        public Account Account { get; set; }
         public string Description { get; set; }
         public string Cost 
         {
@@ -72,54 +68,54 @@ namespace ExpenseApp.Models.DB
         }
         
         [NotMapped]
-        public decimal Hotel 
+        public decimal Hotel
         {
-            get { return _hotel; }
-            set { AddCostGroup('A', value); }
+            get => _hotel;
+            set => AddCostGroup('A', value);
         }
-        
+
         [NotMapped]
-        public decimal Transport 
+        public decimal Transport
         {
-            get { return _transport; }
-            set { AddCostGroup('B', value); }
+            get => _transport;
+            set => AddCostGroup('B', value);
         }
-        
+
         [NotMapped]
-        public decimal Fuel 
+        public decimal Fuel
         {
-            get { return _fuel; }
-            set { AddCostGroup('C', value); }
+            get => _fuel;
+            set => AddCostGroup('C', value);
         }
-        
+
         [NotMapped]
-        public decimal Meals 
+        public decimal Meals
         {
-            get { return _meals; }
-            set { AddCostGroup('D', value); }
+            get => _meals;
+            set => AddCostGroup('D', value);
         }
-        
+
         [NotMapped]
-        public decimal Phone 
+        public decimal Phone
         {
-            get { return _phone; }
-            set { AddCostGroup('E', value); }
+            get => _phone;
+            set => AddCostGroup('E', value);
         }
-        
+
         [NotMapped]
-        public decimal Entertainment 
+        public decimal Entertainment
         {
-            get { return _entertainment; }
-            set { AddCostGroup('F', value); }
+            get => _entertainment;
+            set => AddCostGroup('F', value);
         }
-        
+
         [NotMapped]
-        public decimal Misc 
+        public decimal Misc
         {
-            get { return _misc; }
-            set { AddCostGroup('G', value); }
+            get => _misc;
+            set => AddCostGroup('G', value);
         }
-        
+
         [NotMapped]
         public decimal Total 
         {

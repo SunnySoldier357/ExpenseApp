@@ -4,14 +4,8 @@ namespace ExpenseApp.Controllers
 {
     public class TeamController : Controller
     {
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        
-        public IActionResult Terms()
-        {
-            return View();
-        }
+        public IActionResult Privacy() => View();
+
+        public IActionResult Terms() => View();
     }
 }

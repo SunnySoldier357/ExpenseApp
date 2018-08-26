@@ -1,9 +1,8 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseApp.Models.DB
 {
-    public class EmployeeDataContext : DbContext
+    public class ExpenseDBDataContext : DbContext
     {
         public DbSet<Employee> Employees { get; set; }
         public DbSet<ExpenseForm> ExpenseForms { get; set; }
@@ -11,7 +10,7 @@ namespace ExpenseApp.Models.DB
         public DbSet<Receipt> Receipts { get; set; }
         public DbSet<Account> Accounts { get; set; }
 
-        public EmployeeDataContext(DbContextOptions<EmployeeDataContext> options)
+        public ExpenseDBDataContext(DbContextOptions<ExpenseDBDataContext> options)
             : base(options)
         {
             Database.EnsureCreated();
@@ -24,6 +23,7 @@ namespace ExpenseApp.Models.DB
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Auto generate GUIDs 
             modelBuilder.Entity<Employee>()
                 .Property(e => e.Id)
                 .HasDefaultValueSql("NEWID()");
