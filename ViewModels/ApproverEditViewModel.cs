@@ -1,5 +1,7 @@
 ﻿using ExpenseApp.Models.DB;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ExpenseApp.ViewModels
 {
@@ -43,8 +45,15 @@ namespace ExpenseApp.ViewModels
 
         public void PupulateFields(ExpenseDBDataContext db)
         {
-            ApproverAdded = db.Employees.Find(ApproverAdded.Id);
-            ApproverRemoved = db.Employees.Find(ApproverRemoved.Id);
+            ApproverAdded = db.Employees
+                .Include(e => e.Approver)
+                .Include(e => e.Location)
+                .FirstOrDefault(e => e.Id == ApproverAdded.Id);
+
+            ApproverRemoved = db.Employees
+                .Include(e => e.Approver)
+                .Include(e => e.Location)
+                .FirstOrDefault(e => e.Id == ApproverRemoved.Id);
         }
     }
 }

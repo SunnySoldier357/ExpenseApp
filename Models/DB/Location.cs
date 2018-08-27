@@ -11,6 +11,7 @@ namespace ExpenseApp.Models.DB
 
         [Key]
         [Required]
+        [Display(Name = "Location")]
         public string Name
         {
             get => _name;
@@ -26,7 +27,7 @@ namespace ExpenseApp.Models.DB
 
         public override bool Equals(object obj)
         {
-            var item = obj as Location;
+            Location item = obj as Location;
 
             if (item == null)
                 return false;

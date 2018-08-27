@@ -13,8 +13,8 @@
 
 <h4>Employee</h4>
 <hr />
-<form asp-controller="Admin"
-      asp-action="ApproverEdit">
+<form asp-controller="Approver"
+      asp-action="Edit">
   <div class="error-label"
        asp-validation-summary="ModelOnly"></div>
 
@@ -81,7 +81,7 @@
 
   <div class="button-group">
     <a class="button-secondary"
-       href="@Url.Action("ApproverList", "Admin")">Cancel</a>
+       href="@Url.Action("List", "Approver")">Cancel</a>
     <button class="button-primary"
             type="submit">
       Save
