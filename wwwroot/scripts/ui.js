@@ -14,8 +14,6 @@ function search()
     for (let i = 0; i < TR.length; i++)
     {
         const TD = TR[i].querySelectorAll("td")[searchingByTitle ? 1 : 0];
-        console.log("Before:")
-        console.log(TR[i].outerHTML);
         if (TD)
         {
             if (TD.innerHTML.toLowerCase().indexOf(filter) > -1)
@@ -26,13 +24,10 @@ function search()
                 notDisplayed++;
             }
         }
-        console.log("After:")
-        console.log(TR[i].outerHTML);
     }
-    console.log("---------------------------------")
 
     const TBODY = TABLE.querySelector("tbody");
-    
+
     if (notDisplayed == TR.length)
     {
         if (null == TBODY.querySelector("#empty-search-result"))
@@ -42,7 +37,7 @@ function search()
 
             var td = document.createElement("td");
             td.setAttribute("colspan", "4");
-            
+
             var div = document.createElement("div");
             div.classList.add("empty-list-label");
             div.innerHTML = "There are no Expense Reports that match the search query.";
