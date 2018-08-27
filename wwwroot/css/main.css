@@ -19,31 +19,6 @@ h1 {
     text-align: center;
 }
 
-*:target {
-    -webkit-animation: 5s ease-in target-fade;
-    -moz-animation: 5s ease-in target-fade;
-}
-
-@-webkit-keyframes target-fade {
-    0% {
-        background-color: rgba(255,255,0,0.8);
-    }
-
-    100% {
-        background-color: rgba(255,255,0,0);
-    }
-}
-
-@-moz-keyframes target-fade {
-    0% {
-        background-color: rgba(255,255,0,0.8);
-    }
-
-    100% {
-        background-color: rgba(255,255,0,0);
-    }
-}
-
 /* Layouts */
 
 .grid-container {
@@ -65,13 +40,13 @@ h1 {
     margin-left: 20px;
 }
 
-    .filter h2 {
-        text-align: center;
-    }
+.filter h2 {
+    text-align: center;
+}
 
-    .filter button {
-        display: block
-    }
+.filter button {
+    display: block
+}
 
 dl {
     width: 100%;
@@ -118,36 +93,25 @@ dd {
     overflow: hidden;
 }
 
-    .field-group label {
-        float: left;
-    }
-
-    .field-group div {
-        overflow: hidden;
-        margin-left: 10px;
-    }
-
-    .field-group label::after {
-        content: ":";
-    }
-
-.highlight-positive {
-    color: limegreen;
+.field-group label {
+    float: left;
 }
 
-.highlight-negative {
-    color: red;
+.field-group div {
+    overflow: hidden;
+    margin-left: 10px;
+}
+
+.field-group label::after {
+    content: ":";
 }
 
 .empty-list-label {
     text-align: center;
+    width: 100%;
 }
 
 /* Tables */
-
-table .approver-row {
-    background-color: rgba(50, 205, 50, 0.7)
-}
 
 form table td {
     padding: 5px 10px;
@@ -157,21 +121,21 @@ table, th, td {
     border-collapse: collapse;
 }
 
-    td input[type="date"] {
-        max-width: 150px;
-    }
+td input[type="date"] {
+    max-width: 150px;
+}
 
 th, td {
     padding: 15px;
     text-align: left;
 }
 
-#expense-table tr :nth-child(1) {
-    width: 30%;
+#expense-table tr :nth-child(1):not(.empty-list-label) {
+    width: 25%;
 }
 
 #expense-table tr :nth-child(2) {
-    width: 60%;
+    width: 50%;
 }
 
 #expense-table tr :nth-child(3) {
@@ -181,6 +145,31 @@ th, td {
 /* Light Theme
 ------------------------*/
 
+/* Animations */
+
+.theme-light *:target {
+    -webkit-animation: 5s ease-in target-fade-light;
+    -moz-animation: 5s ease-in target-fade-light;
+}
+
+@-webkit-keyframes target-fade-light {
+    0% {
+        background-color: rgba(252, 209, 22, 0.8);
+    }
+    100% {
+        background-color: rgba(252, 209, 22, 0);
+    }
+}
+
+@-moz-keyframes target-fade-light {
+    0% {
+        background-color: rgba(252, 209, 22, 0.8);
+    }
+    100% {
+        background-color: rgba(252, 209, 22, 0);
+    }
+}
+
 /* Layouts */
 
 .theme-light .filter {
@@ -189,12 +178,16 @@ th, td {
 
 /* Controls */
 
+.theme-light a {
+    color: #5558AF;
+}
+
 .theme-light .highlight-positive {
-    color: green;
+    color: #7FBA00;
 }
 
 .theme-light .highlight-negative {
-    color: darkred;
+    color: #C50E2E;
 }
 
 /* Tables */
@@ -203,21 +196,64 @@ th, td {
     border: 2px solid black;
 }
 
-    .theme-light table tr:nth-child(even):not(.approver-row) {
-        background-color: #eee;
-    }
+.theme-light table tr:nth-child(even):not(.approver-row) {
+    background-color: #eee;
+}
 
-    .theme-light table tr:nth-child(odd):not(.approver-row) {
-        background-color: white;
-    }
+.theme-light table tr:nth-child(odd):not(.approver-row) {
+    background-color: white;
+}
 
-    .theme-light table th {
-        background-color: black;
-        color: white;
-    }
+.theme-light table th {
+    background-color: black;
+    color: white;
+}
+
+.theme-light table .approver-row {
+    background-color: rgba(127, 186, 0, 0.7)
+}
 
 /* Dark Theme
 ------------------------*/
+
+/* Animations */
+
+.theme-dark *:target {
+    -webkit-animation: 5s ease-in target-fade-dark;
+    -moz-animation: 5s ease-in target-fade-dark;
+}
+
+@-webkit-keyframes target-fade-dark {
+    0% {
+        background-color: rgba(251, 201, 64, 0.8);
+    }
+    100% {
+        background-color: rgba(251, 201, 64, 0);
+    }
+}
+
+@-moz-keyframes target-fade-dark {
+    0% {
+        background-color: rgba(251, 201, 64, 0.8);
+    }
+    100% {
+        background-color: rgba(251, 201, 64, 0);
+    }
+}
+
+/* Controls */
+
+.theme-dark a {
+    color: #9FA4FE;
+}
+
+.theme-dark .highlight-positive {
+    color: #88BC2B;
+}
+
+.theme-dark .highlight-negative {
+    color: #ED183E;
+}
 
 /* Tables */
 
@@ -225,21 +261,46 @@ th, td {
     border: 2px solid #464775;
 }
 
-    .theme-dark table tr:nth-child(even):not(.approver-row) {
-        background-color: #222;
-    }
+.theme-dark table tr:nth-child(even):not(.approver-row) {
+    background-color: #222;
+}
 
-    .theme-dark table tr:nth-child(odd):not(.approver-row) {
-        background-color: black;
-    }
+.theme-dark table tr:nth-child(odd):not(.approver-row) {
+    background-color: black;
+}
 
-    .theme-dark table th {
-        background-color: #464775;
-        color: white;
-    }
+.theme-dark table th {
+    background-color: #464775;
+    color: white;
+}
+
+.theme-dark table .approver-row {
+    background-color: rgba(136, 188, 43, 0.7)
+}
 
 /* High Contrast Theme 
 ------------------------*/
+
+/* Animations */
+
+.theme-contrast *:target {
+    -webkit-animation: 5s ease-in target-fade-dark;
+    -moz-animation: 5s ease-in target-fade-dark;
+}
+
+/* Controls */
+
+.theme-contrast a {
+    color: #9FA4FE;
+}
+
+.theme-contrast .highlight-positive {
+    color: #88BC2B;
+}
+
+.theme-contrast .highlight-negative {
+    color: #ED183E;
+}
 
 /* Tables */
 
@@ -247,6 +308,10 @@ th, td {
     border: 2px solid white;
 }
 
-    .theme-contrast table th {
-        color: yellow;
-    }
+.theme-contrast table th {
+    color: yellow;
+}
+
+.theme-contrast table .approver-row {
+    background-color: rgba(136, 188, 43, 0.7)
+}
