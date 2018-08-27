@@ -32,9 +32,12 @@ namespace ExpenseApp.Controllers
             foreach (var form in forms)
                 listings.Add(new ExpenseListViewModel(form));
 
+            ViewBag.FirstName = SignedInEmployee.FirstName;
+
             return View(listings);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View(new ExpenseCreateViewModel(_db, SignedInEmployee));

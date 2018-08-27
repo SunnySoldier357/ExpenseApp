@@ -7,6 +7,7 @@ namespace ExpenseApp.ViewModels
         public string StatementNumber { get; set; }
         public string Title { get; set; }
         public Status Status { get; set; }
+        public string FirstName { get; set; }
 
         public ExpenseListViewModel(dynamic form)
         {

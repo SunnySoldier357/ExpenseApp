@@ -11,105 +11,107 @@
 }
 
 <form asp-action="Create">
-  
+
   @Html.AntiForgeryToken()
-  
-  <div class="input-validation-error grid-item" 
+
+  <div class="input-validation-error grid-item"
        asp-validation-summary="All"></div>
-  
+
   <div class="grid-container">
     <!-- Title -->
     <div class="input-container grid-item">
-      <label class="label" 
-            asp-for="Form.Title"></label>
+      <label class="label"
+             asp-for="Form.Title"></label>
       <input class="input-field"
-            type="text" 
-            asp-for="Form.Title" />
-      <span class="error-label" 
+             type="text"
+             asp-for="Form.Title" />
+      <span class="error-label"
             asp-validation-for="Form.Title"></span>
     </div>
-    
+
     <!-- Purpose -->
     <div class="input-container grid-item">
-      <label class="label" 
-            asp-for="Form.Purpose"></label>
+      <label class="label"
+             asp-for="Form.Purpose"></label>
       <input class="input-field"
-            type="text" 
-            asp-for="Form.Purpose" />
-      <span class="error-label" 
+             type="text"
+             asp-for="Form.Purpose" />
+      <span class="error-label"
             asp-validation-for="Form.Purpose"></span>
     </div>
-    
+
     <!-- Statement Number -->
     <div class="input-container grid-item">
-      <label class="label" 
-            asp-for="Form.StatementNumber"></label>
-      <input class="input-field" 
-            type="text" 
-            asp-for="Form.StatementNumber" 
-            readonly />
+      <label class="label"
+             asp-for="Form.StatementNumber"></label>
+      <input class="input-field"
+             type="text"
+             asp-for="Form.StatementNumber"
+             readonly />
     </div>
-    
+
     <!-- Period -->
     <div class="input-container grid-item">
-      <label class="label" 
-            asp-for="Form.From"></label>
-      <input class="input-field" 
-            type="date"
-            asp-for="Form.From" />
-      <span class="error-label" 
+      <label class="label"
+             asp-for="Form.From"></label>
+      <input class="input-field"
+             type="date"
+             asp-for="Form.From" />
+      <span class="error-label"
             asp-validation-for="Form.From"></span>
     </div>
   </div>
-    <h2>Consultant Information</h2>
-    
+  <h2>Consultant Information</h2>
+
   <div class="grid-container">
     <!-- Name -->
     <div class="input-container grid-item">
-      <label asp-for="Form.Employee.FullName"></label>
-      <input type="text" 
-            asp-for="Form.Employee.FullName" 
-            class="input-field" 
-            readonly/>
+      <label class="label"
+             asp-for="Form.Employee.FullName">Name</label>
+      <input type="text"
+             asp-for="Form.Employee.FullName"
+             class="input-field"
+             readonly />
     </div>
-    
+
     <!-- Project -->
     <div class="input-container grid-item">
-      <label class="label" 
-            asp-for="Form.Project"></label>
+      <label class="label"
+             asp-for="Form.Project"></label>
       <input type="text"
-            asp-for="Form.Project" 
-            class="input-field" 
-            placeholder="CLIENT-PROJECT" />
-      <span asp-validation-for="Form.Project" 
+             asp-for="Form.Project"
+             class="input-field"
+             placeholder="CLIENT-PROJECT" />
+      <span asp-validation-for="Form.Project"
             class="error-label"></span>
     </div>
-    
+
     <!-- Location -->
     <div class="input-container grid-item">
-      <label class="label" 
-            asp-for="Form.Employee.Location.Name"></label>
+      <label class="label"
+             asp-for="Form.Employee.Location.Name"></label>
       <input type="text"
-            asp-for="Form.Employee.Location.Name" 
-            class="input-field" 
-            readonly/>
+             asp-for="Form.Employee.Location.Name"
+             class="input-field"
+             readonly />
     </div>
-    
+
     <!-- Approver -->
     <div class="input-container grid-item">
-      <label class="label" 
-            asp-for="Form.Employee.Approver.FullName"></label>
+      <label class="label"
+             asp-for="Form.Employee.Approver.FullName"></label>
       <input type="text"
-            asp-for="Form.Employee.Approver.FullName" 
-            class="input-field" 
-            readonly />
+             asp-for="Form.Employee.Approver.FullName"
+             class="input-field"
+             readonly />
     </div>
   </div>
-  
+
   <h2>All Expense Claims</h2>
-  
+
   <!-- Expense Claim Table -->
-  <table class="table">
+  <table id="expense-entry-table"
+         class="table">
     <thead>
       <tr>
         <th>Date</th>
@@ -132,51 +134,50 @@
         <tr>
           <td>
             <input type="date"
-                  asp-for="@entry.Date">
+                   asp-for="@entry.Date">
           </td>
           <td>
             <select asp-for="@entry.Account"
                     asp-items="@{new SelectList(Model.Accounts, "Name", "Name")}"></select>
           </td>
           <td>
-            <input class="input-field" 
-                  type="text"
-                  asp-for="@entry.Description">
+            <textarea class="textarea-field"
+                      asp-for="@entry.Description"></textarea>
           </td>
           <td>
-            <input class="input-field" 
-                  type="number"
-                  asp-for="@entry.Hotel">
+            <input class="input-field"
+                   type="number"
+                   asp-for="@entry.Hotel">
           </td>
           <td>
-            <input class="input-field" 
-                  type="number"
-                  asp-for="@entry.Transport">
+            <input class="input-field"
+                   type="number"
+                   asp-for="@entry.Transport">
           </td>
           <td>
-            <input class="input-field" 
-                  type="number"
-                  asp-for="@entry.Fuel">
+            <input class="input-field"
+                   type="number"
+                   asp-for="@entry.Fuel">
           </td>
           <td>
-            <input class="input-field" 
-                  type="number"
-                  asp-for="@entry.Meals">
+            <input class="input-field"
+                   type="number"
+                   asp-for="@entry.Meals">
           </td>
           <td>
-            <input class="input-field" 
-                  type="number"
-                  asp-for="@entry.Phone">
+            <input class="input-field"
+                   type="number"
+                   asp-for="@entry.Phone">
           </td>
           <td>
-            <input class="input-field" 
-                  type="number"
-                  asp-for="@entry.Entertainment">
+            <input class="input-field"
+                   type="number"
+                   asp-for="@entry.Entertainment">
           </td>
           <td>
-            <input class="input-field" 
-                  type="number"
-                  asp-for="@entry.Misc">
+            <input class="input-field"
+                   type="number"
+                   asp-for="@entry.Misc">
           </td>
           <td>@entry.Total</td>
           <td>
@@ -184,20 +185,35 @@
           </td>
         </tr>
       }
+      @if (Model.Form.Entries.Count() == 0)
+      {
+        <tr>
+          <td colspan="12">
+            <div class="empty-list-label">There are no Expense Entries.</div>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
-  
+
   <!-- Comment -->
   <div class="textarea-container">
-    <label class="label" 
+    <label class="label"
            asp-for="Form.Comment"></label>
     <textarea class="input-field textarea-field multiline"
               asp-for="Form.Comment"></textarea>
-    <span asp-validation-for="Form.Comment" 
+    <span asp-validation-for="Form.Comment"
           class="error-label"></span>
   </div>
-  
-  <button class="button-primary"
-          type="submit">Submit</button>
-  <button class="button-secondary">Save</button>
+
+  <div class="button-group">
+    <a class="button-cancel"
+       href="@Url.Action("Index", "Form")">Cancel</a>
+    <button class="button-secondary">Save</button>
+    <button class="button-primary"
+            type="submit">
+      Submit
+    </button>
+  </div>
+
 </form>

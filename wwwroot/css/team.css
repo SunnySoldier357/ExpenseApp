@@ -47,7 +47,7 @@
     border: 0.125rem solid;
     border-color: transparent;
     border-radius: 0.1875rem;
-    color: #FFFFFF;
+    color: white;
     cursor: pointer;
     font: inherit;
     height: 2rem;
@@ -121,6 +121,46 @@
         outline: 0.125rem solid #16233A;
         outline-offset: -0.25rem
     }
+    
+.theme-light .button-cancel {
+    background: #ED1B3E;
+    border: 0.125rem solid;
+    border-color: #ABB0B8;
+    border-radius: 0.1875rem;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    height: 2rem;
+    min-width: 6rem;
+    padding: 0.25rem;
+    white-space: nowrap
+}
+
+    .theme-light .button-cancel:hover:enabled {
+        background: #E4132C;
+        border-color: transparent;
+        color: #FFFFFF
+    }
+
+    .theme-light .button-cancel:active {
+        background: #DD0D21;
+        border-color: transparent;
+        color: #FFFFFF
+    }
+
+    .theme-light .button-cancel:disabled {
+        background: #F3F4F5;
+        border-color: transparent;
+        color: #ABB0B8
+    }
+
+    .theme-light .button-cancel:focus {
+        background: #E4132C;
+        border-color: transparent;
+        color: #FFFFFF;
+        outline: 0.125rem solid #FFFFFF;
+        outline-offset: -0.25rem
+    }
 
 .theme-light .radio-container {
     align-items: center;
@@ -143,7 +183,6 @@
     border-color: #525C6D;
     border-radius: 100%;
     cursor: pointer;
-    display: inline-block;
     font: inherit;
     height: 0.75rem;
     margin: 0.125rem;
@@ -151,6 +190,10 @@
     padding: 0;
     position: relative;
     width: 0.75rem
+}
+
+.theme-light .radio-button {
+    display: inline-block;
 }
 
     .theme-light .radio-button:hover {

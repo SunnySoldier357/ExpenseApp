@@ -36,6 +36,12 @@ namespace ExpenseApp.Models.DB
             modelBuilder.Entity<Receipt>()
                 .Property(r => r.Id)
                 .HasDefaultValueSql("NEWID()");
+
+            // Use properties not fields
+            modelBuilder.Entity<ExpenseEntry>()
+                .Property(ee => ee.Cost)
+                .HasField("_cost")
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
         }
     }
 }

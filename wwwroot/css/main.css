@@ -44,8 +44,13 @@ h1 {
     text-align: center;
 }
 
-.filter button {
-    display: block
+.filter .radio-container {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.filter .radio-group {
+    text-align: start;
 }
 
 dl {
@@ -70,7 +75,17 @@ dd {
     margin: 0;
 }
 
+#expense-search-type {
+    display: inline-block;
+    margin-bottom: 30px; 
+}
+
 /* Controls */
+
+.button-group {
+    float: right;
+    margin-top: 10px;
+}
 
 .button-primary {
     text-decoration: none;
@@ -84,9 +99,10 @@ dd {
     display: inline-block;
 }
 
-.button-group {
-    float: right;
-    margin-top: 10px;
+.button-cancel {
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
 }
 
 .field-group {
@@ -128,6 +144,14 @@ td input[type="date"] {
 th, td {
     padding: 15px;
     text-align: left;
+}
+
+#expense-entry-table input[type="number"] {
+    width: 80px;
+}
+
+#expense-entry-table {
+    margin-bottom: 20px;
 }
 
 #expense-table tr :nth-child(1):not(.empty-list-label) {
