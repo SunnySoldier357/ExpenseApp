@@ -21,24 +21,14 @@ namespace ExpenseApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employees",
+                name: "Locations",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
-                    ApproverId = table.Column<Guid>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Location = table.Column<string>(nullable: true),
-                    IsAnApprover = table.Column<bool>(nullable: false)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Employees_Employees_ApproverId",
-                        column: x => x.ApproverId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_Locations", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
@@ -52,6 +42,33 @@ namespace ExpenseApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Receipts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
+                    ApproverId = table.Column<Guid>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    LocationName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Employees_Employees_ApproverId",
+                        column: x => x.ApproverId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Employees_Locations_LocationName",
+                        column: x => x.LocationName,
+                        principalTable: "Locations",
+                        principalColumn: "Name",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -115,6 +132,11 @@ namespace ExpenseApp.Migrations
                 column: "ApproverId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Employees_LocationName",
+                table: "Employees",
+                column: "LocationName");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ExpenseEntries_AccountName",
                 table: "ExpenseEntries",
                 column: "AccountName");
@@ -146,6 +168,9 @@ namespace ExpenseApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
         }
     }
 }

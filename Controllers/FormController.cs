@@ -18,7 +18,7 @@ namespace ExpenseApp.Controllers
             _db = db;
 
             SignedInEmployee = _db.Employees.Find(
-                new Guid("46f81b60-6c36-4039-ba37-ffc83d9ac3f2"));
+                new Guid("4c21f8bf-8d79-48fb-bc05-8e846714a006"));
         }
 
         public IActionResult Index()

@@ -41,11 +41,13 @@ namespace ExpenseApp.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("Location");
+                    b.Property<string>("LocationName");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApproverId");
+
+                    b.HasIndex("LocationName");
 
                     b.ToTable("Employees");
                 });
@@ -110,6 +112,16 @@ namespace ExpenseApp.Migrations
                     b.ToTable("ExpenseForms");
                 });
 
+            modelBuilder.Entity("ExpenseApp.Models.DB.Location", b =>
+                {
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("Name");
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("ExpenseApp.Models.DB.Receipt", b =>
                 {
                     b.Property<Guid>("Id")
@@ -131,6 +143,10 @@ namespace ExpenseApp.Migrations
                         .WithMany()
                         .HasForeignKey("ApproverId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ExpenseApp.Models.DB.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationName");
                 });
 
             modelBuilder.Entity("ExpenseApp.Models.DB.ExpenseEntry", b =>

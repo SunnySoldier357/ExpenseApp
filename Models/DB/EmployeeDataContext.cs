@@ -9,6 +9,7 @@ namespace ExpenseApp.Models.DB
         public DbSet<ExpenseEntry> ExpenseEntries { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Location> Locations { get; set; }
 
         public ExpenseDBDataContext(DbContextOptions<ExpenseDBDataContext> options)
             : base(options)

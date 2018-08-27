@@ -46,7 +46,7 @@ namespace ExpenseApp.Controllers
 
             try
             {
-                _db.Add(account);
+                _db.Accounts.Add(account);
                 _db.SaveChanges();
             }
             catch (DbUpdateException)
@@ -84,8 +84,8 @@ namespace ExpenseApp.Controllers
 
             try
             {
-                _db.Remove(account);
-                _db.Add(updated);
+                _db.Accounts.Remove(account);
+                _db.Accounts.Add(updated);
 
                 _db.SaveChanges();
             }
@@ -135,11 +135,13 @@ namespace ExpenseApp.Controllers
             });
         }
 
+        // Approvers
+
         [Route("approvers")]
         public IActionResult ApproverList()
         {
             var employees = from e in _db.Employees.ToList()
-                            orderby e.Location, e.IsAnApprover descending, e.LastName, e.FirstName
+                            orderby e.Location.Name, e.IsAnApprover descending, e.LastName, e.FirstName
                             select e;
 
             return View(employees);
@@ -203,6 +205,121 @@ namespace ExpenseApp.Controllers
             _db.SaveChanges();
 
             return RedirectToAction("ApproverList", "Admin", viewModel.ApproverAdded.Id);
+        }
+
+        // Locations
+
+        [Route("locations/{message?}")]
+        public IActionResult LocationList(string message)
+        {
+            if (message != null)
+                ViewBag.Message = message.Replace('?', '/');
+
+            var locations = _db.Locations
+                .OrderBy(l => l.Name)
+                .ToArray();
+
+            return View(locations);
+        }
+
+        [HttpGet, Route("locations/create")]
+        public IActionResult LocationCreate() => View();
+
+        [HttpPost, Route("locations/create")]
+        public IActionResult LocationCreate(Location location)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            try
+            {
+                _db.Locations.Add(location);
+                _db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Database Error! The Name entered is already in the database!");
+                return View();
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", "Unknown Error! " + e.Message);
+                return View();
+            }
+
+            return RedirectToAction("LocationList", "Admin", location.Slug);
+        }
+
+        [HttpGet, Route("locations/edit/{slug}")]
+        public IActionResult LocationEdit(string slug)
+        {
+            Location location = _db.Locations.FirstOrDefault(l => l.Slug == slug);
+
+            if (null == location)
+                return NotFound();
+
+            return View(location);
+        }
+
+        [HttpPost, Route("locations/edit/{slug}")]
+        public IActionResult LocationEdit(string slug, Location updated)
+        {
+            Location location = _db.Locations.FirstOrDefault(l => l.Slug == slug);
+
+            if (null == location)
+                return NotFound();
+
+            try
+            {
+                _db.Locations.Remove(location);
+                _db.Locations.Add(updated);
+
+                _db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Database Error! The Name entered is already in the database!");
+                return View();
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", "Unknown Error! " + e.Message);
+                return View();
+            }
+
+            return RedirectToAction("LocationList", "Admin", updated.Slug);
+        }
+
+        [HttpGet, Route("locations/delete/{slug}")]
+        public IActionResult LocationDelete(string slug)
+        {
+            Location location = _db.Locations.FirstOrDefault(l => l.Slug == slug);
+            return View(location);
+        }
+
+        [HttpPost, Route("locations/delete/{slug}")]
+        public IActionResult LocationDelete(string slug, Location deleted)
+        {
+            Location location = _db.Locations.FirstOrDefault(
+                l => l.Slug == slug && l.Name == deleted.Name);
+
+            if (location != null)
+            {
+                _db.Locations.Remove(location);
+                _db.SaveChanges();
+
+                return RedirectToAction("LocationList", new
+                {
+                    message = string.Format("The Location \"{0}\" has been successfully deleted.",
+                        location.Name.Replace('/', '?'))
+                });
+            }
+
+            return RedirectToAction("LocationList", new
+            {
+                message = string.Format("There was an error in deleting the Location \"{0}\".",
+                        location.Name.Replace('/', '?'))
+            });
         }
     }
 }

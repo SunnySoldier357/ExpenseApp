@@ -1,0 +1,58 @@
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model IEnumerable<ExpenseApp.Models.DB.Location>
+
+@{
+  Layout = "_Layout";
+}
+
+@section Title { Location List }
+
+@section Header {
+  <h2>Locations</h2>
+}
+
+<p class="error-label">
+  @if (null != ViewBag.Message)
+  {
+    @ViewBag.Message
+  }
+</p>
+
+<p>
+  <a class="button-primary"
+     asp-action="LocationCreate">Create New</a>
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model)
+    {
+      <tr id="@item.Slug">
+        <td>@item.Name</td>
+        <td>
+          @Html.ActionLink("Edit", "LocationEdit", "Admin", new
+          {
+            slug = item.Slug
+          }) |
+          @Html.ActionLink("Delete", "LocationDelete", "Admin", new
+          {
+            slug = item.Slug
+          })
+        </td>
+      </tr>
+    }
+    @if (Model.Count() == 0)
+    {
+      <tr>
+        <td colspan="2">
+          <div class="empty-list-label">There are no Locations.</div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

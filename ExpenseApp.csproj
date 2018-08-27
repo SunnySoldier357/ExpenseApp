@@ -16,6 +16,12 @@
     <Compile Remove="Migrations\20180823235611_Initial.Designer.cs" />
     <Compile Remove="Migrations\20180824002819_Initial.cs" />
     <Compile Remove="Migrations\20180824002819_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20180826014744_Initial.cs" />
+    <Compile Remove="Migrations\20180826014744_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20180826020002_NoID.cs" />
+    <Compile Remove="Migrations\20180826020002_NoID.Designer.cs" />
+    <Compile Remove="Migrations\20180826024117_FirstAndLastNames.cs" />
+    <Compile Remove="Migrations\20180826024117_FirstAndLastNames.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

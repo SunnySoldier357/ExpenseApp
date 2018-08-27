@@ -22,7 +22,8 @@ namespace ExpenseApp.Models.DB
 
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        public string Location { get; set; }
+
+        public Location Location { get; set; }
 
         [NotMapped]
         [Display(Name = "Approver?")]

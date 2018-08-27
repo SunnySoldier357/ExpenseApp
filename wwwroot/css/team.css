@@ -56,31 +56,31 @@
     white-space: nowrap
 }
 
-.theme-light .button-primary:hover:enabled {
-    background: #4C509D;
-    border-color: transparent;
-    color: #FFFFFF
-}
+    .theme-light .button-primary:hover:enabled {
+        background: #4C509D;
+        border-color: transparent;
+        color: #FFFFFF
+    }
 
-.theme-light .button-primary:active {
-    background: #454A92;
-    border-color: transparent;
-    color: #FFFFFF
-}
+    .theme-light .button-primary:active {
+        background: #454A92;
+        border-color: transparent;
+        color: #FFFFFF
+    }
 
-.theme-light .button-primary:disabled {
-    background: #F3F4F5;
-    border-color: transparent;
-    color: #ABB0B8
-}
+    .theme-light .button-primary:disabled {
+        background: #F3F4F5;
+        border-color: transparent;
+        color: #ABB0B8
+    }
 
-.theme-light .button-primary:focus {
-    background: #4C509D;
-    border-color: transparent;
-    color: #FFFFFF;
-    outline: 0.125rem solid #FFFFFF;
-    outline-offset: -0.25rem
-}
+    .theme-light .button-primary:focus {
+        background: #4C509D;
+        border-color: transparent;
+        color: #FFFFFF;
+        outline: 0.125rem solid #FFFFFF;
+        outline-offset: -0.25rem
+    }
 
 .theme-light .button-secondary {
     background: #FFFFFF;
@@ -96,31 +96,31 @@
     white-space: nowrap
 }
 
-.theme-light .button-secondary:hover:enabled {
-    background: #ABB0B8;
-    border-color: transparent;
-    color: #16233A
-}
+    .theme-light .button-secondary:hover:enabled {
+        background: #ABB0B8;
+        border-color: transparent;
+        color: #16233A
+    }
 
-.theme-light .button-secondary:active {
-    background: #858C98;
-    border-color: transparent;
-    color: #16233A
-}
+    .theme-light .button-secondary:active {
+        background: #858C98;
+        border-color: transparent;
+        color: #16233A
+    }
 
-.theme-light .button-secondary:disabled {
-    background: #FFFFFF;
-    border-color: #F3F4F5;
-    color: #ABB0B8
-}
+    .theme-light .button-secondary:disabled {
+        background: #FFFFFF;
+        border-color: #F3F4F5;
+        color: #ABB0B8
+    }
 
-.theme-light .button-secondary:focus {
-    background: #ABB0B8;
-    border-color: transparent;
-    color: #16233A;
-    outline: 0.125rem solid #16233A;
-    outline-offset: -0.25rem
-}
+    .theme-light .button-secondary:focus {
+        background: #ABB0B8;
+        border-color: transparent;
+        color: #16233A;
+        outline: 0.125rem solid #16233A;
+        outline-offset: -0.25rem
+    }
 
 .theme-light .radio-container {
     align-items: center;
@@ -130,9 +130,9 @@
     outline: none
 }
 
-.theme-light .radio-container+.radio-container {
-    margin-top: 0.5rem
-}
+    .theme-light .radio-container + .radio-container {
+        margin-top: 0.5rem
+    }
 
 .theme-light .radio-button {
     -moz-user-select: none;
@@ -153,34 +153,34 @@
     width: 0.75rem
 }
 
-.theme-light .radio-button:hover {
-    background: transparent;
-    border-color: #525C6D
-}
+    .theme-light .radio-button:hover {
+        background: transparent;
+        border-color: #525C6D
+    }
 
-.theme-light .radio-button:disabled {
-    background: #F0F2F4;
-    border-color: #ABB0B8
-}
+    .theme-light .radio-button:disabled {
+        background: #F0F2F4;
+        border-color: #ABB0B8
+    }
 
-.theme-light .radio-button:disabled+label {
-    color: #ABB0B8;
-    cursor: default
-}
+        .theme-light .radio-button:disabled + label {
+            color: #ABB0B8;
+            cursor: default
+        }
 
-.theme-light .radio-button:focus {
-    box-shadow: 0 0 0 0.125rem #9FA4FE;
-    outline: none
-}
+    .theme-light .radio-button:focus {
+        box-shadow: 0 0 0 0.125rem #9FA4FE;
+        outline: none
+    }
 
-.theme-light .hidden-input:checked+.radio-button {
+.theme-light .hidden-input:checked + .radio-button {
     background: #5558AF;
     border-color: #5558AF
 }
 
-.theme-light .hidden-input:checked+.radio-button+label {
-    color: #16233A
-}
+    .theme-light .hidden-input:checked + .radio-button + label {
+        color: #16233A
+    }
 
 .theme-light .radio-label {
     color: #525C6D;
@@ -201,33 +201,33 @@
     width: 100%
 }
 
-.theme-light .tab-group .tab {
-    background: 0;
-    border: 0;
-    border-bottom: transparent 0.25rem solid;
-    color: #525C6D;
-    cursor: pointer;
-    display: inline-block;
-    font: inherit;
-    margin: 0;
-    margin-right: 1.25rem;
-    outline: none;
-    padding: 0.25rem
-}
+    .theme-light .tab-group .tab {
+        background: 0;
+        border: 0;
+        border-bottom: transparent 0.25rem solid;
+        color: #525C6D;
+        cursor: pointer;
+        display: inline-block;
+        font: inherit;
+        margin: 0;
+        margin-right: 1.25rem;
+        outline: none;
+        padding: 0.25rem
+    }
 
-.theme-light .tab-group .tab:hover {
-    border-bottom-color: #9496CA
-}
+        .theme-light .tab-group .tab:hover {
+            border-bottom-color: #9496CA
+        }
 
-.theme-light .tab-group .tab:focus {
-    background-color: #9FA4FE;
-    color: #FFFFFF
-}
+        .theme-light .tab-group .tab:focus {
+            background-color: #9FA4FE;
+            color: #FFFFFF
+        }
 
-.theme-light .tab-group .tab-active {
-    border-bottom-color: #5558AF;
-    color: #5558AF
-}
+    .theme-light .tab-group .tab-active {
+        border-bottom-color: #5558AF;
+        color: #5558AF
+    }
 
 .theme-light .tab-active:focus {
     border-bottom-color: #FFFFFF
@@ -255,19 +255,19 @@
     width: 3.75rem
 }
 
-.theme-light .toggle-ball:before {
-    background-color: #454A92;
-    border-radius: 50%;
-    content: "";
-    height: 0.875rem;
-    left: 0.1875rem;
-    position: absolute;
-    top: 0.18750000000000003rem;
-    transition: 0.2s;
-    width: 0.875rem
-}
+    .theme-light .toggle-ball:before {
+        background-color: #454A92;
+        border-radius: 50%;
+        content: "";
+        height: 0.875rem;
+        left: 0.1875rem;
+        position: absolute;
+        top: 0.18750000000000003rem;
+        transition: 0.2s;
+        width: 0.875rem
+    }
 
-.theme-light .hidden-input:checked+.toggle-ball:before {
+.theme-light .hidden-input:checked + .toggle-ball:before {
     background-color: #4C509D;
     transform: translateX(2.5rem)
 }
@@ -277,7 +277,7 @@
     outline: none
 }
 
-.theme-light .hidden-input:checked+.toggle-ball {
+.theme-light .hidden-input:checked + .toggle-ball {
     background-color: #7FBA00
 }
 
@@ -408,21 +408,21 @@
     resize: none
 }
 
-.theme-light .input-field:hover:inactive:enabled, .theme-light .textarea-field:hover:inactive:enabled {
-    background: #F0F2F4;
-    border-bottom-color: transparent
-}
+    .theme-light .input-field:hover:inactive:enabled, .theme-light .textarea-field:hover:inactive:enabled {
+        background: #F0F2F4;
+        border-bottom-color: transparent
+    }
 
-.theme-light .input-field:disabled, .theme-light .textarea-field:disabled {
-    background: #F3F4F5;
-    border-bottom-color: transparent;
-    color: #DEE0E3
-}
+    .theme-light .input-field:disabled, .theme-light .textarea-field:disabled {
+        background: #F3F4F5;
+        border-bottom-color: transparent;
+        color: #DEE0E3
+    }
 
-.theme-light .input-field:active:enabled, .theme-light .input-field:focus, .theme-light .textarea-field:active:enabled, .theme-light .textarea-field:focus {
-    background: #F0F2F4;
-    border-bottom-color: #5558AF
-}
+    .theme-light .input-field:active:enabled, .theme-light .input-field:focus, .theme-light .textarea-field:active:enabled, .theme-light .textarea-field:focus {
+        background: #F0F2F4;
+        border-bottom-color: #5558AF
+    }
 
 .theme-light .textarea-error-icon {
     color: #C50E2E;
@@ -489,31 +489,31 @@
     white-space: nowrap
 }
 
-.theme-dark .button-primary:hover:enabled {
-    background: #AEB2FF;
-    border-color: transparent;
-    color: #2B2B30
-}
+    .theme-dark .button-primary:hover:enabled {
+        background: #AEB2FF;
+        border-color: transparent;
+        color: #2B2B30
+    }
 
-.theme-dark .button-primary:active {
-    background: #B8BBFF;
-    border-color: transparent;
-    color: #2B2B30
-}
+    .theme-dark .button-primary:active {
+        background: #B8BBFF;
+        border-color: transparent;
+        color: #2B2B30
+    }
 
-.theme-dark .button-primary:disabled {
-    background: #35353A;
-    border-color: transparent;
-    color: #77777A
-}
+    .theme-dark .button-primary:disabled {
+        background: #35353A;
+        border-color: transparent;
+        color: #77777A
+    }
 
-.theme-dark .button-primary:focus {
-    background: #9FA4FE;
-    border-color: transparent;
-    color: #2B2B30;
-    outline: 0.125rem solid #2B2B30;
-    outline-offset: -0.25rem
-}
+    .theme-dark .button-primary:focus {
+        background: #9FA4FE;
+        border-color: transparent;
+        color: #2B2B30;
+        outline: 0.125rem solid #2B2B30;
+        outline-offset: -0.25rem
+    }
 
 .theme-dark .button-secondary {
     background: #404045;
@@ -529,31 +529,31 @@
     white-space: nowrap
 }
 
-.theme-dark .button-secondary:hover:enabled {
-    background: #77777A;
-    border-color: transparent;
-    color: #FFFFFF
-}
+    .theme-dark .button-secondary:hover:enabled {
+        background: #77777A;
+        border-color: transparent;
+        color: #FFFFFF
+    }
 
-.theme-dark .button-secondary:active {
-    background: #48484D;
-    border-color: transparent;
-    color: #FFFFFF
-}
+    .theme-dark .button-secondary:active {
+        background: #48484D;
+        border-color: transparent;
+        color: #FFFFFF
+    }
 
-.theme-dark .button-secondary:disabled {
-    background: #404045;
-    border-color: #35353A;
-    color: #77777A
-}
+    .theme-dark .button-secondary:disabled {
+        background: #404045;
+        border-color: #35353A;
+        color: #77777A
+    }
 
-.theme-dark .button-secondary:focus {
-    background: #77777A;
-    border-color: transparent;
-    color: #FFFFFF;
-    outline: 0.125rem solid #FFFFFF;
-    outline-offset: -0.25rem
-}
+    .theme-dark .button-secondary:focus {
+        background: #77777A;
+        border-color: transparent;
+        color: #FFFFFF;
+        outline: 0.125rem solid #FFFFFF;
+        outline-offset: -0.25rem
+    }
 
 .theme-dark .radio-container {
     align-items: center;
@@ -563,9 +563,9 @@
     outline: none
 }
 
-.theme-dark .radio-container+.radio-container {
-    margin-top: 0.5rem
-}
+    .theme-dark .radio-container + .radio-container {
+        margin-top: 0.5rem
+    }
 
 .theme-dark .radio-button {
     -moz-user-select: none;
@@ -586,34 +586,34 @@
     width: 0.75rem
 }
 
-.theme-dark .radio-button:hover {
-    background: transparent;
-    border-color: #C8C8C9
-}
+    .theme-dark .radio-button:hover {
+        background: transparent;
+        border-color: #C8C8C9
+    }
 
-.theme-dark .radio-button:disabled {
-    background: #404045;
-    border-color: #77777A
-}
+    .theme-dark .radio-button:disabled {
+        background: #404045;
+        border-color: #77777A
+    }
 
-.theme-dark .radio-button:disabled+label {
-    color: #77777A;
-    cursor: default
-}
+        .theme-dark .radio-button:disabled + label {
+            color: #77777A;
+            cursor: default
+        }
 
-.theme-dark .radio-button:focus {
-    box-shadow: 0 0 0 0.125rem #5558AF;
-    outline: none
-}
+    .theme-dark .radio-button:focus {
+        box-shadow: 0 0 0 0.125rem #5558AF;
+        outline: none
+    }
 
-.theme-dark .hidden-input:checked+.radio-button {
+.theme-dark .hidden-input:checked + .radio-button {
     background: #9FA4FE;
     border-color: #9FA4FE
 }
 
-.theme-dark .hidden-input:checked+.radio-button+label {
-    color: #FFFFFF
-}
+    .theme-dark .hidden-input:checked + .radio-button + label {
+        color: #FFFFFF
+    }
 
 .theme-dark .radio-label {
     color: #C8C8C9;
@@ -634,33 +634,33 @@
     width: 100%
 }
 
-.theme-dark .tab-group .tab {
-    background: 0;
-    border: 0;
-    border-bottom: transparent 0.25rem solid;
-    color: #C8C8C9;
-    cursor: pointer;
-    display: inline-block;
-    font: inherit;
-    margin: 0;
-    margin-right: 1.25rem;
-    outline: none;
-    padding: 0.25rem
-}
+    .theme-dark .tab-group .tab {
+        background: 0;
+        border: 0;
+        border-bottom: transparent 0.25rem solid;
+        color: #C8C8C9;
+        cursor: pointer;
+        display: inline-block;
+        font: inherit;
+        margin: 0;
+        margin-right: 1.25rem;
+        outline: none;
+        padding: 0.25rem
+    }
 
-.theme-dark .tab-group .tab:hover {
-    border-bottom-color: #7174AA
-}
+        .theme-dark .tab-group .tab:hover {
+            border-bottom-color: #7174AA
+        }
 
-.theme-dark .tab-group .tab:focus {
-    background-color: #5558AF;
-    color: #FFFFFF
-}
+        .theme-dark .tab-group .tab:focus {
+            background-color: #5558AF;
+            color: #FFFFFF
+        }
 
-.theme-dark .tab-group .tab-active {
-    border-bottom-color: #9FA4FE;
-    color: #9FA4FE
-}
+    .theme-dark .tab-group .tab-active {
+        border-bottom-color: #9FA4FE;
+        color: #9FA4FE
+    }
 
 .theme-dark .tab-active:focus {
     border-bottom-color: #FFFFFF
@@ -688,19 +688,19 @@
     width: 3.75rem
 }
 
-.theme-dark .toggle-ball:before {
-    background-color: #C8C8C9;
-    border-radius: 50%;
-    content: "";
-    height: 0.875rem;
-    left: 0.1875rem;
-    position: absolute;
-    top: 0.18750000000000003rem;
-    transition: 0.2s;
-    width: 0.875rem
-}
+    .theme-dark .toggle-ball:before {
+        background-color: #C8C8C9;
+        border-radius: 50%;
+        content: "";
+        height: 0.875rem;
+        left: 0.1875rem;
+        position: absolute;
+        top: 0.18750000000000003rem;
+        transition: 0.2s;
+        width: 0.875rem
+    }
 
-.theme-dark .hidden-input:checked+.toggle-ball:before {
+.theme-dark .hidden-input:checked + .toggle-ball:before {
     background-color: #FFFFFF;
     transform: translateX(2.5rem)
 }
@@ -710,7 +710,7 @@
     outline: none
 }
 
-.theme-dark .hidden-input:checked+.toggle-ball {
+.theme-dark .hidden-input:checked + .toggle-ball {
     background-color: #88BC2B
 }
 
@@ -841,21 +841,21 @@
     resize: none
 }
 
-.theme-dark .input-field:hover:inactive:enabled, .theme-dark .textarea-field:hover:inactive:enabled {
-    background: #2B2B30;
-    border-bottom-color: transparent
-}
+    .theme-dark .input-field:hover:inactive:enabled, .theme-dark .textarea-field:hover:inactive:enabled {
+        background: #2B2B30;
+        border-bottom-color: transparent
+    }
 
-.theme-dark .input-field:disabled, .theme-dark .textarea-field:disabled {
-    background: #35353A;
-    border-bottom-color: transparent;
-    color: #48484D
-}
+    .theme-dark .input-field:disabled, .theme-dark .textarea-field:disabled {
+        background: #35353A;
+        border-bottom-color: transparent;
+        color: #48484D
+    }
 
-.theme-dark .input-field:active:enabled, .theme-dark .input-field:focus, .theme-dark .textarea-field:active:enabled, .theme-dark .textarea-field:focus {
-    background: #2B2B30;
-    border-bottom-color: #9FA4FE
-}
+    .theme-dark .input-field:active:enabled, .theme-dark .input-field:focus, .theme-dark .textarea-field:active:enabled, .theme-dark .textarea-field:focus {
+        background: #2B2B30;
+        border-bottom-color: #9FA4FE
+    }
 
 .theme-dark .textarea-error-icon {
     color: #ED1B3E;
@@ -922,11 +922,11 @@
     white-space: nowrap
 }
 
-.theme-contrast .button-primary:disabled {
-    background: #30F42C;
-    border-color: transparent;
-    color: #000000
-}
+    .theme-contrast .button-primary:disabled {
+        background: #30F42C;
+        border-color: transparent;
+        color: #000000
+    }
 
 .theme-contrast .button-secondary {
     background: #000000;
@@ -942,25 +942,25 @@
     white-space: nowrap
 }
 
-.theme-contrast .button-primary:hover:enabled, .theme-contrast .button-primary:active, .theme-contrast .button-secondary:hover:enabled, .theme-contrast .button-secondary:active {
-    background: #FFFF00;
-    border-color: transparent;
-    color: #000000
-}
+    .theme-contrast .button-primary:hover:enabled, .theme-contrast .button-primary:active, .theme-contrast .button-secondary:hover:enabled, .theme-contrast .button-secondary:active {
+        background: #FFFF00;
+        border-color: transparent;
+        color: #000000
+    }
 
-.theme-contrast .button-secondary:disabled {
-    background: #000000;
-    border-color: #30F42C;
-    color: #30F42C
-}
+    .theme-contrast .button-secondary:disabled {
+        background: #000000;
+        border-color: #30F42C;
+        color: #30F42C
+    }
 
-.theme-contrast .button-primary:focus, .theme-contrast .button-secondary:focus {
-    background: #FFFF00;
-    border-color: transparent;
-    color: #000000;
-    outline: 0.125rem solid transparent;
-    outline-offset: -0.25rem
-}
+    .theme-contrast .button-primary:focus, .theme-contrast .button-secondary:focus {
+        background: #FFFF00;
+        border-color: transparent;
+        color: #000000;
+        outline: 0.125rem solid transparent;
+        outline-offset: -0.25rem
+    }
 
 .theme-contrast .radio-container {
     align-items: center;
@@ -970,9 +970,9 @@
     outline: none
 }
 
-.theme-contrast .radio-container+.radio-container {
-    margin-top: 0.5rem
-}
+    .theme-contrast .radio-container + .radio-container {
+        margin-top: 0.5rem
+    }
 
 .theme-contrast .radio-button {
     -moz-user-select: none;
@@ -993,34 +993,34 @@
     width: 0.75rem
 }
 
-.theme-contrast .radio-button:hover {
-    background: transparent;
-    border-color: #FFFFFF
-}
+    .theme-contrast .radio-button:hover {
+        background: transparent;
+        border-color: #FFFFFF
+    }
 
-.theme-contrast .radio-button:disabled {
-    background: transparent;
-    border-color: #30F42C
-}
+    .theme-contrast .radio-button:disabled {
+        background: transparent;
+        border-color: #30F42C
+    }
 
-.theme-contrast .radio-button:disabled+label {
-    color: #30F42C;
-    cursor: default
-}
+        .theme-contrast .radio-button:disabled + label {
+            color: #30F42C;
+            cursor: default
+        }
 
-.theme-contrast .radio-button:focus {
-    box-shadow: 0 0 0 0.125rem #FFFF00;
-    outline: none
-}
+    .theme-contrast .radio-button:focus {
+        box-shadow: 0 0 0 0.125rem #FFFF00;
+        outline: none
+    }
 
-.theme-contrast .hidden-input:checked+.radio-button {
+.theme-contrast .hidden-input:checked + .radio-button {
     background: #00EBFF;
     border-color: #00EBFF
 }
 
-.theme-contrast .hidden-input:checked+.radio-button+label {
-    color: #FFFFFF
-}
+    .theme-contrast .hidden-input:checked + .radio-button + label {
+        color: #FFFFFF
+    }
 
 .theme-contrast .radio-label {
     color: #FFFFFF;
@@ -1041,33 +1041,33 @@
     width: 100%
 }
 
-.theme-contrast .tab-group .tab {
-    background: 0;
-    border: 0;
-    border-bottom: transparent 0.25rem solid;
-    color: #FFFFFF;
-    cursor: pointer;
-    display: inline-block;
-    font: inherit;
-    margin: 0;
-    margin-right: 1.25rem;
-    outline: none;
-    padding: 0.25rem
-}
+    .theme-contrast .tab-group .tab {
+        background: 0;
+        border: 0;
+        border-bottom: transparent 0.25rem solid;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font: inherit;
+        margin: 0;
+        margin-right: 1.25rem;
+        outline: none;
+        padding: 0.25rem
+    }
 
-.theme-contrast .tab-group .tab:hover {
-    border-bottom-color: #FFFF00
-}
+        .theme-contrast .tab-group .tab:hover {
+            border-bottom-color: #FFFF00
+        }
 
-.theme-contrast .tab-group .tab:focus {
-    background-color: #FFFF00;
-    color: #000000
-}
+        .theme-contrast .tab-group .tab:focus {
+            background-color: #FFFF00;
+            color: #000000
+        }
 
-.theme-contrast .tab-group .tab-active {
-    border-bottom-color: #00EBFF;
-    color: #FFFFFF
-}
+    .theme-contrast .tab-group .tab-active {
+        border-bottom-color: #00EBFF;
+        color: #FFFFFF
+    }
 
 .theme-contrast .tab-active:focus {
     border-bottom-color: #000000
@@ -1095,19 +1095,19 @@
     width: 3.75rem
 }
 
-.theme-contrast .toggle-ball:before {
-    background-color: #FFFF00;
-    border-radius: 50%;
-    content: "";
-    height: 0.875rem;
-    left: 0.1875rem;
-    position: absolute;
-    top: 0.18750000000000003rem;
-    transition: 0.2s;
-    width: 0.875rem
-}
+    .theme-contrast .toggle-ball:before {
+        background-color: #FFFF00;
+        border-radius: 50%;
+        content: "";
+        height: 0.875rem;
+        left: 0.1875rem;
+        position: absolute;
+        top: 0.18750000000000003rem;
+        transition: 0.2s;
+        width: 0.875rem
+    }
 
-.theme-contrast .hidden-input:checked+.toggle-ball:before {
+.theme-contrast .hidden-input:checked + .toggle-ball:before {
     background-color: #4C509D;
     transform: translateX(2.5rem)
 }
@@ -1117,7 +1117,7 @@
     outline: none
 }
 
-.theme-contrast .hidden-input:checked+.toggle-ball {
+.theme-contrast .hidden-input:checked + .toggle-ball {
     background-color: #7FBA00
 }
 
@@ -1248,21 +1248,21 @@
     resize: none
 }
 
-.theme-contrast .input-field:hover:inactive:enabled, .theme-contrast .textarea-field:hover:inactive:enabled {
-    background: #000000;
-    border-bottom-color: transparent
-}
+    .theme-contrast .input-field:hover:inactive:enabled, .theme-contrast .textarea-field:hover:inactive:enabled {
+        background: #000000;
+        border-bottom-color: transparent
+    }
 
-.theme-contrast .input-field:disabled, .theme-contrast .textarea-field:disabled {
-    background: #30F42C;
-    border-bottom-color: #FFFFFF;
-    color: #FFFFFF
-}
+    .theme-contrast .input-field:disabled, .theme-contrast .textarea-field:disabled {
+        background: #30F42C;
+        border-bottom-color: #FFFFFF;
+        color: #FFFFFF
+    }
 
-.theme-contrast .input-field:active:enabled, .theme-contrast .input-field:focus, .theme-contrast .textarea-field:active:enabled, .theme-contrast .textarea-field:focus {
-    background: #000000;
-    border-bottom-color: #FFFF00
-}
+    .theme-contrast .input-field:active:enabled, .theme-contrast .input-field:focus, .theme-contrast .textarea-field:active:enabled, .theme-contrast .textarea-field:focus {
+        background: #000000;
+        border-bottom-color: #FFFF00
+    }
 
 .theme-contrast .textarea-error-icon {
     color: #FFFF00;
