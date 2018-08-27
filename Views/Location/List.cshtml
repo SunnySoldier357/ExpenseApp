@@ -20,7 +20,7 @@
 
 <p>
   <a class="button-primary"
-     asp-action="LocationCreate">Create New</a>
+     asp-action="Create">Create New</a>
 </p>
 <table class="table">
   <thead>
@@ -35,11 +35,11 @@
       <tr id="@item.Slug">
         <td>@item.Name</td>
         <td>
-          @Html.ActionLink("Edit", "LocationEdit", "Admin", new
+          @Html.ActionLink("Edit", "Edit", "Location", new
           {
             slug = item.Slug
           }) |
-          @Html.ActionLink("Delete", "LocationDelete", "Admin", new
+          @Html.ActionLink("Delete", "Delete", "Location", new
           {
             slug = item.Slug
           })

@@ -18,8 +18,8 @@
   <h4>Location</h4>
   <hr />
 
-  <form asp-controller="Admin"
-        asp-action="LocationDelete">
+  <form asp-controller="Location"
+        asp-action="Delete">
     <div class="error-label"
          asp-validation-summary="ModelOnly"></div>
 
@@ -36,7 +36,7 @@
 
     <div class="button-group">
       <a class="button-secondary"
-         href="@Url.Action("LocationList", "Admin")">Cancel</a>
+         href="@Url.Action("List", "Location")">Cancel</a>
       <button class="button-primary"
               type="submit">
         Delete
