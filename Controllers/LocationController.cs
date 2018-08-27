@@ -112,14 +112,14 @@ namespace ExpenseApp.Controllers
                 _db.Locations.Remove(location);
                 _db.SaveChanges();
 
-                return RedirectToAction("List", new
+                return RedirectToAction("List", "Location", new
                 {
                     message = string.Format("The Location \"{0}\" has been successfully deleted.",
                         location.Name.Replace('/', '?'))
                 });
             }
 
-            return RedirectToAction("List", new
+            return RedirectToAction("List", "Location", new
             {
                 message = string.Format("There was an error in deleting the Location \"{0}\".",
                         location.Name.Replace('/', '?'))

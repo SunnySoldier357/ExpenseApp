@@ -18,8 +18,8 @@
   <h4>Account</h4>
   <hr />
 
-  <form asp-controller="Admin"
-        asp-action="AccountDelete">
+  <form asp-controller="Account"
+        asp-action="Delete">
     <div class="error-label"
          asp-validation-summary="ModelOnly"></div>
 
@@ -36,7 +36,7 @@
 
     <div class="button-group">
       <a class="button-secondary"
-         href="@Url.Action("AccountList", "Admin")">Cancel</a>
+         href="@Url.Action("List", "Account")">Cancel</a>
       <button class="button-primary"
               type="submit">
         Delete
