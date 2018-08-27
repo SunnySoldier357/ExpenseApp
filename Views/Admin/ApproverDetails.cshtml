@@ -1,0 +1,65 @@
+﻿@model ExpenseApp.Models.DB.Employee
+
+@{
+  Layout = "_Layout";
+}
+
+@section Title { Employee Details }
+
+@section Header {
+  <h1>Employee Details</h1>
+}
+
+<div>
+  <h4>Employee</h4>
+  <hr />
+
+  <dl>
+    <dt>
+      @Html.DisplayNameFor(model => model.FirstName):
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.FirstName)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.LastName):
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.LastName)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Location):
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Location)
+    </dd>
+
+    <dt>
+      Is An @Html.DisplayNameFor(model => model.IsAnApprover)
+    </dt>
+    <dd>
+      @(Model.IsAnApprover ? "Yes" : "No")
+    </dd>
+
+    @if (!Model.IsAnApprover)
+    {
+      <dt>
+        @Html.DisplayNameFor(model => model.Approver.FullName):
+      </dt>
+      <dd>
+        @Html.DisplayFor(model => model.Approver.FullName)
+      </dd>
+    }
+  </dl>
+</div>
+<div class="button-group">
+  <a class="button-secondary"
+     href="@Url.Action("ApproverList", "Admin")">Back to List</a>
+  <a class="button-primary"
+     href="@Url.Action("ApproverEdit", "Admin", new
+      {
+          id = Model.Id
+      })">Edit</a>
+</div>

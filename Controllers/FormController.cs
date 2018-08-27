@@ -17,10 +17,8 @@ namespace ExpenseApp.Controllers
         {
             _db = db;
 
-            SignedInEmployee = _db.Employees.FirstOrDefault(
-                e => e.Id == new Guid("46531176-18ac-43cf-921c-9729d59ab543"));
-            SignedInEmployee.Approver = _db.Employees.FirstOrDefault(
-                e => e.Id == SignedInEmployee.ApproverId);
+            SignedInEmployee = _db.Employees.Find(
+                new Guid("46f81b60-6c36-4039-ba37-ffc83d9ac3f2"));
         }
 
         public IActionResult Index()
@@ -29,37 +27,26 @@ namespace ExpenseApp.Controllers
                         where f.Employee.Id == SignedInEmployee.Id
                         select new { f.StatementNumber, f.Title, f.Status };
 
-            List<ExpenseListing> listings = new List<ExpenseListing>();
+            var listings = new List<ExpenseListViewModel>();
             
-            foreach (var item in forms)
-            {
-                listings.Add(new ExpenseListing()
-                {
-                    StatementNumber = item.StatementNumber,
-                    Title = item.StatementNumber,
-                    ListingStatus = item.Status
-                });
-            }
+            foreach (var form in forms)
+                listings.Add(new ExpenseListViewModel(form));
 
             return View(listings);
         }
 
         public IActionResult Create()
         {
-            ViewBag.Accounts = _db.Accounts.ToArray();
-
-            return View(new ExpenseForm(SignedInEmployee));
+            return View(new ExpenseCreateViewModel(_db, SignedInEmployee));
         }
 
         [HttpPost]
-        public IActionResult Create(ExpenseForm form)
+        public IActionResult Create(ExpenseCreateViewModel viewModel)
         {
             if (!ModelState.IsValid)
                 return View();
 
-            ViewBag.Accounts = _db.Accounts.ToArray();
-
-            return View(new ExpenseForm(SignedInEmployee));
+            return View(new ExpenseCreateViewModel(_db, SignedInEmployee));
         }
     }
 }

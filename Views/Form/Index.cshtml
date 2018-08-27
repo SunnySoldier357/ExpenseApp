@@ -1,4 +1,4 @@
-@model IEnumerable<ExpenseApp.ViewModels.ExpenseListing>
+@model IEnumerable<ExpenseApp.ViewModels.ExpenseListViewModel>
 @{
   Layout = "_Layout";
 }
@@ -13,19 +13,19 @@
   <p class="radio-container">
     <label>Search:</label>
     <input type="search">
-    <input class="radio-button" 
+    <input class="radio-button"
            type="radio"
            name="search-type"
            value="statementNumber"
-           checked> 
-    <span class="radio-label">Statement Number</span> 
-    <input class="radio-button" 
+           checked>
+    <span class="radio-label">Statement Number</span>
+    <input class="radio-button"
            type="radio"
            name="search-type"
-           value="title"> 
+           value="title">
     <span class="radio-label">Title</span>
   </p>
-  
+
   <div class="filter">
     <h2>Filter</h2>
     <h3>Status</h3>
@@ -34,13 +34,13 @@
     <button class="button-secondary">Approved</button>
     <button class="button-secondary">Rejected</button>
   </div>
-  
-  
+
+
   <table id="expense-table">
     <thead>
       <tr>
         <th>Statement Number</th>
-        <th>Title</th> 
+        <th>Title</th>
         <th>Status</th>
       </tr>
     </thead>
@@ -50,7 +50,15 @@
         <tr>
           <td>@listing.StatementNumber</td>
           <td>@listing.Title</td>
-          <td>@listing.ListingStatus</td>
+          <td>@listing.Status</td>
+        </tr>
+      }
+      @if (Model.Count() == 0)
+      {
+        <tr>
+          <td colspan="3">
+            <div class="empty-list-label">There are no Expense Forms.</div>
+          </td>
         </tr>
       }
     </tbody>

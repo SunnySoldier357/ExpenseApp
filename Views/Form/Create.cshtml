@@ -1,5 +1,5 @@
 @addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
-@model ExpenseApp.Models.DB.ExpenseForm
+@model ExpenseApp.ViewModels.ExpenseCreateViewModel
 @{
   Layout = "_Layout";
 }
@@ -21,44 +21,44 @@
     <!-- Title -->
     <div class="input-container grid-item">
       <label class="label" 
-            asp-for="Title"></label>
+            asp-for="Form.Title"></label>
       <input class="input-field"
             type="text" 
-            asp-for="Title" />
+            asp-for="Form.Title" />
       <span class="error-label" 
-            asp-validation-for="Title"></span>
+            asp-validation-for="Form.Title"></span>
     </div>
     
     <!-- Purpose -->
     <div class="input-container grid-item">
       <label class="label" 
-            asp-for="Purpose"></label>
+            asp-for="Form.Purpose"></label>
       <input class="input-field"
             type="text" 
-            asp-for="Purpose" />
+            asp-for="Form.Purpose" />
       <span class="error-label" 
-            asp-validation-for="Purpose"></span>
+            asp-validation-for="Form.Purpose"></span>
     </div>
     
     <!-- Statement Number -->
     <div class="input-container grid-item">
       <label class="label" 
-            asp-for="StatementNumber"></label>
+            asp-for="Form.StatementNumber"></label>
       <input class="input-field" 
             type="text" 
-            asp-for="StatementNumber" 
+            asp-for="Form.StatementNumber" 
             readonly />
     </div>
     
     <!-- Period -->
     <div class="input-container grid-item">
       <label class="label" 
-            asp-for="From"></label>
+            asp-for="Form.From"></label>
       <input class="input-field" 
             type="date"
-            asp-for="From" />
+            asp-for="Form.From" />
       <span class="error-label" 
-            asp-validation-for="From"></span>
+            asp-validation-for="Form.From"></span>
     </div>
   </div>
     <h2>Consultant Information</h2>
@@ -66,9 +66,9 @@
   <div class="grid-container">
     <!-- Name -->
     <div class="input-container grid-item">
-      <label asp-for="Employee.Name"></label>
+      <label asp-for="Form.Employee.FullName"></label>
       <input type="text" 
-            asp-for="Employee.Name" 
+            asp-for="Form.Employee.FullName" 
             class="input-field" 
             readonly/>
     </div>
@@ -76,21 +76,21 @@
     <!-- Project -->
     <div class="input-container grid-item">
       <label class="label" 
-            asp-for="Project"></label>
+            asp-for="Form.Project"></label>
       <input type="text"
-            asp-for="Project" 
+            asp-for="Form.Project" 
             class="input-field" 
             placeholder="CLIENT-PROJECT" />
-      <span asp-validation-for="Project" 
+      <span asp-validation-for="Form.Project" 
             class="error-label"></span>
     </div>
     
     <!-- Location -->
     <div class="input-container grid-item">
       <label class="label" 
-            asp-for="Employee.Location"></label>
+            asp-for="Form.Employee.Location"></label>
       <input type="text"
-            asp-for="Employee.Location" 
+            asp-for="Form.Employee.Location" 
             class="input-field" 
             readonly/>
     </div>
@@ -98,9 +98,9 @@
     <!-- Approver -->
     <div class="input-container grid-item">
       <label class="label" 
-            asp-for="Employee.Approver.Name"></label>
+            asp-for="Form.Employee.Approver.FullName"></label>
       <input type="text"
-            asp-for="Employee.Approver.Name" 
+            asp-for="Form.Employee.Approver.FullName" 
             class="input-field" 
             readonly />
     </div>
@@ -127,7 +127,7 @@
       </tr>
     </thead>
     <tbody>
-      @foreach (var entry in Model.Entries)
+      @foreach (var entry in Model.Form.Entries)
       {
         <tr>
           <td>
@@ -136,7 +136,7 @@
           </td>
           <td>
             <select asp-for="@entry.Account"
-                    asp-items="@{new SelectList(ViewBag.Accounts, "Name", "Name")}"></select>
+                    asp-items="@{new SelectList(Model.Accounts, "Name", "Name")}"></select>
           </td>
           <td>
             <input class="input-field" 
@@ -190,10 +190,10 @@
   <!-- Comment -->
   <div class="textarea-container">
     <label class="label" 
-           asp-for="Comment"></label>
+           asp-for="Form.Comment"></label>
     <textarea class="input-field textarea-field multiline"
-              asp-for="Comment"></textarea>
-    <span asp-validation-for="Comment" 
+              asp-for="Form.Comment"></textarea>
+    <span asp-validation-for="Form.Comment" 
           class="error-label"></span>
   </div>
   

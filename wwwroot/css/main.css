@@ -11,6 +11,14 @@ html {
     box-sizing: inherit;
 }
 
+/* End Border box fix */
+
+/* Headers & Animations */
+
+h1 {
+    text-align: center;
+}
+
 *:target {
     -webkit-animation: 5s ease-in target-fade;
     -moz-animation: 5s ease-in target-fade;
@@ -36,9 +44,7 @@ html {
     }
 }
 
-h1 {
-    text-align: center;
-}
+/* Layouts */
 
 .grid-container {
     display: grid;
@@ -67,13 +73,37 @@ h1 {
         display: block
     }
 
-a.button-primary {
+dl {
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+dt {
+    clear: left;
+    float: left;
+    width: 10%;
+    padding: 0;
+    margin: 0px 10px;
+}
+
+dd {
+    float: left;
+    width: 30%;
+    padding: 0;
+    margin: 0;
+}
+
+/* Controls */
+
+.button-primary {
     text-decoration: none;
     text-align: center;
     display: inline-block;
 }
 
-a.button-secondary {
+.button-secondary {
     text-decoration: none;
     text-align: center;
     display: inline-block;
@@ -100,6 +130,20 @@ a.button-secondary {
     .field-group label::after {
         content: ":";
     }
+
+.highlight-positive {
+    color: limegreen;
+}
+
+.highlight-negative {
+    color: red;
+}
+
+.empty-list-label {
+    text-align: center;
+}
+
+/* Tables */
 
 form table td {
     padding: 5px 10px;
@@ -133,9 +177,23 @@ th, td {
 /* Light Theme
 ------------------------*/
 
+/* Layouts */
+
 .theme-light .filter {
     background-color: #C4E4ED;
 }
+
+/* Controls */
+
+.theme-light .highlight-positive {
+    color: green;
+}
+
+.theme-light .highlight-negative {
+    color: darkred;
+}
+
+/* Tables */
 
 .theme-light table, .theme-light th, .theme-light td {
     border: 2px solid black;
@@ -157,6 +215,8 @@ th, td {
 /* Dark Theme
 ------------------------*/
 
+/* Tables */
+
 .theme-dark table, .theme-dark th, .theme-dark td {
     border: 2px solid #464775;
 }
@@ -176,6 +236,8 @@ th, td {
 
 /* High Contrast Theme 
 ------------------------*/
+
+/* Tables */
 
 .theme-contrast table, .theme-contrast th, .theme-contrast td {
     border: 2px solid white;

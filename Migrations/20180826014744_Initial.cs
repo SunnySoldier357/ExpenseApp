@@ -46,7 +46,8 @@ namespace ExpenseApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
-                    ReceiptImage = table.Column<string>(nullable: true)
+                    ReceiptImage = table.Column<byte[]>(nullable: true),
+                    FileName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,7 +59,7 @@ namespace ExpenseApp.Migrations
                 columns: table => new
                 {
                     StatementNumber = table.Column<string>(nullable: false),
-                    EmployeeId = table.Column<Guid>(nullable: false),
+                    EmployeeId = table.Column<Guid>(nullable: true),
                     Title = table.Column<string>(nullable: false),
                     Purpose = table.Column<string>(nullable: false),
                     From = table.Column<DateTime>(nullable: false),
@@ -76,7 +77,7 @@ namespace ExpenseApp.Migrations
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

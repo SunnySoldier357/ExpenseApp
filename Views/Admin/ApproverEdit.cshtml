@@ -1,0 +1,90 @@
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model ExpenseApp.ViewModels.ApproverEditViewModel
+
+@{
+  Layout = "_Layout";
+}
+
+@section Title { Employee Edit }
+
+@section Header {
+  <h1>Edit Employee</h1>
+}
+
+<h4>Employee</h4>
+<hr />
+<form asp-controller="Admin"
+      asp-action="ApproverEdit">
+  <div class="error-label"
+       asp-validation-summary="ModelOnly"></div>
+
+  <p>
+    In order to change this employee's Approver Status, another Approver has to
+    be @(Model.RemovingApproverStatus ? "added" : "removed").
+  </p>
+
+  <div class="input-container field-group">
+    <label class="label">Approver being @(Model.RemovingApproverStatus ? "Removed" : "Added")</label>
+    <div>
+      @if (Model.RemovingApproverStatus)
+      {
+        <input class="input-field"
+               type="text"
+               asp-for="ApproverRemoved.FullName"
+               readonly />
+
+        <input type="hidden"
+               asp-for="ApproverRemoved.Id"
+               readonly />
+      }
+      else
+      {
+        <input type="hidden"
+               asp-for="ApproverAdded.Id"
+               readonly />
+
+        <input class="input-field"
+               type="text"
+               asp-for="ApproverAdded.FullName"
+               readonly />
+      }
+    </div>
+  </div>
+
+  <div class="input-container field-group">
+    <label class="label">Approver being @(Model.RemovingApproverStatus ? "Added" : "Removed")</label>
+    <div>
+      @if (Model.RemovingApproverStatus)
+      {
+        <select asp-for="ApproverAdded.Id"
+                asp-items="@{new SelectList(Model.PossibleReplacements, "Id", "FullName")}"></select>
+
+        <span class="error-label"
+              asp-validation-for="ApproverAdded.Id"></span>
+      }
+      else
+      {
+        <input type="hidden"
+               asp-for="ApproverRemoved.Id"
+               readonly />
+
+        <input class="input-field"
+               type="text"
+               asp-for="ApproverRemoved.FullName"
+               readonly />
+
+        <span class="error-label"
+              asp-validation-for="ApproverRemoved.Id"></span>
+      }
+    </div>
+  </div>
+
+  <div class="button-group">
+    <a class="button-secondary"
+       href="@Url.Action("ApproverList", "Admin")">Cancel</a>
+    <button class="button-primary"
+            type="submit">
+      Save
+    </button>
+  </div>
+</form>

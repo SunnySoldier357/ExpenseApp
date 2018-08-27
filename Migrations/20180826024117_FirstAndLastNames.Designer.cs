@@ -4,14 +4,16 @@ using ExpenseApp.Models.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpenseApp.Migrations
 {
     [DbContext(typeof(ExpenseDBDataContext))]
-    partial class EmployeeDataContextModelSnapshot : ModelSnapshot
+    [Migration("20180826024117_FirstAndLastNames")]
+    partial class FirstAndLastNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,13 +37,13 @@ namespace ExpenseApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NEWID()");
 
-                    b.Property<Guid>("ApproverId");
+                    b.Property<Guid?>("ApproverId");
 
-                    b.Property<bool>("IsAnApprover");
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<string>("Location");
-
-                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -84,7 +86,7 @@ namespace ExpenseApp.Migrations
 
                     b.Property<string>("Comment");
 
-                    b.Property<Guid>("EmployeeId");
+                    b.Property<Guid?>("EmployeeId");
 
                     b.Property<DateTime>("From");
 
@@ -116,7 +118,9 @@ namespace ExpenseApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NEWID()");
 
-                    b.Property<string>("ReceiptImage");
+                    b.Property<string>("FileName");
+
+                    b.Property<byte[]>("ReceiptImage");
 
                     b.HasKey("Id");
 
@@ -146,8 +150,7 @@ namespace ExpenseApp.Migrations
                 {
                     b.HasOne("ExpenseApp.Models.DB.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("EmployeeId");
                 });
 #pragma warning restore 612, 618
         }
