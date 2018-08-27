@@ -5,13 +5,38 @@
 @section Title { Admin Home Page }
 
 @section Header {
-  <h1>Index</h1>
+  <h1>Admin Home Page</h1>
 }
+
+<h2>Accounts</h2>
+
+<p>
+  Accounts are used in the Expense Form to report the type of claim for that particular expense
+  entry. These Accounts are shown as a drop-down menu sorted alphabetically.
+</p>
+<p>
+  @Html.ActionLink("VIew All Accounts", "List", "Account") |
+  @Html.ActionLink("Create a new Account", "Create", "Account")
+</p>
 
 <h2>Approvers</h2>
 
 <p>
-  @Html.ActionLink("VIew All Accounts", "List", "Admin")
+  Approvers are able to approve & reject Expense Reports that have been submitted by users
+  who are in the same "location" as them. They are also able to mark these reports as paid
+  and save the receipt number with the report.
+</p>
+<p>
+  @Html.ActionLink("VIew All Employees", "List", "Approver")
 </p>
 
-<h2>Accounts</h2>
+<h2>Locations</h2>
+
+<p>
+  Approvers are used to organise Employees and Approvers. Approvers can only view reports from
+  Employees who are in the same location as them.
+</p>
+<p>
+  @Html.ActionLink("VIew All Locations", "List", "Location") |
+  @Html.ActionLink("Create a new Location", "Create", "Location")
+</p>

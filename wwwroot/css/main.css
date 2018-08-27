@@ -145,6 +145,10 @@ dd {
 
 /* Tables */
 
+table .approver-row {
+    background-color: rgba(50, 205, 50, 0.7)
+}
+
 form table td {
     padding: 5px 10px;
 }
@@ -199,11 +203,11 @@ th, td {
     border: 2px solid black;
 }
 
-    .theme-light table tr:nth-child(even) {
+    .theme-light table tr:nth-child(even):not(.approver-row) {
         background-color: #eee;
     }
 
-    .theme-light table tr:nth-child(odd) {
+    .theme-light table tr:nth-child(odd):not(.approver-row) {
         background-color: white;
     }
 
@@ -221,11 +225,11 @@ th, td {
     border: 2px solid #464775;
 }
 
-    .theme-dark table tr:nth-child(even) {
+    .theme-dark table tr:nth-child(even):not(.approver-row) {
         background-color: #222;
     }
 
-    .theme-dark table tr:nth-child(odd) {
+    .theme-dark table tr:nth-child(odd):not(.approver-row) {
         background-color: black;
     }
 

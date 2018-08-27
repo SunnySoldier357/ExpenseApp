@@ -32,7 +32,8 @@
   <tbody>
     @foreach (var item in Model)
     {
-      <tr id="@item.Id">
+      <tr id="@item.Id"
+          class="@(item.IsAnApprover ? "approver-row" : "")">
         <td>
           @Html.DisplayFor(modelItem => item.LastName)
         </td>
@@ -52,7 +53,7 @@
         <td>
           @if (item.IsAnApprover)
           {
-            <div class="highlight-positive">Yes</div>
+            <div>Yes</div>
           }
           else
           {
