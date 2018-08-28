@@ -24,12 +24,11 @@
 
   <div>
     <label>Search:</label>
-    <input id="search-input" 
+    <input id="search-input"
            type="search"
-           onkeyup="search()"
            placeholder="Search...">
 
-    <div id="expense-search-type" 
+    <div id="expense-search-type"
          class="radio-container">
       <div class="radio-group">
         <input class="radio-button"
@@ -42,7 +41,7 @@
       </div>
 
       <div class="radio-group">
-        <input id="title-radio-button" 
+        <input id="title-radio-button"
                class="radio-button"
                type="radio"
                name="search-type"
@@ -63,6 +62,7 @@
                type="radio"
                name="sort-type"
                value="none"
+               onchange="search()"
                checked />
         <label class="radio-label">None</label>
       </div>
@@ -71,7 +71,8 @@
         <input class="radio-button"
                type="radio"
                name="sort-type"
-               value="saved" />
+               value="saved" 
+               onchange="search()" />
         <label class="radio-label">Saved</label>
       </div>
 
@@ -79,7 +80,8 @@
         <input class="radio-button"
                type="radio"
                name="sort-type"
-               value="submitted" />
+               value="submitted" 
+               onchange="search()" />
         <label class="radio-label">Submitted</label>
       </div>
 
@@ -87,7 +89,8 @@
         <input class="radio-button"
                type="radio"
                name="sort-type"
-               value="approved" />
+               value="approved"
+               onchange="search()" />
         <label class="radio-label">Approved</label>
       </div>
 
@@ -95,7 +98,8 @@
         <input class="radio-button"
                type="radio"
                name="sort-type"
-               value="rejected" />
+               value="rejected"
+               onchange="search()" />
         <label class="radio-label">Rejected</label>
       </div>
     </div>

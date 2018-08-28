@@ -123,7 +123,7 @@
     }
     
 .theme-light .button-cancel {
-    background: #ED1B3E;
+    background: #C50E2E;
     border: 0.125rem solid;
     border-color: #ABB0B8;
     border-radius: 0.1875rem;
@@ -137,13 +137,13 @@
 }
 
     .theme-light .button-cancel:hover:enabled {
-        background: #E4132C;
+        background: #BC061C;
         border-color: transparent;
         color: #FFFFFF
     }
 
     .theme-light .button-cancel:active {
-        background: #DD0D21;
+        background: #B5001E;
         border-color: transparent;
         color: #FFFFFF
     }
@@ -155,7 +155,7 @@
     }
 
     .theme-light .button-cancel:focus {
-        background: #E4132C;
+        background: #BC061C;
         border-color: transparent;
         color: #FFFFFF;
         outline: 0.125rem solid #FFFFFF;
@@ -597,6 +597,46 @@
         outline: 0.125rem solid #FFFFFF;
         outline-offset: -0.25rem
     }
+    
+.theme-dark .button-cancel {
+    background: #ED1B3E;
+    border: 0.125rem solid;
+    border-color: #ABB0B8;
+    border-radius: 0.1875rem;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    height: 2rem;
+    min-width: 6rem;
+    padding: 0.25rem;
+    white-space: nowrap
+}
+
+    .theme-dark .button-cancel:hover:enabled {
+        background: #E4132C;
+        border-color: transparent;
+        color: #FFFFFF
+    }
+
+    .theme-dark .button-cancel:active {
+        background: #DD0D21;
+        border-color: transparent;
+        color: #FFFFFF
+    }
+
+    .theme-dark .button-cancel:disabled {
+        background: #F3F4F5;
+        border-color: transparent;
+        color: #ABB0B8
+    }
+
+    .theme-dark .button-cancel:focus {
+        background: #E4132C;
+        border-color: transparent;
+        color: #FFFFFF;
+        outline: 0.125rem solid #FFFFFF;
+        outline-offset: -0.25rem
+    }
 
 .theme-dark .radio-container {
     align-items: center;
@@ -1002,6 +1042,46 @@
         border-color: transparent;
         color: #000000;
         outline: 0.125rem solid transparent;
+        outline-offset: -0.25rem
+    }
+    
+.theme-contrast .button-cancel {
+    background: #ED1B3E;
+    border: 0.125rem solid;
+    border-color: #ABB0B8;
+    border-radius: 0.1875rem;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    height: 2rem;
+    min-width: 6rem;
+    padding: 0.25rem;
+    white-space: nowrap
+}
+
+    .theme-contrast .button-cancel:hover:enabled {
+        background: #E4132C;
+        border-color: transparent;
+        color: #FFFFFF
+    }
+
+    .theme-contrast .button-cancel:active {
+        background: #DD0D21;
+        border-color: transparent;
+        color: #FFFFFF
+    }
+
+    .theme-contrast .button-cancel:disabled {
+        background: #F3F4F5;
+        border-color: transparent;
+        color: #ABB0B8
+    }
+
+    .theme-contrast .button-cancel:focus {
+        background: #E4132C;
+        border-color: transparent;
+        color: #FFFFFF;
+        outline: 0.125rem solid #FFFFFF;
         outline-offset: -0.25rem
     }
 
