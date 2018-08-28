@@ -1,5 +1,4 @@
-﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
-@model ExpenseApp.Models.DB.ExpenseForm
+﻿@model ExpenseApp.Models.DB.ExpenseForm
 
 @{
   Layout = "_Layout";
@@ -56,6 +55,13 @@
     </dd>
 
     <dt>
+      @Html.DisplayNameFor(model => model.Employee.Location):
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Employee.Location.Name)
+    </dd>
+
+    <dt>
       Approver:
     </dt>
     <dd>
@@ -70,29 +76,133 @@
 
     </dd>
 
+    <dt class="dl-header">
+      All Expense Entries
+    </dt>
+  </dl>
+
+  <table id="expense-entry-table"
+         class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Account</th>
+        <th>Description</th>
+        <th>Hotel</th>
+        <th>Transport</th>
+        <th>Fuel</th>
+        <th>Meals</th>
+        <th>Phone</th>
+        <th>Entertainment</th>
+        <th>Misc.</th>
+        <th>Total</th>
+        <th>Receipt</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var entry in Model.Entries)
+      {
+        <tr>
+          <td>@entry.Date.ToShortDateString()</td>
+          <td>@entry.Account.Name</td>
+          <td>@entry.Description</td>
+          <td>@entry.Hotel</td>
+          <td>@entry.Transport</td>
+          <td>@entry.Fuel</td>
+          <td>@entry.Meals</td>
+          <td>@entry.Phone</td>
+          <td>@entry.Entertainment</td>
+          <td>@entry.Misc</td>
+          <td>@entry.Total</td>
+          <td>
+            <input type="checkbox"
+                   checked="@(entry.Receipt != null)"
+                   disabled>
+          </td>
+        </tr>
+      }
+      @if (Model.Entries.Count() == 0)
+      {
+        <tr>
+          <td colspan="12">
+            <div class="empty-list-label">There are no Expense Entries.</div>
+          </td>
+        </tr>
+      }
+      else
+      {
+        <tr>
+          <td class="table-header" 
+              colspan="3">Totals</td>
+          <td>
+            @Model.Entries.Sum(ee => ee.Hotel)
+          </td>
+          <td>
+            @Model.Entries.Sum(ee => ee.Transport)
+          </td>
+          <td>
+            @Model.Entries.Sum(ee => ee.Fuel)
+          </td>
+          <td>
+            @Model.Entries.Sum(ee => ee.Meals)
+          </td>
+          <td>
+            @Model.Entries.Sum(ee => ee.Phone)
+          </td>
+          <td>
+            @Model.Entries.Sum(ee => ee.Entertainment)
+          </td>
+          <td>
+            @Model.Entries.Sum(ee => ee.Misc)
+          </td>
+          <td>
+            @Model.Entries.Sum(ee => ee.Total)
+          </td>
+          <td></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <dl>
     <dt>
-      @Html.DisplayNameFor(model => model.Comment)
+      @Html.DisplayNameFor(model => model.Comment):
     </dt>
     <dd>
-      @Html.DisplayFor(model => model.Comment)
+      @if (string.IsNullOrWhiteSpace(Model.Comment))
+      {
+        <label>No Comment</label>
+      }
+      else
+      {
+        @Html.DisplayFor(model => model.Comment)
+      }
     </dd>
 
-    <dt>
-      @Html.DisplayNameFor(model => model.RejectionComment)
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.RejectionComment)
-    </dd>
+    @if (Model.Status == ExpenseApp.Models.DB.Status.Rejected)
+    {
+      <dt>
+        Rejection Comment:
+      </dt>
+      <dd>
+        @Html.DisplayFor(model => model.RejectionComment)
+      </dd>
+    }
 
     <dt>
-      @Html.DisplayNameFor(model => model.Status)
+      @Html.DisplayNameFor(model => model.Status):
     </dt>
     <dd>
       @Html.DisplayFor(model => model.Status)
     </dd>
   </dl>
 </div>
-<div>
-  <a asp-action="Edit" asp-route-id="@Model.StatementNumber">Edit</a> |
-  <a asp-action="Index">Back to List</a>
+<div class="button-group">
+  <a class="button-secondary"
+     href="@Url.Action("Index", "Form")">Back to Home</a>
+  <a class="button-primary"
+     href="@Url.Action("Edit", "Form", new
+      {
+          statementNumber = Model.StatementNumber
+      })">Edit</a>
 </div>

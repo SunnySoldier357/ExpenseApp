@@ -62,6 +62,7 @@ namespace ExpenseApp.Controllers
                     .ThenInclude(ee => ee.Receipt)
                 .Include(ef => ef.Employee)
                     .ThenInclude(e => e.Approver)
+                .Include(ef => ef.Employee.Location)
                 .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
 
             return View(form);
