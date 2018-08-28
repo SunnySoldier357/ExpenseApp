@@ -1,0 +1,98 @@
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model ExpenseApp.Models.DB.ExpenseForm
+
+@{
+  Layout = "_Layout";
+}
+
+@section Title { Expense Report Details }
+
+@section Header {
+  <h1>Expense Report Details</h1>
+}
+
+<h2>Details</h2>
+
+<div>
+  <h4>@Model.StatementNumber</h4>
+  <hr />
+  <dl>
+    <dt>
+      @Html.DisplayNameFor(model => model.Title):
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Title)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Purpose):
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Purpose)
+    </dd>
+
+    <dt>Period:</dt>
+    <dd>
+      @Model.From.ToShortDateString() –
+      @Model.To.ToShortDateString()
+    </dd>
+
+    <dt class="dl-header">
+      Consultant Information
+    </dt>
+
+    <dt>
+      Name:
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Employee.FullName)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Project):
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Project)
+    </dd>
+
+    <dt>
+      Approver:
+    </dt>
+    <dd>
+      @if (Model.Employee.IsAnApprover)
+      {
+        <span>N.A.</span>
+      }
+      else
+      {
+        @Html.DisplayFor(model => model.Employee.Approver.FullName)
+      }
+
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Comment)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Comment)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.RejectionComment)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.RejectionComment)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Status)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Status)
+    </dd>
+  </dl>
+</div>
+<div>
+  <a asp-action="Edit" asp-route-id="@Model.StatementNumber">Edit</a> |
+  <a asp-action="Index">Back to List</a>
+</div>

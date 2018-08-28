@@ -4,6 +4,7 @@ using System.Linq;
 using ExpenseApp.Models.DB;
 using ExpenseApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseApp.Controllers
 {
@@ -52,12 +53,26 @@ namespace ExpenseApp.Controllers
             return View(new ExpenseCreateViewModel(_db, SignedInEmployee.Id));
         }
 
-        [HttpPost]
+        public IActionResult Details(string statementNumber)
+        {
+            ExpenseForm form = _db.ExpenseForms
+                .Include(ef => ef.Entries)
+                    .ThenInclude(ee => ee.Account)
+                .Include(ef => ef.Entries)
+                    .ThenInclude(ee => ee.Receipt)
+                .Include(ef => ef.Employee)
+                    .ThenInclude(e => e.Approver)
+                .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
+
+            return View(form);
+        }
+
+        [HttpGet]
+        [Route("Form/GetNextIdNumber/{statementNumber}")]
         public IActionResult GetNextIdNumber(string statementNumber)
         {
             var forms = from ef in _db.ExpenseForms
-                        where ef.StatementNumber.Substring(0, ef.StatementNumber.Length - 3) == 
-                            statementNumber
+                        where ef.StatementNumber.StartsWith(statementNumber + "-")
                         select ef;
 
             return Json(data: forms.Count() + 1);

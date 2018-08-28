@@ -66,6 +66,7 @@ dt {
     width: 10%;
     padding: 0;
     margin: 0px 10px;
+    font-weight: bold;
 }
 
 dd {
@@ -75,9 +76,16 @@ dd {
     margin: 0;
 }
 
+.dl-header {
+    font-size: 1.5rem;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 #expense-search-type {
     display: inline-block;
-    margin-bottom: 30px; 
+    margin-bottom: 30px;
 }
 
 /* Controls */

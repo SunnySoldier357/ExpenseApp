@@ -122,7 +122,10 @@
           <td>@listing.StatementNumber</td>
           <td>@listing.Title</td>
           <td>@listing.Status</td>
-          <td>Edit | Details</td>
+          <td>Edit | @Html.ActionLink("Details", "Details", "Form", new
+                {
+                    statementNumber = listing.StatementNumber
+                })</td>
         </tr>
       }
       @if (Model.Count() == 0)

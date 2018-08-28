@@ -123,7 +123,7 @@ namespace ExpenseApp.Models.DB
                 + Entertainment + Misc;
         }
 
-        public string ReceiptId { get; set; } = null;
+        public Receipt Receipt { get; set; }
         
         private void AddCostGroup(char group, decimal cost)
         {
