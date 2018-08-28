@@ -40,7 +40,7 @@ namespace ExpenseApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new ExpenseCreateViewModel(_db, SignedInEmployee));
+            return View(new ExpenseCreateViewModel(_db, SignedInEmployee.Id));
         }
 
         [HttpPost]
@@ -49,7 +49,18 @@ namespace ExpenseApp.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            return View(new ExpenseCreateViewModel(_db, SignedInEmployee));
+            return View(new ExpenseCreateViewModel(_db, SignedInEmployee.Id));
+        }
+
+        [HttpPost]
+        public IActionResult GetNextIdNumber(string statementNumber)
+        {
+            var forms = from ef in _db.ExpenseForms
+                        where ef.StatementNumber.Substring(0, ef.StatementNumber.Length - 3) == 
+                            statementNumber
+                        select ef;
+
+            return Json(data: forms.Count() + 1);
         }
     }
 }

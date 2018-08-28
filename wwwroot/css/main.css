@@ -146,10 +146,6 @@ th, td {
     text-align: left;
 }
 
-#expense-entry-table input[type="number"] {
-    width: 80px;
-}
-
 #expense-entry-table {
     margin-bottom: 20px;
 }

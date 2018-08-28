@@ -10,6 +10,12 @@
   <h1>Skill-Up Expense Report</h1>
 }
 
+@section Scripts {
+  <script src="~/scripts/form.js"
+          type="text/javascript"
+          defer></script>
+}
+
 <form asp-action="Create">
 
   @Html.AntiForgeryToken()
@@ -44,7 +50,8 @@
     <div class="input-container grid-item">
       <label class="label"
              asp-for="Form.StatementNumber"></label>
-      <input class="input-field"
+      <input id="statement-number-field"
+             class="input-field"
              type="text"
              asp-for="Form.StatementNumber"
              readonly />
@@ -52,13 +59,28 @@
 
     <!-- Period -->
     <div class="input-container grid-item">
-      <label class="label"
-             asp-for="Form.From"></label>
-      <input class="input-field"
-             type="date"
-             asp-for="Form.From" />
-      <span class="error-label"
-            asp-validation-for="Form.From"></span>
+      <div class="grid-container">
+        <div class="input-container grid-item">
+          <label class="label"
+                 asp-for="Form.From"></label>
+          <input id="from-field"
+                 class="input-field"
+                 type="date"
+                 asp-for="Form.From" />
+          <span class="error-label"
+                asp-validation-for="Form.From"></span>
+        </div>
+
+        <div class="input-container grid-item">
+          <label class="label"
+                 asp-for="Form.To"></label>
+          <input class="input-field"
+                 type="date"
+                 asp-for="Form.To" />
+          <span class="error-label"
+                asp-validation-for="Form.To"></span>
+        </div>
+      </div>
     </div>
   </div>
   <h2>Consultant Information</h2>
@@ -78,7 +100,8 @@
     <div class="input-container grid-item">
       <label class="label"
              asp-for="Form.Project"></label>
-      <input type="text"
+      <input id="project-field"
+             type="text"
              asp-for="Form.Project"
              class="input-field"
              placeholder="CLIENT-PROJECT" />
@@ -132,56 +155,21 @@
       @foreach (var entry in Model.Form.Entries)
       {
         <tr>
-          <td>
-            <input type="date"
-                   asp-for="@entry.Date">
-          </td>
-          <td>
-            <select asp-for="@entry.Account"
-                    asp-items="@{new SelectList(Model.Accounts, "Name", "Name")}"></select>
-          </td>
-          <td>
-            <textarea class="textarea-field"
-                      asp-for="@entry.Description"></textarea>
-          </td>
-          <td>
-            <input class="input-field"
-                   type="number"
-                   asp-for="@entry.Hotel">
-          </td>
-          <td>
-            <input class="input-field"
-                   type="number"
-                   asp-for="@entry.Transport">
-          </td>
-          <td>
-            <input class="input-field"
-                   type="number"
-                   asp-for="@entry.Fuel">
-          </td>
-          <td>
-            <input class="input-field"
-                   type="number"
-                   asp-for="@entry.Meals">
-          </td>
-          <td>
-            <input class="input-field"
-                   type="number"
-                   asp-for="@entry.Phone">
-          </td>
-          <td>
-            <input class="input-field"
-                   type="number"
-                   asp-for="@entry.Entertainment">
-          </td>
-          <td>
-            <input class="input-field"
-                   type="number"
-                   asp-for="@entry.Misc">
-          </td>
+          <td>@entry.Date.ToShortDateString()</td>
+          <td>@entry.Account.Name</td>
+          <td>@entry.Description</td>
+          <td>@entry.Hotel</td>
+          <td>@entry.Transport</td>
+          <td>@entry.Fuel</td>
+          <td>@entry.Meals</td>
+          <td>@entry.Phone</td>
+          <td>@entry.Entertainment</td>
+          <td>@entry.Misc</td>
           <td>@entry.Total</td>
           <td>
-            <input type="file">
+            <input type="checkbox"
+                   checked="@(entry.ReceiptId != null)"
+                   disabled>
           </td>
         </tr>
       }

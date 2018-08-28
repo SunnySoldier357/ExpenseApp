@@ -1,5 +1,6 @@
 ﻿using ExpenseApp.Models.DB;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,15 +17,13 @@ namespace ExpenseApp.ViewModels
             Accounts = new List<Account>();
         }
 
-        public ExpenseCreateViewModel(ExpenseDBDataContext db, Employee SignedInEmployee)
+        public ExpenseCreateViewModel(ExpenseDBDataContext db, Guid signedInUserId)
         {
-            Form = db.ExpenseForms
-                .Include(ef => ef.Employee)
-                    .ThenInclude(e => e.Location)
-                .Include(ef => ef.Employee.Approver)
-                .Include(ef => ef.Entries)
-                    .ThenInclude(ee => ee.Account)
-                .FirstOrDefault(ef => ef.StatementNumber == "0818-MICROSOFT-AURORA-01");
+            Employee signedInEmployee = db.Employees
+                .Include(e => e.Approver)
+                .Include(e => e.Location)
+                .FirstOrDefault(e => e.Id == signedInUserId);
+            Form = new ExpenseForm(signedInEmployee);
             Accounts = db.Accounts
                 .OrderBy(a => a.Name)
                 .ToList();
