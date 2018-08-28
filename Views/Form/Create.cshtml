@@ -181,6 +181,40 @@
           </td>
         </tr>
       }
+      else
+      {
+        <tr>
+          <td class="table-header"
+              colspan="3">
+            Totals
+          </td>
+          <td>
+            @Model.Form.Entries.Sum(ee => ee.Hotel)
+          </td>
+          <td>
+            @Model.Form.Entries.Sum(ee => ee.Transport)
+          </td>
+          <td>
+            @Model.Form.Entries.Sum(ee => ee.Fuel)
+          </td>
+          <td>
+            @Model.Form.Entries.Sum(ee => ee.Meals)
+          </td>
+          <td>
+            @Model.Form.Entries.Sum(ee => ee.Phone)
+          </td>
+          <td>
+            @Model.Form.Entries.Sum(ee => ee.Entertainment)
+          </td>
+          <td>
+            @Model.Form.Entries.Sum(ee => ee.Misc)
+          </td>
+          <td>
+            @Model.Form.Entries.Sum(ee => ee.Total)
+          </td>
+          <td></td>
+        </tr>
+      }
     </tbody>
   </table>
 
