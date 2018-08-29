@@ -210,7 +210,7 @@
           <td>@Model.Entries[i].Total</td>
           <td>
             <input type="checkbox"
-                   checked="@(Model.Entries[i].Receipt != null)"
+                   checked="@Model.Entries[i].Receipt"
                    disabled>
           </td>
           @Html.HiddenFor(model => model.Entries[i].Receipt)
@@ -220,7 +220,7 @@
       @if (Model.Entries.Count() == 0)
       {
         <tr>
-          <td colspan="12">
+          <td colspan="13">
             <div class="empty-list-label">There are no Expense Entries.</div>
           </td>
         </tr>
@@ -256,6 +256,7 @@
           <td>
             @Model.Entries.Sum(ee => ee.Total)
           </td>
+          <td></td>
           <td></td>
         </tr>
       }

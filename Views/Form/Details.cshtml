@@ -97,6 +97,7 @@
         <th>Misc.</th>
         <th>Total</th>
         <th>Receipt</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -119,12 +120,19 @@
                    checked="@(entry.Receipt != null)"
                    disabled>
           </td>
+          <td>
+            @Html.ActionLink("See Image", "Details", "Entry", new
+            {
+                statementNumber = ViewBag.StatementNumber,
+                id = entry.Id
+            })
+          </td>
         </tr>
       }
       @if (Model.Entries.Count() == 0)
       {
         <tr>
-          <td colspan="12">
+          <td colspan="13">
             <div class="empty-list-label">There are no Expense Entries.</div>
           </td>
         </tr>
@@ -134,7 +142,7 @@
         <tr>
           <td class="table-header"
               colspan="3">
-            Total 
+            Total
           </td>
           <td>
             @Model.Entries.Sum(ee => ee.Hotel)
@@ -160,7 +168,8 @@
           <td>
             @Model.Entries.Sum(ee => ee.Total)
           </td>
-          <td></td>
+          <td class="table-header" 
+              colspan="2"></td>
         </tr>
       }
     </tbody>
@@ -203,7 +212,7 @@
   <a class="button-secondary"
      href="@Url.Action("Index", "Form")">Back to Home</a>
   @if (Model.Status == ExpenseApp.Models.DB.Status.Saved ||
-      Model.Status == ExpenseApp.Models.DB.Status.Rejected)
+     Model.Status == ExpenseApp.Models.DB.Status.Rejected)
   {
     <a class="button-primary"
        href="@Url.Action("Edit", "Form", new

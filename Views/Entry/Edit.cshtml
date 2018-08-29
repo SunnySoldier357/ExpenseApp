@@ -5,43 +5,143 @@
   Layout = "_Layout";
 }
 
-<h2>Edit</h2>
+@section Title { Expense Entry Edit }
 
-<h4>ExpenseEntry</h4>
+@section Header {
+  <h1>Edit Expense Claim</h1>
+}
+
+<h4>Expense Claim</h4>
 <hr />
-<form asp-action="Edit">
-  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-controller="Entry"
+      asp-action="Edit">
+  <div class="error-label"
+       asp-validation-summary="ModelOnly"></div>
 
-  @Html.HiddenFor(model => model.Id)
-
-  <div class="form-group">
-    <label asp-for="Date" class="control-label"></label>
-    <input asp-for="Date" class="form-control" />
-    <span asp-validation-for="Date" class="text-danger"></span>
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="Date"></label>
+    <input class="input-field"
+           type="date"
+           asp-for="Date" />
+    <span class="error-label"
+          asp-validation-for="Date"></span>
   </div>
 
-  <div class="form-group">
-    <label asp-for="Description" class="control-label"></label>
-    <input asp-for="Description" class="form-control" />
-    <span asp-validation-for="Description" class="text-danger"></span>
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="Account.Name"></label>
+    <select class="input-field"
+            asp-for="Account.Name"
+            asp-items="@{new SelectList(ViewBag.Accounts, "Name", "Name")}"></select>
+    <span class="error-label"
+          asp-validation-for="Account.Name"></span>
   </div>
 
-  <div class="form-group">
-    <label asp-for="Cost" class="control-label"></label>
-    <input asp-for="Cost" class="form-control" />
-    <span asp-validation-for="Cost" class="text-danger"></span>
+  <div class="textarea-container field-group">
+    <label class="label"
+           asp-for="Description"></label>
+    <textarea class="textarea-field"
+              asp-for="Description"></textarea>
+    <span class="error-label"
+          asp-validation-for="Description"></span>
+  </div>
+
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="Hotel"></label>
+    <input class="input-field"
+           type="number"
+           step=".01"
+           asp-for="Hotel" />
+    <span class="error-label"
+          asp-validation-for="Hotel"></span>
+  </div>
+
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="Transport"></label>
+    <input class="input-field"
+           type="number"
+           step=".01"
+           asp-for="Transport" />
+    <span class="error-label"
+          asp-validation-for="Transport"></span>
+  </div>
+
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="Fuel"></label>
+    <input class="input-field"
+           type="number"
+           step=".01"
+           asp-for="Fuel" />
+    <span class="error-label"
+          asp-validation-for="Fuel"></span>
+  </div>
+
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="Meals"></label>
+    <input class="input-field"
+           type="number"
+           step=".01"
+           asp-for="Meals" />
+    <span class="error-label"
+          asp-validation-for="Meals"></span>
+  </div>
+
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="Phone"></label>
+    <input class="input-field"
+           type="number"
+           step=".01"
+           asp-for="Phone" />
+    <span class="error-label"
+          asp-validation-for="Phone"></span>
+  </div>
+
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="Entertainment"></label>
+    <input class="input-field"
+           type="number"
+           step=".01"
+           asp-for="Entertainment" />
+    <span class="error-label"
+          asp-validation-for="Entertainment"></span>
+  </div>
+
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="Misc"></label>
+    <input class="input-field"
+           type="number"
+           step=".01"
+           asp-for="Misc" />
+    <span class="error-label"
+          asp-validation-for="Misc"></span>
+  </div>
+
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="Receipt.ReceiptImage"></label>
+    <input type="file"
+           asp-for="Receipt.ReceiptImage" />
+    <span class="error-label"
+          asp-validation-for="Receipt.ReceiptImage"></span>
   </div>
 
   <div class="button-group">
     <a class="button-secondary"
-       href="@Url.Action("List", "Account")">Cancel</a>
+       href="@Url.Action("Edit", "Form", new
+            {
+              statementNumber = ViewBag.StatementNumber
+            })">Cancel</a>
     <button class="button-primary"
             type="submit">
       Save
     </button>
   </div>
 </form>
-
-<div>
-  <a asp-action="Index">Back to List</a>
-</div>

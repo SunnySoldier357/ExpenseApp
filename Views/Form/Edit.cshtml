@@ -19,6 +19,13 @@
 
   @Html.AntiForgeryToken()
 
+  <p class="error-label">
+    @if (null != ViewBag.Message)
+    {
+      @ViewBag.Message
+    }
+  </p>
+
   <div class="error-label validation-summary-errors"
        asp-validation-summary="ModelOnly"></div>
 
@@ -181,6 +188,7 @@
         <th>Misc.</th>
         <th>Total</th>
         <th>Receipt</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -190,7 +198,7 @@
           <td>
             <input type="hidden"
                    asp-for="Entries[i].Date" />
-              @Model.Entries[i].Date.ToShortDateString()
+            @Model.Entries[i].Date.ToShortDateString()
           </td>
           <td>
             <input type="hidden"
@@ -217,12 +225,29 @@
           </td>
           @Html.HiddenFor(model => model.Entries[i].Receipt)
           @Html.HiddenFor(model => model.Entries[i].Cost)
+          <td>
+            @Html.ActionLink("Edit", "Edit", "Entry", new
+            {
+                statementNumber = ViewBag.StatementNumber,
+                id = Model.Entries[i].Id
+            }) |
+            @Html.ActionLink("See Image", "Details", "Entry", new
+            {
+                statementNumber = ViewBag.StatementNumber,
+                id = Model.Entries[i].Id
+            }) |
+            @Html.ActionLink("Delete", "Delete", "Entry", new
+            {
+                statementNumber = ViewBag.StatementNumber,
+                id = Model.Entries[i].Id
+            })
+          </td>
         </tr>
       }
       @if (Model.Entries.Count() == 0)
       {
         <tr>
-          <td colspan="12">
+          <td colspan="13">
             <div class="empty-list-label">There are no Expense Entries.</div>
           </td>
         </tr>
@@ -258,7 +283,8 @@
           <td>
             @Model.Entries.Sum(ee => ee.Total)
           </td>
-          <td></td>
+          <td class="table-header"
+              colspan="2"></td>
         </tr>
       }
     </tbody>

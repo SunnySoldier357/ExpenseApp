@@ -107,11 +107,12 @@ namespace ExpenseApp.Controllers
             }
         }
 
-        [HttpGet, Route("form/edit/{statementNumber}")]
-        public IActionResult Edit(string statementNumber)
+        [HttpGet, Route("form/edit/{statementNumber}/{message?}")]
+        public IActionResult Edit(string statementNumber, string message)
         {
             ViewBag.ShowErrors = true;
             ViewBag.StatementNumber = statementNumber;
+            ViewBag.Message = message;
 
             ExpenseForm form = _db.ExpenseForms
                 .Include(ef => ef.Entries)
@@ -132,7 +133,7 @@ namespace ExpenseApp.Controllers
             return View(form);
         }
 
-        [HttpPost, Route("form/edit/{statementNumber}")]
+        [HttpPost, Route("form/edit/{statementNumber}/{message?}")]
         public IActionResult Edit(string statementNumber, ExpenseForm updated, string command)
         {
             ExpenseForm form = _db.ExpenseForms
@@ -151,7 +152,7 @@ namespace ExpenseApp.Controllers
                 {
                     ModelState.AddModelError("", "A title is required to save this report.");
                     ViewBag.ShowErrors = false;
-                    return View(form);
+                    return View(updated);
                 }
 
                 fillInTempValues(updated, true);
@@ -182,7 +183,7 @@ namespace ExpenseApp.Controllers
                     ModelState.AddModelError("", "There must be at least 1 Expense Entry");
 
                 if (!ModelState.IsValid)
-                    return View(form);
+                    return View(updated);
 
                 _db.ExpenseForms.Remove(form);
                 _db.SaveChanges();
@@ -204,7 +205,7 @@ namespace ExpenseApp.Controllers
             else
             {
                 ViewBag.ShowErrors = true;
-                return View(form);
+                return View(updated);
             }
         }
 
