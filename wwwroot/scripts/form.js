@@ -61,7 +61,7 @@ function statementNumber()
                 STATEMENT_NUMBER_FIELD.value = string;
             }
         };
-        xhttp.open("GET", "/Form/GetNextIdNumber/" + string, true);
+        xhttp.open("GET", "/form/getnextidnumber/" + string, true);
         xhttp.send();
     }
     else

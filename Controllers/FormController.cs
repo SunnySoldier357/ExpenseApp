@@ -25,6 +25,9 @@ namespace ExpenseApp.Controllers
                 new Guid("4c21f8bf-8d79-48fb-bc05-8e846714a006"));
         }
 
+        [Route("")]
+        [Route("form")]
+        [Route("form/index")]
         public IActionResult Index()
         {
             var forms = from f in _db.ExpenseForms
@@ -45,7 +48,7 @@ namespace ExpenseApp.Controllers
             return View(listings);
         }
 
-        [HttpGet]
+        [HttpGet, Route("form/create")]
         public IActionResult Create()
         {
             var signedInUser = _db.Employees
@@ -58,7 +61,7 @@ namespace ExpenseApp.Controllers
             return View(new ExpenseForm(signedInUser));
         }
 
-        [HttpPost]
+        [HttpPost, Route("form/create")]
         public IActionResult Create(ExpenseForm form, string command)
         {
             if (command == "Save")
@@ -96,7 +99,7 @@ namespace ExpenseApp.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet, Route("form/details/{statementNumber}")]
         public IActionResult Details(string statementNumber)
         {
             ExpenseForm form = _db.ExpenseForms
@@ -115,8 +118,7 @@ namespace ExpenseApp.Controllers
             return View(form);
         }
 
-        [HttpGet]
-        [Route("Form/GetNextIdNumber/{statementNumber}")]
+        [HttpGet, Route("form/getnextidnumber/{statementNumber}")]
         public IActionResult GetNextIdNumber(string statementNumber) => 
             Json(data: getNextIdNumber(statementNumber));
 
