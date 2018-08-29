@@ -96,13 +96,14 @@ namespace ExpenseApp.Controllers
             });
         }
 
-        [Route("{id}")]
-        public IActionResult Details(string statementNumber, string id)
+        [Route("{id}/{returnUrl}")]
+        public IActionResult Details(string statementNumber, string id, string returnUrl)
         {
             ExpenseEntry entry = _db.ExpenseEntries
                 .Find(new Guid(id));
 
             ViewBag.StatementNumber = statementNumber;
+            ViewBag.ReturnUrl = Uri.UnescapeDataString(returnUrl);
 
             return View(entry);
         }
