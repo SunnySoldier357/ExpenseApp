@@ -13,9 +13,12 @@ namespace ExpenseApp.Models.DB
         Paid
     }
     
-    public class ExpenseForm
+    public class ExpenseForm : IValidatableObject
     {
-        public ExpenseForm() : this(null) { }
+        public ExpenseForm()
+        {
+            Entries = new List<ExpenseEntry>();
+        }
 
         public ExpenseForm(Employee signedInEmployee)
         {
@@ -49,5 +52,50 @@ namespace ExpenseApp.Models.DB
         public Status Status { get; set; }
         
         public List<ExpenseEntry> Entries { get; set; }
+
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            if (From.Month != To.Month)
+            {
+                yield return new ValidationResult(
+                    "The Period From data must have the same month as the Period To date."
+                );
+            }
+            if (From.Year != To.Year)
+            {
+                yield return new ValidationResult(
+                    "The Period From data must have the same year as the Period To date."
+                );
+            }
+            if (!Project.Contains('-') || Project.Split('-').Length != 2)
+            {
+                yield return new ValidationResult(
+                    "Project must follow this convention: CLIENT-PROJECT.", new[] { "Project" }
+                );
+            }
+            if (Entries.Count != 0)
+            {
+                foreach (var entry in Entries)
+                {
+                    if (entry.Date.CompareTo(From) < 0)
+                    {
+                        yield return new ValidationResult(
+                            "The From date has to be the same or earlier than any of the Expense " +
+                            "Claim dates (" + entry.Date.ToShortDateString() + ").",
+                            new[] { "From" }
+                        );
+                    }
+
+                    if (entry.Date.CompareTo(To) > 0)
+                    {
+                        yield return new ValidationResult(
+                            "The To date has to be the same or later than any of the Expense " +
+                            "Claim dates (" + entry.Date.ToShortDateString() + ").",
+                            new[] { "To" }
+                        );
+                    }
+                }
+            }
+        }
     }
 }

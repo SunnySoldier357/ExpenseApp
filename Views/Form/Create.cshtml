@@ -1,5 +1,5 @@
 @addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
-@model ExpenseApp.ViewModels.ExpenseCreateViewModel
+@model ExpenseApp.Models.DB.ExpenseForm
 @{
   Layout = "_Layout";
 }
@@ -20,40 +20,46 @@
 
   @Html.AntiForgeryToken()
 
-  <div class="input-validation-error grid-item"
-       asp-validation-summary="All"></div>
+  <div class="error-label validation-summary-errors"
+       asp-validation-summary="ModelOnly"></div>
 
   <div class="grid-container">
     <!-- Title -->
     <div class="input-container grid-item">
       <label class="label"
-             asp-for="Form.Title"></label>
+             asp-for="Title"></label>
       <input class="input-field"
              type="text"
-             asp-for="Form.Title" />
-      <span class="error-label"
-            asp-validation-for="Form.Title"></span>
+             asp-for="Title" />
+      @if (ViewBag.ShowErrors)
+      {
+        <span class="error-label"
+              asp-validation-for="Title"></span>
+      }
     </div>
 
     <!-- Purpose -->
     <div class="input-container grid-item">
       <label class="label"
-             asp-for="Form.Purpose"></label>
+             asp-for="Purpose"></label>
       <input class="input-field"
              type="text"
-             asp-for="Form.Purpose" />
-      <span class="error-label"
-            asp-validation-for="Form.Purpose"></span>
+             asp-for="Purpose" />
+      @if (ViewBag.ShowErrors)
+      {
+        <span class="error-label"
+              asp-validation-for="Purpose"></span>
+      }
     </div>
 
     <!-- Statement Number -->
     <div class="input-container grid-item">
       <label class="label"
-             asp-for="Form.StatementNumber"></label>
+             asp-for="StatementNumber"></label>
       <input id="statement-number-field"
              class="input-field"
              type="text"
-             asp-for="Form.StatementNumber"
+             asp-for="StatementNumber"
              readonly />
     </div>
 
@@ -62,36 +68,53 @@
       <div class="grid-container">
         <div class="input-container grid-item">
           <label class="label"
-                 asp-for="Form.From"></label>
+                 asp-for="From"></label>
           <input id="from-field"
                  class="input-field"
                  type="date"
-                 asp-for="Form.From" />
-          <span class="error-label"
-                asp-validation-for="Form.From"></span>
+                 asp-for="From" />
+          @if (ViewBag.ShowErrors)
+          {
+            <span class="error-label"
+                  asp-validation-for="From"></span>
+          }
         </div>
 
         <div class="input-container grid-item">
           <label class="label"
-                 asp-for="Form.To"></label>
+                 asp-for="To"></label>
           <input class="input-field"
                  type="date"
-                 asp-for="Form.To" />
-          <span class="error-label"
-                asp-validation-for="Form.To"></span>
+                 asp-for="To" />
+          @if (ViewBag.ShowErrors)
+          {
+            <span class="error-label"
+                  asp-validation-for="To"></span>
+          }
         </div>
       </div>
     </div>
   </div>
+
   <h2>Consultant Information</h2>
+
+  @Html.HiddenFor(model => model.Employee.FirstName)
+  @Html.HiddenFor(model => model.Employee.Id)
+  @Html.HiddenFor(model => model.Employee.LastName)
+
+  @Html.HiddenFor(model => model.Employee.Approver.FirstName)
+  @Html.HiddenFor(model => model.Employee.Approver.LastName)
+  @Html.HiddenFor(model => model.Employee.Approver.Id)
+  @Html.HiddenFor(model => model.Employee.Approver.LastName)
+  @Html.HiddenFor(model => model.Employee.Approver.Location.Name)
 
   <div class="grid-container">
     <!-- Name -->
     <div class="input-container grid-item">
       <label class="label"
-             asp-for="Form.Employee.FullName">Name</label>
+             asp-for="Employee.FullName">Name</label>
       <input type="text"
-             asp-for="Form.Employee.FullName"
+             asp-for="Employee.FullName"
              class="input-field"
              readonly />
     </div>
@@ -99,22 +122,25 @@
     <!-- Project -->
     <div class="input-container grid-item">
       <label class="label"
-             asp-for="Form.Project"></label>
+             asp-for="Project"></label>
       <input id="project-field"
              type="text"
-             asp-for="Form.Project"
+             asp-for="Project"
              class="input-field"
              placeholder="CLIENT-PROJECT" />
-      <span asp-validation-for="Form.Project"
-            class="error-label"></span>
+      @if (ViewBag.ShowErrors)
+      {
+        <span class="error-label"
+              asp-validation-for="Project"></span>
+      }
     </div>
 
     <!-- Location -->
     <div class="input-container grid-item">
       <label class="label"
-             asp-for="Form.Employee.Location.Name"></label>
+             asp-for="Employee.Location.Name"></label>
       <input type="text"
-             asp-for="Form.Employee.Location.Name"
+             asp-for="Employee.Location.Name"
              class="input-field"
              readonly />
     </div>
@@ -122,9 +148,9 @@
     <!-- Approver -->
     <div class="input-container grid-item">
       <label class="label"
-             asp-for="Form.Employee.Approver.FullName"></label>
+             asp-for="Employee.Approver.FullName"></label>
       <input type="text"
-             asp-for="Form.Employee.Approver.FullName"
+             asp-for="Employee.Approver.FullName"
              class="input-field"
              readonly />
     </div>
@@ -152,28 +178,38 @@
       </tr>
     </thead>
     <tbody>
-      @foreach (var entry in Model.Form.Entries)
+      @for (int i = 0; i < Model.Entries.Count(); i++)
       {
         <tr>
-          <td>@entry.Date.ToShortDateString()</td>
-          <td>@entry.Account.Name</td>
-          <td>@entry.Description</td>
-          <td>@entry.Hotel</td>
-          <td>@entry.Transport</td>
-          <td>@entry.Fuel</td>
-          <td>@entry.Meals</td>
-          <td>@entry.Phone</td>
-          <td>@entry.Entertainment</td>
-          <td>@entry.Misc</td>
-          <td>@entry.Total</td>
+          <td>
+            <label asp-for="Entries[i].Date">
+              @Model.Entries[i].Date.ToShortDateString()
+            </label>
+          </td>
+          <td>
+            <label asp-for="Entries[i].Account.Name"></label>
+          </td>
+          <td>
+            <label asp-for="Entries[i].Description"></label>
+          </td>
+          <td>@Model.Entries[i].Hotel</td>
+          <td>@Model.Entries[i].Transport</td>
+          <td>@Model.Entries[i].Fuel</td>
+          <td>@Model.Entries[i].Meals</td>
+          <td>@Model.Entries[i].Phone</td>
+          <td>@Model.Entries[i].Entertainment</td>
+          <td>@Model.Entries[i].Misc</td>
+          <td>@Model.Entries[i].Total</td>
           <td>
             <input type="checkbox"
-                   checked="@(entry.Receipt != null)"
+                   checked="@(Model.Entries[i].Receipt != null)"
                    disabled>
           </td>
+          @Html.HiddenFor(model => model.Entries[i].Receipt)
+          @Html.HiddenFor(model => model.Entries[i].Cost)
         </tr>
       }
-      @if (Model.Form.Entries.Count() == 0)
+      @if (Model.Entries.Count() == 0)
       {
         <tr>
           <td colspan="12">
@@ -189,28 +225,28 @@
             Totals
           </td>
           <td>
-            @Model.Form.Entries.Sum(ee => ee.Hotel)
+            @Model.Entries.Sum(ee => ee.Hotel)
           </td>
           <td>
-            @Model.Form.Entries.Sum(ee => ee.Transport)
+            @Model.Entries.Sum(ee => ee.Transport)
           </td>
           <td>
-            @Model.Form.Entries.Sum(ee => ee.Fuel)
+            @Model.Entries.Sum(ee => ee.Fuel)
           </td>
           <td>
-            @Model.Form.Entries.Sum(ee => ee.Meals)
+            @Model.Entries.Sum(ee => ee.Meals)
           </td>
           <td>
-            @Model.Form.Entries.Sum(ee => ee.Phone)
+            @Model.Entries.Sum(ee => ee.Phone)
           </td>
           <td>
-            @Model.Form.Entries.Sum(ee => ee.Entertainment)
+            @Model.Entries.Sum(ee => ee.Entertainment)
           </td>
           <td>
-            @Model.Form.Entries.Sum(ee => ee.Misc)
+            @Model.Entries.Sum(ee => ee.Misc)
           </td>
           <td>
-            @Model.Form.Entries.Sum(ee => ee.Total)
+            @Model.Entries.Sum(ee => ee.Total)
           </td>
           <td></td>
         </tr>
@@ -221,21 +257,27 @@
   <!-- Comment -->
   <div class="textarea-container">
     <label class="label"
-           asp-for="Form.Comment"></label>
+           asp-for="Comment"></label>
     <textarea class="input-field textarea-field multiline"
-              asp-for="Form.Comment"></textarea>
-    <span asp-validation-for="Form.Comment"
-          class="error-label"></span>
+              asp-for="Comment"></textarea>
+    @if (ViewBag.ShowErrors)
+    {
+      <span class="error-label"
+            asp-validation-for="Comment"></span>
+    }
   </div>
 
   <div class="button-group">
     <a class="button-cancel"
        href="@Url.Action("Index", "Form")">Cancel</a>
-    <button class="button-secondary">Save</button>
-    <button class="button-primary"
-            type="submit">
-      Submit
-    </button>
+    <input class="button-secondary"
+           name="Command"
+           value="Save"
+           type="submit" />
+    <input class="button-primary"
+           name="Command"
+           value="Submit"
+           type="submit" />
   </div>
 
 </form>

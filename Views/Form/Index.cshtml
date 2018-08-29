@@ -71,7 +71,7 @@
         <input class="radio-button"
                type="radio"
                name="sort-type"
-               value="saved" 
+               value="saved"
                onchange="search()" />
         <label class="radio-label">Saved</label>
       </div>
@@ -80,7 +80,7 @@
         <input class="radio-button"
                type="radio"
                name="sort-type"
-               value="submitted" 
+               value="submitted"
                onchange="search()" />
         <label class="radio-label">Submitted</label>
       </div>
@@ -118,14 +118,24 @@
     <tbody>
       @foreach (var listing in Model)
       {
-        <tr>
+        <tr id="@listing.StatementNumber">
           <td>@listing.StatementNumber</td>
           <td>@listing.Title</td>
           <td>@listing.Status</td>
-          <td>Edit | @Html.ActionLink("Details", "Details", "Form", new
-                {
-                    statementNumber = listing.StatementNumber
-                })</td>
+          <td>
+            @if (listing.Status == ExpenseApp.Models.DB.Status.Saved ||
+               listing.Status == ExpenseApp.Models.DB.Status.Rejected)
+            {
+              @Html.ActionLink("Edit", "Edit", "Form", new
+              {
+                statementNumber = listing.StatementNumber
+              })<span> | </span>
+            }
+            @Html.ActionLink("Details", "Details", "Form", new
+            {
+              statementNumber = listing.StatementNumber
+            })
+          </td>
         </tr>
       }
       @if (Model.Count() == 0)

@@ -132,8 +132,10 @@
       else
       {
         <tr>
-          <td class="table-header" 
-              colspan="3">Totals</td>
+          <td class="table-header"
+              colspan="3">
+            Total 
+          </td>
           <td>
             @Model.Entries.Sum(ee => ee.Hotel)
           </td>
@@ -200,9 +202,13 @@
 <div class="button-group">
   <a class="button-secondary"
      href="@Url.Action("Index", "Form")">Back to Home</a>
-  <a class="button-primary"
-     href="@Url.Action("Edit", "Form", new
+  @if (Model.Status == ExpenseApp.Models.DB.Status.Saved ||
+      Model.Status == ExpenseApp.Models.DB.Status.Rejected)
+  {
+    <a class="button-primary"
+       href="@Url.Action("Edit", "Form", new
       {
           statementNumber = Model.StatementNumber
       })">Edit</a>
+  }
 </div>
