@@ -11,6 +11,7 @@ namespace ExpenseApp.Models.DB
 
         [Key]
         [Required]
+        [Display(Name = "Account")]
         public string Name
         {
             get => _name;

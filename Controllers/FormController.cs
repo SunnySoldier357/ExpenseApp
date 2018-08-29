@@ -64,7 +64,7 @@ namespace ExpenseApp.Controllers
         [HttpPost, Route("form/create")]
         public IActionResult Create(ExpenseForm form, string command)
         {
-            if (command == "Save")
+            if (command == "Save" || command == "Create New Entry")
             {
                 if (string.IsNullOrWhiteSpace(form.Title))
                 {
@@ -78,6 +78,11 @@ namespace ExpenseApp.Controllers
                 _db.ExpenseForms.Add(form);
                 _db.SaveChanges();
 
+                if (command == "Create New Entry")
+                    return RedirectToAction("Create", "Entry", new
+                    {
+                        statementNumber = form.StatementNumber
+                    });
                 return RedirectToAction("Index", "Form", form.StatementNumber);
             }
             else if (command == "Submit")
@@ -89,6 +94,110 @@ namespace ExpenseApp.Controllers
 
                 if (!ModelState.IsValid)
                     return View(form);
+
+                _db.ExpenseForms.Add(form);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index", "Form", form.StatementNumber);
+            }
+            else
+            {
+                ViewBag.ShowErrors = true;
+                return View(form);
+            }
+        }
+
+        [HttpGet, Route("form/edit/{statementNumber}")]
+        public IActionResult Edit(string statementNumber)
+        {
+            ViewBag.ShowErrors = true;
+            ViewBag.StatementNumber = statementNumber;
+
+            ExpenseForm form = _db.ExpenseForms
+                .Include(ef => ef.Entries)
+                    .ThenInclude(ee => ee.Account)
+                .Include(ef => ef.Entries)
+                    .ThenInclude(ee => ee.Receipt)
+                .Include(ef => ef.Employee)
+                    .ThenInclude(e => e.Approver)
+                .Include(ef => ef.Employee.Location)
+                .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
+
+            if (!(form.Status == Status.Saved || form.Status == Status.Rejected))
+                return NotFound();
+
+            if (form.Status == Status.Saved)
+                replaceTempValues(form);
+
+            return View(form);
+        }
+
+        [HttpPost, Route("form/edit/{statementNumber}")]
+        public IActionResult Edit(string statementNumber, ExpenseForm updated, string command)
+        {
+            ExpenseForm form = _db.ExpenseForms
+                .Include(ef => ef.Entries)
+                    .ThenInclude(ee => ee.Account)
+                .Include(ef => ef.Entries)
+                    .ThenInclude(ee => ee.Receipt)
+                .Include(ef => ef.Employee)
+                    .ThenInclude(e => e.Approver)
+                .Include(ef => ef.Employee.Location)
+                .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
+
+            if (command == "Save" || command == "Create New Entry")
+            {
+                if (string.IsNullOrWhiteSpace(form.Title))
+                {
+                    ModelState.AddModelError("", "A title is required to save this report.");
+                    ViewBag.ShowErrors = false;
+                    return View(form);
+                }
+
+                fillInTempValues(updated, true);
+
+                form.StatementNumber = updated.StatementNumber;
+                form.Title = updated.Title;
+                form.Comment = updated.Comment;
+                form.From = updated.From;
+                form.To = updated.To;
+                form.Project = updated.Project;
+                form.Purpose = updated.Purpose;
+                form.Status = Status.Saved;
+
+                _db.SaveChanges();
+
+                if (command == "Create New Entry")
+                    return RedirectToAction("Create", "Entry", new
+                    {
+                        statementNumber = form.StatementNumber
+                    });
+                return RedirectToAction("Index", "Form", form.StatementNumber);
+            }
+            else if (command == "Submit")
+            {
+                ViewBag.ShowErrors = true;
+
+                if (form.Entries.Count() == 0)
+                    ModelState.AddModelError("", "There must be at least 1 Expense Entry");
+
+                if (!ModelState.IsValid)
+                    return View(form);
+
+                _db.ExpenseForms.Remove(form);
+                _db.SaveChanges();
+
+                form.StatementNumber = getNewStatementNumber(updated, true);
+                form.Title = updated.Title;
+                form.Comment = updated.Comment;
+                form.From = updated.From;
+                form.To = updated.To;
+                form.Project = updated.Project;
+                form.Purpose = updated.Purpose;
+                form.Status = Status.Submitted;
+
+                _db.ExpenseForms.Add(form);
+                _db.SaveChanges();
 
                 return RedirectToAction("Index", "Form", form.StatementNumber);
             }
@@ -119,7 +228,7 @@ namespace ExpenseApp.Controllers
         }
 
         [HttpGet, Route("form/getnextidnumber/{statementNumber}")]
-        public IActionResult GetNextIdNumber(string statementNumber) => 
+        public IActionResult GetNextIdNumber(string statementNumber) =>
             Json(data: getNextIdNumber(statementNumber));
 
         private int getNextIdNumber(string statementNumber)
@@ -128,10 +237,62 @@ namespace ExpenseApp.Controllers
                         where ef.StatementNumber.StartsWith(statementNumber + "-")
                         select ef;
 
-            return forms.Count() + 1;
+            var nums = (from ef in forms
+                       let statementNum = ef.StatementNumber.Substring(ef.StatementNumber.Length - 2, 2)
+                       orderby statementNum
+                       select int.Parse(statementNum)).ToList();
+
+            if (nums.Count() == 0)
+                return 1;
+
+            int max = nums.Last();
+            if (max < 99)
+                return max + 1;
+            else
+            {
+                int currentIndex = 0;
+                for (int i = 1; i < 99; i++)
+                {
+                    if (nums[currentIndex] == i)
+                        currentIndex++;
+                    else
+                        return i;
+                }
+                return -1;
+            }
         }
 
-        private void fillInTempValues(ExpenseForm form)
+        private string getNewStatementNumber(ExpenseForm form, bool submitting = false)
+        {
+            string result = "";
+
+            if (submitting)
+            {
+                string year = ("" + form.From.Year).Substring(2, 2);
+                string month = "" + (form.From.Month > 10 ? "" : "0") + form.From.Month;
+                string project = form.Project;
+
+                result = string.Format("{0}{1}-{2}", month, year, project);
+            }
+            else
+            {
+                DateTime now = DateTime.Now;
+                string year = ("" + now.Year).Substring(2, 2);
+                string month = "" + (now.Month > 10 ? "" : "0") + now.Month;
+
+                result = string.Format("{0}{1}-TEMP", month, year);
+            }
+            
+            int nextNum = getNextIdNumber(result);
+            result += "-";
+            if (("" + nextNum).Length == 1)
+                result += "0";
+            result += nextNum;
+
+            return result;
+        }
+
+        private void fillInTempValues(ExpenseForm form, bool edit = false)
         {
             if (string.IsNullOrWhiteSpace(form.Purpose))
                 form.Purpose = TEMP_PLACEHOLDER_STRING;
@@ -147,29 +308,21 @@ namespace ExpenseApp.Controllers
 
             form.Status = Status.Saved;
 
-            DateTime now = DateTime.Now;
-            string year = ("" + now.Year).Substring(2, 2);
-            string month = "" + (now.Month > 10 ? "" : "0") + now.Month;
-
-            form.StatementNumber = string.Format("{0}{1}-TEMP", month, year);
-            int nextNum = getNextIdNumber(form.StatementNumber);
-            form.StatementNumber += "-";
-            if(("" + nextNum).Length == 1)
-                form.StatementNumber += "0";
-            form.StatementNumber += nextNum;
+            if (!edit)
+                form.StatementNumber = getNewStatementNumber(form);
         }
 
         private void replaceTempValues(ExpenseForm form, bool detailsPage = false)
         {
             if (form.Purpose == TEMP_PLACEHOLDER_STRING)
                 form.Purpose = detailsPage ? "<Blank>" : "";
-            
+
             if (form.From == TEMP_PLACEHOLDER_DATE)
                 form.From = new DateTime();
-            
+
             if (form.To == TEMP_PLACEHOLDER_DATE)
                 form.To = new DateTime();
-            
+
             if (form.Project == TEMP_PLACEHOLDER_STRING)
                 form.Project = detailsPage ? "<Blank>" : "";
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExpenseApp.Models.DB
 {
@@ -51,6 +52,7 @@ namespace ExpenseApp.Models.DB
         public string RejectionComment { get; set; }
         public Status Status { get; set; }
         
+        [InverseProperty("Form")]
         public List<ExpenseEntry> Entries { get; set; }
 
         IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)

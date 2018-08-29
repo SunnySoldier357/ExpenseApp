@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExpenseApp.Models.DB
 {
-    public class ExpenseEntry
+    public class ExpenseEntry : IValidatableObject
     {
         private string _cost;
 
@@ -23,7 +24,11 @@ namespace ExpenseApp.Models.DB
         public DateTime Date { get; set; }
         public Account Account { get; set; }
         public string Description { get; set; }
-        public string Cost 
+        public Receipt Receipt { get; set; }
+
+        [InverseProperty("Entries")]
+        public ExpenseForm Form { get; set; }
+        public string Cost
         {
             get => _cost;
             set
@@ -66,73 +71,92 @@ namespace ExpenseApp.Models.DB
                 }
             }
         }
-        
+
         [NotMapped]
-        public decimal Hotel
+        public decimal? Hotel
         {
             get => _hotel;
-            set => AddCostGroup('A', value);
+            set => addCostGroup('A', value);
         }
 
         [NotMapped]
-        public decimal Transport
+        public decimal? Transport
         {
             get => _transport;
-            set => AddCostGroup('B', value);
+            set => addCostGroup('B', value);
         }
 
         [NotMapped]
-        public decimal Fuel
+        public decimal? Fuel
         {
             get => _fuel;
-            set => AddCostGroup('C', value);
+            set => addCostGroup('C', value);
         }
 
         [NotMapped]
-        public decimal Meals
+        public decimal? Meals
         {
             get => _meals;
-            set => AddCostGroup('D', value);
+            set => addCostGroup('D', value);
         }
 
         [NotMapped]
-        public decimal Phone
+        public decimal? Phone
         {
             get => _phone;
-            set => AddCostGroup('E', value);
+            set => addCostGroup('E', value);
         }
 
         [NotMapped]
-        public decimal Entertainment
+        public decimal? Entertainment
         {
             get => _entertainment;
-            set => AddCostGroup('F', value);
+            set => addCostGroup('F', value);
         }
 
         [NotMapped]
-        public decimal Misc
+        [Display(Name = "Misc.")]
+        public decimal? Misc
         {
             get => _misc;
-            set => AddCostGroup('G', value);
+            set => addCostGroup('G', value);
         }
 
         [NotMapped]
-        public decimal Total 
+        public decimal? Total
         {
             get => Hotel + Transport + Fuel + Meals + Phone
                 + Entertainment + Misc;
         }
 
-        public Receipt Receipt { get; set; }
-        
-        private void AddCostGroup(char group, decimal cost)
+        public ExpenseEntry()
         {
+            _cost = "";
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (_hotel == 0 && _transport == 0 && _fuel == 0 && _meals == 0 &&
+                _phone == 0 && _entertainment == 0 && _misc == 0)
+            {
+                yield return new ValidationResult(
+                    "At least one of the types of expenses (Hotel, Transport, Fuel," +
+                        " Meals, Phone, Entertainment, Misc.) has to be filled in."
+                );
+            }
+        }
+
+        private void addCostGroup(char group, decimal? cost)
+        {
+            if (null == cost || cost == 0)
+                return;
+
             if (_cost.Contains(group))
             {
                 int index = _cost.IndexOf(group);
                 int endIndex = _cost.IndexOf(';', index);
                 Cost = Cost.Replace(
-                    _cost.Substring(index, endIndex - index + 1), 
+                    _cost.Substring(index, endIndex - index + 1),
                     string.Format("{0}{1:0.00};", group, cost));
             }
             else

@@ -8,12 +8,12 @@
 @section Title { Account Create }
 
 @section Header {
-<h2>@Html.ActionLink("Admin", "Index", "Admin") > @Html.ActionLink("Accounts", "List", "Account") > Create Account</h2>
+  <h2>@Html.ActionLink("Admin", "Index", "Admin") > @Html.ActionLink("Accounts", "List", "Account") > Create Account</h2>
 }
 
 <h4>Account</h4>
 <hr />
-<form asp-controller="Account" 
+<form asp-controller="Account"
       asp-action="Create">
   <div class="error-label"
        asp-validation-summary="ModelOnly"></div>
@@ -21,11 +21,9 @@
   <div class="input-container field-group">
     <label class="label"
            asp-for="Name"></label>
-    <div>
-      <input class="input-field"
-             type="text"
-             asp-for="Name" />
-    </div>
+    <input class="input-field"
+           type="text"
+           asp-for="Name" />
 
     <span class="error-label"
           asp-validation-for="Name"></span>
@@ -35,7 +33,9 @@
     <a class="button-secondary"
        href="@Url.Action("List", "Account")">Cancel</a>
     <button class="button-primary"
-           type="submit">Create</button>
+            type="submit">
+      Create
+    </button>
   </div>
 
 </form>
