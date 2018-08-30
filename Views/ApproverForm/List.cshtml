@@ -13,33 +13,31 @@
 }
 
 <main>
-  <div>
-    <label>Search:</label>
-    <input id="search-input"
-           type="search"
-           placeholder="Search...">
+  <label>Search:</label>
+  <input id="search-input"
+         type="search"
+         placeholder="Search...">
 
-    <div id="expense-search-type"
-         class="radio-container">
-      <div class="radio-group">
-        <input class="radio-button"
-               type="radio"
-               name="search-type"
-               value="statementNumber"
-               onchange="search()"
-               checked>
-        <span class="radio-label">Statement Number</span>
-      </div>
+  <div id="expense-search-type"
+       class="radio-container">
+    <div class="radio-group">
+      <input class="radio-button"
+             name="search-type"
+             type="radio"
+             value="statementNumber"
+             onchange="search()"
+             checked>
+      <span class="radio-label">Statement Number</span>
+    </div>
 
-      <div class="radio-group">
-        <input id="title-radio-button"
-               class="radio-button"
-               type="radio"
-               name="search-type"
-               value="title"
-               onchange="search()">
-        <span class="radio-label">Title</span>
-      </div>
+    <div class="radio-group">
+      <input id="title-radio-button"
+             class="radio-button"
+             name="search-type"
+             type="radio"
+             value="title"
+             onchange="search()">
+      <span class="radio-label">Title</span>
     </div>
   </div>
 
@@ -50,8 +48,8 @@
     <div class="radio-container">
       <div class="radio-group">
         <input class="radio-button"
-               type="radio"
                name="sort-type"
+               type="radio"
                value="none"
                onchange="search()"
                checked />
@@ -60,8 +58,8 @@
 
       <div class="radio-group">
         <input class="radio-button"
-               type="radio"
                name="sort-type"
+               type="radio"
                value="submitted"
                onchange="search()" />
         <label class="radio-label">Submitted</label>
@@ -69,8 +67,8 @@
 
       <div class="radio-group">
         <input class="radio-button"
-               type="radio"
                name="sort-type"
+               type="radio"
                value="approved"
                onchange="search()" />
         <label class="radio-label">Approved</label>
@@ -78,8 +76,8 @@
 
       <div class="radio-group">
         <input class="radio-button"
-               type="radio"
                name="sort-type"
+               type="radio"
                value="paid"
                onchange="search()" />
         <label class="radio-label">Paid</label>
