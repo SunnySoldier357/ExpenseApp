@@ -7,53 +7,50 @@
 @section Title { Employee Details }
 
 @section Header {
-<h1>@Html.ActionLink("Admin", "Index", "Admin") > @Html.ActionLink("Employees", "List", "Approver") > Employee Details</h1>
+  <h1>@Html.ActionLink("Admin", "Index", "Admin") > @Html.ActionLink("Employees", "List", "Approver") > Employee Details</h1>
 }
 
-<div>
-  <h4>Employee</h4>
-  <hr />
+<h4>Employee</h4>
+<hr />
+<dl>
+  <dt>
+    @Html.DisplayNameFor(model => model.FirstName):
+  </dt>
+  <dd>
+    @Html.DisplayFor(model => model.FirstName)
+  </dd>
 
-  <dl>
+  <dt>
+    @Html.DisplayNameFor(model => model.LastName):
+  </dt>
+  <dd>
+    @Html.DisplayFor(model => model.LastName)
+  </dd>
+
+  <dt>
+    @Html.DisplayNameFor(model => model.Location.Name):
+  </dt>
+  <dd>
+    @Html.DisplayFor(model => model.Location.Name)
+  </dd>
+
+  <dt>
+    Is An @Html.DisplayNameFor(model => model.IsAnApprover)
+  </dt>
+  <dd>
+    @(Model.IsAnApprover ? "Yes" : "No")
+  </dd>
+
+  @if (!Model.IsAnApprover)
+  {
     <dt>
-      @Html.DisplayNameFor(model => model.FirstName):
+      @Html.DisplayNameFor(model => model.Approver.FullName):
     </dt>
     <dd>
-      @Html.DisplayFor(model => model.FirstName)
+      @Html.DisplayFor(model => model.Approver.FullName)
     </dd>
-
-    <dt>
-      @Html.DisplayNameFor(model => model.LastName):
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.LastName)
-    </dd>
-
-    <dt>
-      @Html.DisplayNameFor(model => model.Location.Name):
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.Location.Name)
-    </dd>
-
-    <dt>
-      Is An @Html.DisplayNameFor(model => model.IsAnApprover)
-    </dt>
-    <dd>
-      @(Model.IsAnApprover ? "Yes" : "No")
-    </dd>
-
-    @if (!Model.IsAnApprover)
-    {
-      <dt>
-        @Html.DisplayNameFor(model => model.Approver.FullName):
-      </dt>
-      <dd>
-        @Html.DisplayFor(model => model.Approver.FullName)
-      </dd>
-    }
-  </dl>
-</div>
+  }
+</dl>
 <div class="button-group">
   <a class="button-secondary"
      href="@Url.Action("List", "Approver")">Back to List</a>

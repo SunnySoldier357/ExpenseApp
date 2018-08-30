@@ -8,7 +8,7 @@
 @section Title { Employee Edit }
 
 @section Header {
-<h1>@Html.ActionLink("Admin", "Index", "Admin") > @Html.ActionLink("Employees", "List", "Approver") > Edit Employee</h1>
+  <h1>@Html.ActionLink("Admin", "Index", "Admin") > @Html.ActionLink("Employees", "List", "Approver") > Edit Employee</h1>
 }
 
 <h4>Employee</h4>
@@ -24,59 +24,53 @@
   </p>
 
   <div class="input-container field-group">
-    <label class="label">Approver being @(Model.RemovingApproverStatus ? "Removed" : "Added")</label>
-    <div>
-      @if (Model.RemovingApproverStatus)
-      {
-        <input class="input-field"
-               type="text"
-               asp-for="ApproverRemoved.FullName"
-               readonly />
+    <label class="label">
+      Approver being @(Model.RemovingApproverStatus ? "Removed" : "Added")
+    </label>
+    @if (Model.RemovingApproverStatus)
+    {
+      <input class="input-field"
+             asp-for="ApproverRemoved.FullName"
+             type="text"
+             readonly />
 
-        <input type="hidden"
-               asp-for="ApproverRemoved.Id"
-               readonly />
-      }
-      else
-      {
-        <input type="hidden"
-               asp-for="ApproverAdded.Id"
-               readonly />
+      @Html.HiddenFor(model => model.ApproverRemoved.Id)
+    }
+    else
+    {
+      <input class="input-field"
+             asp-for="ApproverAdded.FullName"
+             type="text"
+             readonly />
 
-        <input class="input-field"
-               type="text"
-               asp-for="ApproverAdded.FullName"
-               readonly />
-      }
-    </div>
+      @Html.HiddenFor(model => model.ApproverAdded.Id)
+    }
   </div>
 
   <div class="input-container field-group">
-    <label class="label">Approver being @(Model.RemovingApproverStatus ? "Added" : "Removed")</label>
-    <div>
-      @if (Model.RemovingApproverStatus)
-      {
-        <select asp-for="ApproverAdded.Id"
-                asp-items="@{new SelectList(Model.PossibleReplacements, "Id", "FullName")}"></select>
+    <label class="label">
+      Approver being @(Model.RemovingApproverStatus ? "Added" : "Removed")
+    </label>
+    @if (Model.RemovingApproverStatus)
+    {
+      <select asp-for="ApproverAdded.Id"
+              asp-items="@{new SelectList(Model.PossibleReplacements, "Id", "FullName")}"></select>
 
-        <span class="error-label"
-              asp-validation-for="ApproverAdded.Id"></span>
-      }
-      else
-      {
-        <input type="hidden"
-               asp-for="ApproverRemoved.Id"
-               readonly />
+      <span class="error-label"
+            asp-validation-for="ApproverAdded.Id"></span>
+    }
+    else
+    {
+      <input class="input-field"
+             asp-for="ApproverRemoved.FullName"
+             type="text"
+             readonly />
 
-        <input class="input-field"
-               type="text"
-               asp-for="ApproverRemoved.FullName"
-               readonly />
+      <span class="error-label"
+            asp-validation-for="ApproverRemoved.Id"></span>
 
-        <span class="error-label"
-              asp-validation-for="ApproverRemoved.Id"></span>
-      }
-    </div>
+      @Html.HiddenFor(model => model.ApproverRemoved.Id)
+    }
   </div>
 
   <div class="button-group">
@@ -87,4 +81,5 @@
       Save
     </button>
   </div>
+
 </form>
