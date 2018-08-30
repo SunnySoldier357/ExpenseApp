@@ -11,10 +11,13 @@ namespace ExpenseApp.Controllers
     [Route("approver")]
     public class ApproverFormController : Controller
     {
-        public Employee SignedInApprover;
-
+        // Private Properties
         private readonly ExpenseDBDataContext _db;
 
+        // Public Properties
+        public Employee SignedInApprover;
+
+        // Constructors
         public ApproverFormController(ExpenseDBDataContext db)
         {
             _db = db;
@@ -24,6 +27,7 @@ namespace ExpenseApp.Controllers
                 .FirstOrDefault(e => e.Id == new Guid("9adada3b-2032-4b9d-b23d-afa8e07666da"));
         }
 
+        // Public Methods
         [Route("")]
         public IActionResult List()
         {
@@ -36,7 +40,13 @@ namespace ExpenseApp.Controllers
                 .ThenByDescending(ef => ef.StatementNumber.Substring(0, 2))
                 .ThenBy(ef => ef.StatementNumber.Substring(5, ef.StatementNumber.Length - 8))
                 .ThenByDescending(ef => ef.StatementNumber.Substring(ef.StatementNumber.Length - 2))
-                .Select(ef => new { ef.StatementNumber, ef.Title, ef.Status, EmployeeName = ef.Employee.FullName });
+                .Select(ef => new 
+                    { 
+                        ef.StatementNumber, 
+                        ef.Title, 
+                        ef.Status, 
+                        EmployeeName = ef.Employee.FullName 
+                    });
 
             var listings = new List<ExpenseListViewModel>();
 
@@ -46,7 +56,8 @@ namespace ExpenseApp.Controllers
             return View(listings);
         }
 
-        [HttpGet, Route("{statementNumber}")]
+        [HttpGet]
+        [Route("{statementNumber}")]
         public IActionResult Details(string statementNumber)
         {
             ExpenseForm form = _db.ExpenseForms
@@ -62,7 +73,8 @@ namespace ExpenseApp.Controllers
             return View(form);
         }
 
-        [HttpPost, Route("{statementNumber}")]
+        [HttpPost]
+        [Route("{statementNumber}")]
         public IActionResult Details(string statementNumber, ExpenseForm approved)
         {
             ExpenseForm form = _db.ExpenseForms
@@ -79,7 +91,8 @@ namespace ExpenseApp.Controllers
                 return NotFound();
         }
 
-        [HttpGet, Route("{statementNumber}/reject")]
+        [HttpGet]
+        [Route("{statementNumber}/reject")]
         public IActionResult Reject(string statementNumber)
         {
             ExpenseForm form = _db.ExpenseForms
@@ -88,7 +101,8 @@ namespace ExpenseApp.Controllers
             return View(form);
         }
 
-        [HttpPost, Route("{statementNumber}/reject")]
+        [HttpPost]
+        [Route("{statementNumber}/reject")]
         public IActionResult Reject(string statementNumber, ExpenseForm rejected)
         {
             ExpenseForm form = _db.ExpenseForms

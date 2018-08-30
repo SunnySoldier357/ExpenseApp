@@ -10,13 +10,17 @@ namespace ExpenseApp.Controllers
 {
     public class FormController : Controller
     {
-        private const string TEMP_PLACEHOLDER_STRING = "aqw(*&^%$#@!#$%^TYUI<>>>,.";
+        // Constants
         private readonly DateTime TEMP_PLACEHOLDER_DATE = new DateTime(3333, 5, 11);
+        private const string TEMP_PLACEHOLDER_STRING = "aqw(*&^%$#@!#$%^TYUI<>>>,.";
 
+        // Private Properties
         private readonly ExpenseDBDataContext _db;
 
+        // Public Properties
         public Employee SignedInEmployee;
 
+        // Constructors
         public FormController(ExpenseDBDataContext db)
         {
             _db = db;
@@ -25,11 +29,22 @@ namespace ExpenseApp.Controllers
                 new Guid("4c21f8bf-8d79-48fb-bc05-8e846714a006"));
         }
 
+        // Public Methods
         [Route("")]
         [Route("form")]
         [Route("form/index")]
         public IActionResult Index()
         {
+            // Ordering each ExpenseForm by
+            //     - The Year in the StatementNumber in descending order so the 
+            //       latest year is on the top
+            //     - The Month in the StatementNumber in descending order so the
+            //       latest month in on the top
+            //     - The Project in the StatementNumber so ExpenseForms for the same
+            //       client appear together, especially those of the same project
+            //     - The 2-digit number at the end of the StatementNumber in
+            //       descending order so the latest report for the project is on
+            //       the top
             var forms = from f in _db.ExpenseForms
                         where f.Employee.Id == SignedInEmployee.Id
                         orderby f.StatementNumber.Substring(2, 2) descending,
@@ -48,7 +63,8 @@ namespace ExpenseApp.Controllers
             return View(listings);
         }
 
-        [HttpGet, Route("form/create")]
+        [HttpGet]
+        [Route("form/create")]
         public IActionResult Create()
         {
             var signedInUser = _db.Employees
@@ -61,7 +77,8 @@ namespace ExpenseApp.Controllers
             return View(new ExpenseForm(signedInUser));
         }
 
-        [HttpPost, Route("form/create")]
+        [HttpPost]
+        [Route("form/create")]
         public IActionResult Create(ExpenseForm form, string command)
         {
             if (command == "Save" || command == "Create New Entry")
@@ -70,6 +87,7 @@ namespace ExpenseApp.Controllers
                 {
                     ModelState.AddModelError("", "A title is required to save this report.");
                     ViewBag.ShowErrors = false;
+
                     return View(form);
                 }
 
@@ -79,10 +97,13 @@ namespace ExpenseApp.Controllers
                 _db.SaveChanges();
 
                 if (command == "Create New Entry")
+                {
                     return RedirectToAction("Create", "Entry", new
                     {
                         statementNumber = form.StatementNumber
                     });
+                }
+
                 return RedirectToAction("Index", "Form", form.StatementNumber);
             }
             else if (command == "Submit")
@@ -107,7 +128,30 @@ namespace ExpenseApp.Controllers
             }
         }
 
-        [HttpGet, Route("form/edit/{statementNumber}/{message?}")]
+        [HttpGet]
+        [Route("form/details/{statementNumber}")]
+        public IActionResult Details(string statementNumber)
+        {
+            ExpenseForm form = _db.ExpenseForms
+                .Include(ef => ef.Entries)
+                    .ThenInclude(ee => ee.Account)
+                .Include(ef => ef.Entries)
+                    .ThenInclude(ee => ee.Receipt)
+                .Include(ef => ef.Employee)
+                    .ThenInclude(e => e.Approver)
+                .Include(ef => ef.Employee.Location)
+                .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
+
+            if (form.Status == Status.Saved)
+                replaceTempValues(form, true);
+
+            ViewBag.StatementNumber = statementNumber;
+
+            return View(form);
+        }
+
+        [HttpGet]
+        [Route("form/edit/{statementNumber}/{message?}")]
         public IActionResult Edit(string statementNumber, string message)
         {
             ViewBag.ShowErrors = true;
@@ -133,7 +177,8 @@ namespace ExpenseApp.Controllers
             return View(form);
         }
 
-        [HttpPost, Route("form/edit/{statementNumber}/{message?}")]
+        [HttpPost]
+        [Route("form/edit/{statementNumber}/{message?}")]
         public IActionResult Edit(string statementNumber, ExpenseForm updated, string command)
         {
             ExpenseForm form = _db.ExpenseForms
@@ -152,6 +197,7 @@ namespace ExpenseApp.Controllers
                 {
                     ModelState.AddModelError("", "A title is required to save this report.");
                     ViewBag.ShowErrors = false;
+
                     return View(updated);
                 }
 
@@ -169,10 +215,13 @@ namespace ExpenseApp.Controllers
                 _db.SaveChanges();
 
                 if (command == "Create New Entry")
+                {
                     return RedirectToAction("Create", "Entry", new
                     {
                         statementNumber = form.StatementNumber
                     });
+                }
+
                 return RedirectToAction("Index", "Form", form.StatementNumber);
             }
             else if (command == "Submit")
@@ -209,92 +258,12 @@ namespace ExpenseApp.Controllers
             }
         }
 
-        [HttpGet, Route("form/details/{statementNumber}")]
-        public IActionResult Details(string statementNumber)
-        {
-            ExpenseForm form = _db.ExpenseForms
-                .Include(ef => ef.Entries)
-                    .ThenInclude(ee => ee.Account)
-                .Include(ef => ef.Entries)
-                    .ThenInclude(ee => ee.Receipt)
-                .Include(ef => ef.Employee)
-                    .ThenInclude(e => e.Approver)
-                .Include(ef => ef.Employee.Location)
-                .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
-
-            if (form.Status == Status.Saved)
-                replaceTempValues(form, true);
-
-            ViewBag.StatementNumber = statementNumber;
-
-            return View(form);
-        }
-
-        [HttpGet, Route("form/getnextidnumber/{statementNumber}")]
+        [HttpGet]
+        [Route("form/getnextidnumber/{statementNumber}")]
         public IActionResult GetNextIdNumber(string statementNumber) =>
             Json(data: getNextIdNumber(statementNumber));
 
-        private int getNextIdNumber(string statementNumber)
-        {
-            var forms = from ef in _db.ExpenseForms
-                        where ef.StatementNumber.StartsWith(statementNumber + "-")
-                        select ef;
-
-            var nums = (from ef in forms
-                       let statementNum = ef.StatementNumber.Substring(ef.StatementNumber.Length - 2, 2)
-                       orderby statementNum
-                       select int.Parse(statementNum)).ToList();
-
-            if (nums.Count() == 0)
-                return 1;
-
-            int max = nums.Last();
-            if (max < 99)
-                return max + 1;
-            else
-            {
-                int currentIndex = 0;
-                for (int i = 1; i < 99; i++)
-                {
-                    if (nums[currentIndex] == i)
-                        currentIndex++;
-                    else
-                        return i;
-                }
-                return -1;
-            }
-        }
-
-        private string getNewStatementNumber(ExpenseForm form, bool submitting = false)
-        {
-            string result = "";
-
-            if (submitting)
-            {
-                string year = ("" + form.From.Year).Substring(2, 2);
-                string month = "" + (form.From.Month > 10 ? "" : "0") + form.From.Month;
-                string project = form.Project;
-
-                result = string.Format("{0}{1}-{2}", month, year, project);
-            }
-            else
-            {
-                DateTime now = DateTime.Now;
-                string year = ("" + now.Year).Substring(2, 2);
-                string month = "" + (now.Month > 10 ? "" : "0") + now.Month;
-
-                result = string.Format("{0}{1}-TEMP", month, year);
-            }
-            
-            int nextNum = getNextIdNumber(result);
-            result += "-";
-            if (("" + nextNum).Length == 1)
-                result += "0";
-            result += nextNum;
-
-            return result;
-        }
-
+        // Private Methods
         private void fillInTempValues(ExpenseForm form, bool edit = false)
         {
             if (string.IsNullOrWhiteSpace(form.Purpose))
@@ -313,6 +282,68 @@ namespace ExpenseApp.Controllers
 
             if (!edit)
                 form.StatementNumber = getNewStatementNumber(form);
+        }
+
+        private string getNewStatementNumber(ExpenseForm form, bool submitting = false)
+        {
+            string result = "";
+
+            if (submitting)
+            {
+                string year = ("" + form.From.Year).Substring(2, 2);
+                string month = (form.From.Month > 10 ? "" : "0") + form.From.Month;
+                string project = form.Project;
+
+                result = string.Format("{0}{1}-{2}", month, year, project);
+            }
+            else
+            {
+                DateTime now = DateTime.Now;
+                string year = ("" + now.Year).Substring(2, 2);
+                string month = (now.Month > 10 ? "" : "0") + now.Month;
+
+                result = string.Format("{0}{1}-TEMP", month, year);
+            }
+
+            int nextNum = getNextIdNumber(result);
+            result += "-";
+            if (("" + nextNum).Length == 1)
+                result += "0";
+            result += nextNum;
+
+            return result;
+        }
+
+        private int getNextIdNumber(string statementNumber)
+        {
+            var forms = from ef in _db.ExpenseForms
+                        where ef.StatementNumber.StartsWith(statementNumber + "-")
+                        select ef;
+
+            var nums = (from ef in forms
+                        let statementNum = ef.StatementNumber.Substring(ef.StatementNumber.Length - 2, 2)
+                        orderby statementNum
+                        select int.Parse(statementNum)).ToList();
+
+            if (nums.Count() == 0)
+                return 1;
+
+            int max = nums.Last();
+            if (max < 99)
+                return max + 1;
+            else
+            {
+                int currentIndex = 0;
+                for (int i = 1; i < 99; i++)
+                {
+                    if (nums[currentIndex] == i)
+                        currentIndex++;
+                    else
+                        return i;
+                }
+
+                return -1;
+            }
         }
 
         private void replaceTempValues(ExpenseForm form, bool detailsPage = false)
