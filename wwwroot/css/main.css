@@ -135,6 +135,12 @@ dd {
     width: 100%;
 }
 
+img {
+    max-height: 500px;
+    max-width: 500px;
+    display: block;
+}
+
 /* Tables */
 
 form table td {

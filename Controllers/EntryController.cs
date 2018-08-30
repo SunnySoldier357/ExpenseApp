@@ -53,7 +53,10 @@ namespace ExpenseApp.Controllers
                     using (var memoryStream = new MemoryStream())
                     {
                         await entry.ImageFormFile.CopyToAsync(memoryStream);
-                        entry.Receipt.FileName = entry.ImageFormFile.FileName;
+                        
+                        entry.Receipt.FileName = entry.ImageFormFile.FileName
+                            .Substring(entry.ImageFormFile.FileName.LastIndexOf('\\') + 1);
+                            
                         entry.Receipt.ReceiptImage = memoryStream.ToArray();
                     }
                 }
@@ -116,7 +119,10 @@ namespace ExpenseApp.Controllers
                     using (var memoryStream = new MemoryStream())
                     {
                         await entry.ImageFormFile.CopyToAsync(memoryStream);
-                        entry.Receipt.FileName = entry.ImageFormFile.FileName;
+                        
+                        entry.Receipt.FileName = entry.ImageFormFile.FileName
+                            .Substring(entry.ImageFormFile.FileName.LastIndexOf('\\') + 1);
+
                         entry.Receipt.ReceiptImage = memoryStream.ToArray();
                     }
                 }
@@ -134,7 +140,8 @@ namespace ExpenseApp.Controllers
         public IActionResult Details(string statementNumber, string id, string returnUrl)
         {
             ExpenseEntry entry = _db.ExpenseEntries
-                .Find(new Guid(id));
+                .Include(ee => ee.Receipt)
+                .FirstOrDefault(ee => ee.Id == new Guid(id));
 
             ViewBag.StatementNumber = statementNumber;
             ViewBag.ReturnUrl = Uri.UnescapeDataString(returnUrl);

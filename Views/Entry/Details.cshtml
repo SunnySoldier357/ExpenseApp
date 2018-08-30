@@ -3,6 +3,8 @@
 
 @{
   Layout = "_Layout";
+  var base64 = Convert.ToBase64String(Model.Receipt.ReceiptImage);
+  var imgSrc = string.Format("data:image/jpg;base64,{0}", base64);
 }
 
 @section Title { Expense Entry Details }
@@ -11,9 +13,11 @@
   <h1>Expense Claim Details</h1>
 }
 
-<p>
-  Test Image
-</p>
+<h2>@Model.Receipt.FileName</h2>
 
-<a class="button-secondary"
-   href="@ViewBag.ReturnUrl">Back</a>
+<img src="@imgSrc"/>
+
+<div class="button-group">
+  <a class="button-secondary"
+     href="@ViewBag.ReturnUrl">Back</a>
+</div>
