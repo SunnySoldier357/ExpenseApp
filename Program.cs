@@ -5,6 +5,7 @@ namespace ExpenseApp
 {
     public class Program
     {
+        // Public Methods
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();

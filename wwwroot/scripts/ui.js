@@ -1,3 +1,5 @@
+/// This file is used to allow for searching and sorting for ExpenseForm Lists
+
 document.querySelector("#search-input")
     .addEventListener("keyup", search, false);
 
@@ -14,8 +16,7 @@ function search()
 
     var notDisplayed = 0;
 
-    // Loop through all table rows, and hide those that don't match
-    // the search query
+    // Loop through all table rows, and hide those that don't match the search query
     for (let i = 0; i < TR.length; i++)
     {
         var tdStatus = TR[i].querySelectorAll("td")[2].innerHTML.toLowerCase();
@@ -63,23 +64,10 @@ function search()
 function getSearchType()
 {
     const RADIO_GROUPS = document.querySelectorAll(".filter .radio-group");
-    console.log(RADIO_GROUPS);
     for (let i = 0; i < RADIO_GROUPS.length; i++)
     {
         const INPUT = RADIO_GROUPS[i].querySelector("input");
-        console.log("Checking " + INPUT.getAttribute("value") + "...");
         if (INPUT.checked)
-        {
-            console.log("CHECKED!");
             return INPUT.getAttribute("value");
-        }
     }
-    /*
-        for (var RADIO_GROUP in RADIO_GROUPS)
-        {
-            const INPUT = RADIO_GROUP.querySelector("input");
-            if (INPUT.checked)
-                return INPUT.getAttribute("value");
-        }
-        */
 }

@@ -21,23 +21,40 @@ h1 {
 
 /* Layouts */
 
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* grid-column-gap: 10px; */
-    /* grid-row-gap: 20px; */
-    grid-gap: 10px;
+dl {
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
 }
 
-.grid-item {
-    text-align: center;
+dt {
+    clear: left;
+    float: left;
+    font-weight: bold;
+    margin: 0px 10px;
+    padding: 0;
+    width: 10%;
+}
+
+dd {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 30%;
+}
+
+.dl-header {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .filter {
     float: right;
-    background: #18424E;
-    padding: 10px;
     margin-left: 20px;
+    padding: 10px;
 }
 
 .filter h2 {
@@ -45,42 +62,22 @@ h1 {
 }
 
 .filter .radio-container {
-    flex-direction: column;
     align-items: flex-start;
+    flex-direction: column;
 }
 
 .filter .radio-group {
     text-align: start;
 }
 
-dl {
-    width: 100%;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
+.grid-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr;
 }
 
-dt {
-    clear: left;
-    float: left;
-    width: 10%;
-    padding: 0;
-    margin: 0px 10px;
-    font-weight: bold;
-}
-
-dd {
-    float: left;
-    width: 30%;
-    padding: 0;
-    margin: 0;
-}
-
-.dl-header {
-    font-size: 1.5rem;
-    width: 100%;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.grid-item {
+    text-align: center;
 }
 
 #expense-search-type {
@@ -90,27 +87,26 @@ dd {
 
 /* Controls */
 
+img {
+    display: block;
+    max-height: 500px;
+    max-width: 500px;
+}
+
 .button-group {
     float: right;
     margin-top: 10px;
 }
 
-.button-primary {
-    text-decoration: none;
-    text-align: center;
+.button-primary, .button-secondary, .button-cancel {
     display: inline-block;
+    text-align: center;
+    text-decoration: none;
 }
 
-.button-secondary {
-    text-decoration: none;
+.empty-list-label {
     text-align: center;
-    display: inline-block;
-}
-
-.button-cancel {
-    text-decoration: none;
-    text-align: center;
-    display: inline-block;
+    width: 100%;
 }
 
 .field-group {
@@ -122,23 +118,12 @@ dd {
 }
 
 .field-group div {
-    overflow: hidden;
     margin-left: 10px;
+    overflow: hidden;
 }
 
 .field-group label::after {
     content: ":";
-}
-
-.empty-list-label {
-    text-align: center;
-    width: 100%;
-}
-
-img {
-    max-height: 500px;
-    max-width: 500px;
-    display: block;
 }
 
 /* Tables */
@@ -178,8 +163,8 @@ th, td {
 /* Animations */
 
 .theme-light *:target {
-    -webkit-animation: 5s ease-in target-fade-light;
     -moz-animation: 5s ease-in target-fade-light;
+    -webkit-animation: 5s ease-in target-fade-light;
 }
 
 @-webkit-keyframes target-fade-light {
@@ -242,8 +227,8 @@ th, td {
 .theme-light .table-header {
     background-color: black;
     color: white;
-    text-align: center;
     font-weight: bold;
+    text-align: center;
 }
 
 .theme-light table .approver-row {
@@ -256,8 +241,8 @@ th, td {
 /* Animations */
 
 .theme-dark *:target {
-    -webkit-animation: 5s ease-in target-fade-dark;
     -moz-animation: 5s ease-in target-fade-dark;
+    -webkit-animation: 5s ease-in target-fade-dark;
 }
 
 @-webkit-keyframes target-fade-dark {
@@ -276,6 +261,12 @@ th, td {
     100% {
         background-color: rgba(251, 201, 64, 0);
     }
+}
+
+/* Layouts */
+
+.theme-dark .filter {
+    background-color: #18424E;
 }
 
 /* Controls */
@@ -314,8 +305,8 @@ th, td {
 .theme-dark .table-header {
     background-color: #464775;
     color: white;
-    text-align: center;
     font-weight: bold;
+    text-align: center;
 }
 
 .theme-dark table .approver-row {
@@ -328,8 +319,14 @@ th, td {
 /* Animations */
 
 .theme-contrast *:target {
-    -webkit-animation: 5s ease-in target-fade-dark;
     -moz-animation: 5s ease-in target-fade-dark;
+    -webkit-animation: 5s ease-in target-fade-dark;
+}
+
+/* Layouts */
+
+.theme-contrast .filter {
+    background-color: #18424E;
 }
 
 /* Controls */
@@ -358,8 +355,8 @@ th, td {
 
 .theme-contrast .table-header {
     color: yellow;
-    text-align: center;
     font-weight: bold;
+    text-align: center;
 }
 
 .theme-contrast table .approver-row {

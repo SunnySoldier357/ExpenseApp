@@ -1,3 +1,6 @@
+/// This file is used to allow for autocompletion of the StatementNumber field
+/// in the ExpenseForm editors
+
 const STATEMENT_NUMBER_FIELD = document.querySelector("#statement-number-field");
 const FROM_FIELD = document.querySelector("#from-field");
 const PROJECT_FIELD = document.querySelector("#project-field");

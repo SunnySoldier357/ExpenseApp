@@ -10,13 +10,15 @@ namespace ExpenseApp
 {
     public class Startup
     {
+        // Private Properties
         private readonly IConfigurationRoot configuration;
 
+        // Constructors
         public Startup(IHostingEnvironment env)
         {
             configuration = new ConfigurationBuilder()
                 .AddJsonFile(env.ContentRootPath + "/config.json")
-                .AddJsonFile(env.ContentRootPath + "/config.development.json")
+                .AddJsonFile(env.ContentRootPath + "/config.development.json", true)
                 .Build();
         }
 

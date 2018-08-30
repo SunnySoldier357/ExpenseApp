@@ -1,3 +1,5 @@
+/// This file is used to manage all javascript required specifically for Microsoft Teams
+
 (function() 
 {
     microsoftTeams.initialize();
