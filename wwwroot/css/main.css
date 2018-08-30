@@ -17,6 +17,13 @@ html {
 
 h1 {
     text-align: center;
+    top: 0%;
+    width: 100%;
+    left: 0px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    padding-bottom: 25px;
+    padding-top: 15px;
 }
 
 /* Layouts */
@@ -160,7 +167,7 @@ th, td {
 /* Light Theme
 ------------------------*/
 
-/* Animations */
+/* Headers & Animations */
 
 .theme-light *:target {
     -moz-animation: 5s ease-in target-fade-light;
@@ -185,10 +192,14 @@ th, td {
     }
 }
 
+.theme-light h1 {
+    background-color: rgba(159, 164, 254, 0.781);
+}
+
 /* Layouts */
 
 .theme-light .filter {
-    background-color: #C4E4ED;
+    background-color: #9FA4FE;
 }
 
 /* Controls */
@@ -238,7 +249,7 @@ th, td {
 /* Dark Theme
 ------------------------*/
 
-/* Animations */
+/* Headers & Animations */
 
 .theme-dark *:target {
     -moz-animation: 5s ease-in target-fade-dark;
@@ -263,10 +274,14 @@ th, td {
     }
 }
 
+.theme-dark h1 {
+    background-color: rgba(41, 51, 112, 0.884);
+}
+
 /* Layouts */
 
 .theme-dark .filter {
-    background-color: #18424E;
+    background-color: #293370;
 }
 
 /* Controls */
@@ -316,17 +331,27 @@ th, td {
 /* High Contrast Theme 
 ------------------------*/
 
-/* Animations */
+/* Headers & Animations */
 
 .theme-contrast *:target {
     -moz-animation: 5s ease-in target-fade-dark;
     -webkit-animation: 5s ease-in target-fade-dark;
 }
 
+.theme-contrast h1 {
+    border: 5px solid white;
+    color: yellow;
+}
+
 /* Layouts */
 
 .theme-contrast .filter {
-    background-color: #18424E;
+    border: 2px solid white;
+    color: yellow;
+}
+
+.theme-contrast .radio-container {
+    color: white;
 }
 
 /* Controls */
