@@ -8,211 +8,209 @@
 
 <h2>Details</h2>
 
-<div>
-  <h4>@Model.StatementNumber</h4>
-  <hr />
-  <dl>
-    <dt>
-      @Html.DisplayNameFor(model => model.Title):
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.Title)
-    </dd>
+<h4>@Model.StatementNumber</h4>
+<hr />
+<dl>
+  <dt>
+    @Html.DisplayNameFor(model => model.Title):
+  </dt>
+  <dd>
+    @Html.DisplayFor(model => model.Title)
+  </dd>
 
-    <dt>
-      @Html.DisplayNameFor(model => model.Purpose):
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.Purpose)
-    </dd>
+  <dt>
+    @Html.DisplayNameFor(model => model.Purpose):
+  </dt>
+  <dd>
+    @Html.DisplayFor(model => model.Purpose)
+  </dd>
 
-    <dt>Period:</dt>
-    <dd>
-      @Model.From.ToShortDateString() –
-      @Model.To.ToShortDateString()
-    </dd>
+  <dt>Period:</dt>
+  <dd>
+    @Model.From.ToShortDateString() –
+    @Model.To.ToShortDateString()
+  </dd>
 
-    <dt class="dl-header">
-      Consultant Information
-    </dt>
+  <dt class="dl-header">
+    Consultant Information
+  </dt>
 
-    <dt>
-      Name:
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.Employee.FullName)
-    </dd>
+  <dt>
+    Name:
+  </dt>
+  <dd>
+    @Html.DisplayFor(model => model.Employee.FullName)
+  </dd>
 
-    <dt>
-      @Html.DisplayNameFor(model => model.Project):
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.Project)
-    </dd>
+  <dt>
+    @Html.DisplayNameFor(model => model.Project):
+  </dt>
+  <dd>
+    @Html.DisplayFor(model => model.Project)
+  </dd>
 
-    <dt>
-      @Html.DisplayNameFor(model => model.Employee.Location):
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.Employee.Location.Name)
-    </dd>
+  <dt>
+    @Html.DisplayNameFor(model => model.Employee.Location):
+  </dt>
+  <dd>
+    @Html.DisplayFor(model => model.Employee.Location.Name)
+  </dd>
 
-    <dt>
-      Approver:
-    </dt>
-    <dd>
-      @if (Model.Employee.IsAnApprover)
-      {
-        <span>N.A.</span>
-      }
-      else
-      {
-        @Html.DisplayFor(model => model.Employee.Approver.FullName)
-      }
-
-    </dd>
-
-    <dt class="dl-header">
-      All Expense Entries
-    </dt>
-  </dl>
-
-  <table id="expense-entry-table"
-         class="table">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Account</th>
-        <th>Description</th>
-        <th>Hotel</th>
-        <th>Transport</th>
-        <th>Fuel</th>
-        <th>Meals</th>
-        <th>Phone</th>
-        <th>Entertainment</th>
-        <th>Misc.</th>
-        <th>Total</th>
-        <th>Receipt</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var entry in Model.Entries)
-      {
-        <tr>
-          <td>@entry.Date.ToShortDateString()</td>
-          <td>@entry.Account.Name</td>
-          <td>@entry.Description</td>
-          <td>@entry.Hotel</td>
-          <td>@entry.Transport</td>
-          <td>@entry.Fuel</td>
-          <td>@entry.Meals</td>
-          <td>@entry.Phone</td>
-          <td>@entry.Entertainment</td>
-          <td>@entry.Misc</td>
-          <td>@entry.Total</td>
-          <td>
-            <input type="checkbox"
-                   checked="@(entry.Receipt != null)"
-                   disabled>
-          </td>
-          <td>
-            @if (entry.Receipt != null)
-            {
-              @Html.ActionLink("See Image", "Details", "Entry", new
-              {
-                  statementNumber = ViewBag.StatementNumber,
-                  id = entry.Id,
-                  returnUrl = "/form/details/" + ViewBag.StatementNumber
-              })
-            }
-          </td>
-        </tr>
-      }
-      @if (Model.Entries.Count() == 0)
-      {
-        <tr>
-          <td colspan="13">
-            <div class="empty-list-label">There are no Expense Entries.</div>
-          </td>
-        </tr>
-      }
-      else
-      {
-        <tr>
-          <td class="table-header"
-              colspan="3">
-            Total
-          </td>
-          <td>
-            @Model.Entries.Sum(ee => ee.Hotel)
-          </td>
-          <td>
-            @Model.Entries.Sum(ee => ee.Transport)
-          </td>
-          <td>
-            @Model.Entries.Sum(ee => ee.Fuel)
-          </td>
-          <td>
-            @Model.Entries.Sum(ee => ee.Meals)
-          </td>
-          <td>
-            @Model.Entries.Sum(ee => ee.Phone)
-          </td>
-          <td>
-            @Model.Entries.Sum(ee => ee.Entertainment)
-          </td>
-          <td>
-            @Model.Entries.Sum(ee => ee.Misc)
-          </td>
-          <td>
-            @Model.Entries.Sum(ee => ee.Total)
-          </td>
-          <td class="table-header"
-              colspan="2"></td>
-        </tr>
-      }
-    </tbody>
-  </table>
-
-  <dl>
-    <dt>
-      @Html.DisplayNameFor(model => model.Comment):
-    </dt>
-    <dd>
-      @if (string.IsNullOrWhiteSpace(Model.Comment))
-      {
-        <label>No Comment</label>
-      }
-      else
-      {
-        @Html.DisplayFor(model => model.Comment)
-      }
-    </dd>
-
-    @if (Model.Status == ExpenseApp.Models.DB.Status.Rejected)
+  <dt>
+    Approver:
+  </dt>
+  <dd>
+    @if (Model.Employee.IsAnApprover)
     {
-      <dt>
-        Rejection Comment:
-      </dt>
-      <dd>
-        @Html.DisplayFor(model => model.RejectionComment)
-      </dd>
+      <span>N.A.</span>
+    }
+    else
+    {
+      @Html.DisplayFor(model => model.Employee.Approver.FullName)
     }
 
+  </dd>
+
+  <dt class="dl-header">
+    All Expense Entries
+  </dt>
+</dl>
+
+<table id="expense-entry-table"
+       class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Account</th>
+      <th>Description</th>
+      <th>Hotel</th>
+      <th>Transport</th>
+      <th>Fuel</th>
+      <th>Meals</th>
+      <th>Phone</th>
+      <th>Entertainment</th>
+      <th>Misc.</th>
+      <th>Total</th>
+      <th>Receipt</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var entry in Model.Entries)
+    {
+      <tr>
+        <td>@entry.Date.ToShortDateString()</td>
+        <td>@entry.Account.Name</td>
+        <td>@entry.Description</td>
+        <td>@entry.Hotel</td>
+        <td>@entry.Transport</td>
+        <td>@entry.Fuel</td>
+        <td>@entry.Meals</td>
+        <td>@entry.Phone</td>
+        <td>@entry.Entertainment</td>
+        <td>@entry.Misc</td>
+        <td>@entry.Total</td>
+        <td>
+          <input type="checkbox"
+                 checked="@(entry.Receipt != null)"
+                 disabled>
+        </td>
+        <td>
+          @if (entry.Receipt != null)
+          {
+            @Html.ActionLink("See Image", "Details", "Entry", new
+            {
+                statementNumber = ViewBag.StatementNumber,
+                id = entry.Id,
+                returnUrl = "/form/details/" + ViewBag.StatementNumber
+            })
+          }
+        </td>
+      </tr>
+    }
+    @if (Model.Entries.Count() == 0)
+    {
+      <tr>
+        <td colspan="13">
+          <div class="empty-list-label">There are no Expense Entries.</div>
+        </td>
+      </tr>
+    }
+    else
+    {
+      <tr>
+        <td class="table-header"
+            colspan="3">
+          Total
+        </td>
+        <td>
+          @Model.Entries.Sum(ee => ee.Hotel)
+        </td>
+        <td>
+          @Model.Entries.Sum(ee => ee.Transport)
+        </td>
+        <td>
+          @Model.Entries.Sum(ee => ee.Fuel)
+        </td>
+        <td>
+          @Model.Entries.Sum(ee => ee.Meals)
+        </td>
+        <td>
+          @Model.Entries.Sum(ee => ee.Phone)
+        </td>
+        <td>
+          @Model.Entries.Sum(ee => ee.Entertainment)
+        </td>
+        <td>
+          @Model.Entries.Sum(ee => ee.Misc)
+        </td>
+        <td>
+          @Model.Entries.Sum(ee => ee.Total)
+        </td>
+        <td class="table-header"
+            colspan="2"></td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<dl>
+  <dt>
+    @Html.DisplayNameFor(model => model.Comment):
+  </dt>
+  <dd>
+    @if (string.IsNullOrWhiteSpace(Model.Comment))
+    {
+      <label>No Comment</label>
+    }
+    else
+    {
+      @Html.DisplayFor(model => model.Comment)
+    }
+  </dd>
+
+  @if (Model.Status == Status.Rejected)
+  {
     <dt>
-      @Html.DisplayNameFor(model => model.Status):
+      Rejection Comment:
     </dt>
     <dd>
-      @Html.DisplayFor(model => model.Status)
+      @Html.DisplayFor(model => model.RejectionComment)
     </dd>
-  </dl>
-</div>
+  }
+
+  <dt>
+    @Html.DisplayNameFor(model => model.Status):
+  </dt>
+  <dd>
+    @Html.DisplayFor(model => model.Status)
+  </dd>
+</dl>
 <div class="button-group">
   <a class="button-secondary"
      href="@Url.Action("Index", "Form")">Back to Home</a>
-  @if (Model.Status == ExpenseApp.Models.DB.Status.Saved ||
-   Model.Status == ExpenseApp.Models.DB.Status.Rejected)
+  @if (Model.Status == Status.Saved ||
+       Model.Status == Status.Rejected)
   {
     <a class="button-primary"
        href="@Url.Action("Edit", "Form", new

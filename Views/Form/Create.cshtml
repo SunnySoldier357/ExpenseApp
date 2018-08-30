@@ -12,21 +12,23 @@
           defer></script>
 }
 
-<form asp-action="Create">
+<form asp-controller="Form"
+      asp-action="Create">
 
   @Html.AntiForgeryToken()
 
-  <div class="error-label validation-summary-errors"
+  <div class="error-label"
        asp-validation-summary="ModelOnly"></div>
 
   <div class="grid-container">
+
     <!-- Title -->
     <div class="input-container grid-item">
       <label class="label"
              asp-for="Title"></label>
       <input class="input-field"
-             type="text"
-             asp-for="Title" />
+             asp-for="Title"
+             type="text" />
       @if (ViewBag.ShowErrors)
       {
         <span class="error-label"
@@ -39,8 +41,8 @@
       <label class="label"
              asp-for="Purpose"></label>
       <input class="input-field"
-             type="text"
-             asp-for="Purpose" />
+             asp-for="Purpose"
+             type="text" />
       @if (ViewBag.ShowErrors)
       {
         <span class="error-label"
@@ -54,8 +56,8 @@
              asp-for="StatementNumber"></label>
       <input id="statement-number-field"
              class="input-field"
-             type="text"
              asp-for="StatementNumber"
+             type="text"
              readonly />
     </div>
 
@@ -67,8 +69,8 @@
                  asp-for="From"></label>
           <input id="from-field"
                  class="input-field"
-                 type="date"
-                 asp-for="From" />
+                 asp-for="From"
+                 type="date" />
           @if (ViewBag.ShowErrors)
           {
             <span class="error-label"
@@ -80,8 +82,8 @@
           <label class="label"
                  asp-for="To"></label>
           <input class="input-field"
-                 type="date"
-                 asp-for="To" />
+                 asp-for="To"
+                 type="date" />
           @if (ViewBag.ShowErrors)
           {
             <span class="error-label"
@@ -105,13 +107,14 @@
   @Html.HiddenFor(model => model.Employee.Approver.Location.Name)
 
   <div class="grid-container">
+
     <!-- Name -->
     <div class="input-container grid-item">
       <label class="label"
              asp-for="Employee.FullName">Name</label>
-      <input type="text"
+      <input class="input-field"
              asp-for="Employee.FullName"
-             class="input-field"
+             type="text"
              readonly />
     </div>
 
@@ -120,9 +123,9 @@
       <label class="label"
              asp-for="Project"></label>
       <input id="project-field"
-             type="text"
-             asp-for="Project"
              class="input-field"
+             asp-for="Project"
+             type="text"
              placeholder="CLIENT-PROJECT" />
       @if (ViewBag.ShowErrors)
       {
@@ -135,9 +138,9 @@
     <div class="input-container grid-item">
       <label class="label"
              asp-for="Employee.Location.Name"></label>
-      <input type="text"
+      <input class="input-field"
              asp-for="Employee.Location.Name"
-             class="input-field"
+             type="text"
              readonly />
     </div>
 
@@ -145,9 +148,9 @@
     <div class="input-container grid-item">
       <label class="label"
              asp-for="Employee.Approver.FullName"></label>
-      <input type="text"
+      <input class="input-field"
              asp-for="Employee.Approver.FullName"
-             class="input-field"
+             type="text"
              readonly />
     </div>
   </div>
@@ -157,8 +160,8 @@
   <p>
     <input class="button-primary"
            name="Command"
-           value="Create New Entry"
-           type="submit" />
+           type="submit"
+           value="Create New Entry" />
   </p>
 
   <!-- Expense Claim Table -->
@@ -251,8 +254,8 @@
           <td>
             @Model.Entries.Sum(ee => ee.Total)
           </td>
-          <td></td>
-          <td></td>
+          <td class="table-header"
+              colspan="2"></td>
         </tr>
       }
     </tbody>
@@ -262,7 +265,7 @@
   <div class="textarea-container">
     <label class="label"
            asp-for="Comment"></label>
-    <textarea class="input-field textarea-field multiline"
+    <textarea class="input-field textarea-field"
               asp-for="Comment"></textarea>
     @if (ViewBag.ShowErrors)
     {
@@ -276,12 +279,12 @@
        href="@Url.Action("Index", "Form")">Cancel</a>
     <input class="button-secondary"
            name="Command"
-           value="Save"
-           type="submit" />
+           type="submit"
+           value="Save" />
     <input class="button-primary"
            name="Command"
-           value="Submit"
-           type="submit" />
+           type="submit"
+           value="Submit" />
   </div>
 
 </form>
