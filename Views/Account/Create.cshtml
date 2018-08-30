@@ -8,7 +8,7 @@
 @section Title { Account Create }
 
 @section Header {
-  <h2>@Html.ActionLink("Admin", "Index", "Admin") > @Html.ActionLink("Accounts", "List", "Account") > Create Account</h2>
+  <h1>@Html.ActionLink("Admin", "Index", "Admin") > @Html.ActionLink("Accounts", "List", "Account") > Create Account</h1>
 }
 
 <h4>Account</h4>
@@ -22,9 +22,8 @@
     <label class="label"
            asp-for="Name"></label>
     <input class="input-field"
-           type="text"
-           asp-for="Name" />
-
+           asp-for="Name"
+           type="text" />
     <span class="error-label"
           asp-validation-for="Name"></span>
   </div>
