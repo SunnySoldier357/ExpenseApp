@@ -15,7 +15,9 @@
 
 <h4>@Model.StatementNumber (@Model.Employee.FullName)</h4>
 <hr />
-<form asp-action="Details">
+<form asp-controller="ApproverForm"
+      asp-action="Details">
+
   @Html.HiddenFor(model => model.StatementNumber)
 
   <dl>
@@ -76,7 +78,6 @@
       {
         @Html.DisplayFor(model => model.Employee.Approver.FullName)
       }
-
     </dd>
 
     <dt class="dl-header">
@@ -220,7 +221,7 @@
     {
       <input class="button-primary"
              type="submit"
-             value="Approve"/>
+             value="Approve" />
     }
     @if (Model.Status == ExpenseApp.Models.DB.Status.Approved)
     {
@@ -228,4 +229,5 @@
          href="#">Mark as Paid</a>
     }
   </div>
+
 </form>
