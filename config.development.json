@@ -2,7 +2,7 @@
     "FeatureToggles": {
         "EnableDeveloperExceptions": "True"
     },
-  "ConnectionStrings": {
-    "EmployeeDataContext": "Server=tcp:expenseteamsappskillup.database.windows.net,1433;Initial Catalog=ExpenseDB;Persist Security Info=False;User ID=ExpenseAppAdmin;Password=xpenseAPPlogin214;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-  },
+    "ConnectionStrings": {
+        "EmployeeDataContext": "Server=tcp:expenseteamsappskillup.database.windows.net,1433;Initial Catalog=ExpenseDB;Persist Security Info=False;User ID=ExpenseAppAdmin;Password=xpenseAPPlogin214;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    }
 }

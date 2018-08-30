@@ -1,5 +1,8 @@
-﻿using ExpenseApp.Models;
+﻿using ExpenseApp.Extensions;
+using ExpenseApp.Models;
 using ExpenseApp.Models.DB;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +28,7 @@ namespace ExpenseApp
         // your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<FeatureToggles>(sp => new FeatureToggles
+            services.AddTransient(sp => new FeatureToggles
             {
                 EnableDeveloperExceptions =
                     configuration.GetValue<bool>("FeatureToggles:EnableDeveloperExceptions")
@@ -37,6 +40,14 @@ namespace ExpenseApp
                     .GetConnectionString("EmployeeDataContext");
                 options.UseSqlServer(connectionString);
             });
+
+            services.AddAuthentication(sharedOptions =>
+            {
+                sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                sharedOptions.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            })
+                .AddAzureAd(options => configuration.Bind("AzureAd", options))
+                .AddCookie();
 
             services.AddMvc().AddRazorPagesOptions(options =>
             {
@@ -62,6 +73,8 @@ namespace ExpenseApp
 
                 await next();
             });
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

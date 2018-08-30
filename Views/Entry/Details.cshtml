@@ -1,8 +1,6 @@
-﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
-@model ExpenseApp.Models.DB.ExpenseEntry
+﻿@model ExpenseApp.Models.DB.ExpenseEntry
 
 @{
-  Layout = "_Layout";
   var base64 = Convert.ToBase64String(Model.Receipt.ReceiptImage);
   var imgSrc = string.Format("data:image/jpg;base64,{0}", base64);
 }
