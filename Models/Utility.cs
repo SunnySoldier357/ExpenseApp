@@ -4,6 +4,8 @@ namespace ExpenseApp.Models
 {
     public static class Utility
     {
+        // Public Methods
+
         /// <summary>
         /// Converts a string into a slug (clean, human-readable url)
         /// </summary>
@@ -19,13 +21,13 @@ namespace ExpenseApp.Models
             // Replace slashes with dashes
             slug = slug.Replace('/', '-');
 
-            //  Remove Invalid Chars           
+            //  Remove invalid characters
             slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
 
-            // Convert multiple spaces into one space   
+            // Convert multiple spaces into one space
             slug = Regex.Replace(slug, @"\s+", " ").Trim();
 
-            // Cut and trim 
+            // Cut and trim
             slug = slug.Substring(0, slug.Length <= 45 ? slug.Length : 45).Trim();
 
             // Replace spaces as strings

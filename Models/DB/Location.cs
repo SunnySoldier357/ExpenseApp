@@ -7,8 +7,10 @@ namespace ExpenseApp.Models.DB
 {
     public class Location
     {
+        // Private Properties
         private string _name;
 
+        // Public Properties
         [Key]
         [Required]
         [Display(Name = "Location")]
@@ -25,6 +27,7 @@ namespace ExpenseApp.Models.DB
         [NotMapped]
         public string Slug => Slugify(Name);
 
+        // Overridden Methods
         public override bool Equals(object obj)
         {
             Location item = obj as Location;

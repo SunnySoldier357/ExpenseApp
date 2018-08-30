@@ -5,17 +5,41 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExpenseApp.Models.DB
 {
-    public enum Status : int
-    {
-        Saved,
-        Submitted,
-        Approved,
-        Rejected,
-        Paid
-    }
-    
     public class ExpenseForm : IValidatableObject
     {
+        // Public Properties
+        [Key]
+        [Display(Name = "Statement Number: ")]
+        public string StatementNumber { get; set; }
+
+        public Employee Employee { get; set; }
+
+        [Required]
+        public string Title { get; set; }
+
+        [Required]
+        public string Purpose { get; set; }
+
+        [Required]
+        public DateTime From { get; set; }
+
+        [Required]
+        public DateTime To { get; set; }
+
+        [Required]
+        public string Project { get; set; }
+
+        public string Comment { get; set; }
+
+        [Display(Name = "Rejection Comment")]
+        public string RejectionComment { get; set; }
+
+        public Status Status { get; set; }
+
+        [InverseProperty("Form")]
+        public List<ExpenseEntry> Entries { get; set; }
+
+        // Constructors 
         public ExpenseForm()
         {
             Entries = new List<ExpenseEntry>();
@@ -26,38 +50,9 @@ namespace ExpenseApp.Models.DB
             Entries = new List<ExpenseEntry>();
             Employee = signedInEmployee;
         }
-        
-        [Key]
-        [Display(Name = "Statement Number: ")]
-        public string StatementNumber { get; set; }
-        
-        public Employee Employee { get; set; }
-        
-        [Required]
-        public string Title { get; set; }
-        
-        [Required]
-        public string Purpose { get; set; }
-        
-        [Required]
-        public DateTime From { get; set; }
-        
-        [Required]
-        public DateTime To { get; set; }
-        
-        [Required]
-        public string Project { get; set; }
-        
-        public string Comment { get; set; }
 
-        [Display(Name = "Rejection Comment")]
-        public string RejectionComment { get; set; }
-        public Status Status { get; set; }
-        
-        [InverseProperty("Form")]
-        public List<ExpenseEntry> Entries { get; set; }
-
-        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        // Interface Implementations
+        IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (From.Month != To.Month)
             {
@@ -65,18 +60,21 @@ namespace ExpenseApp.Models.DB
                     "The Period From data must have the same month as the Period To date."
                 );
             }
+
             if (From.Year != To.Year)
             {
                 yield return new ValidationResult(
                     "The Period From data must have the same year as the Period To date."
                 );
             }
+
             if (!Project.Contains('-') || Project.Split('-').Length != 2)
             {
                 yield return new ValidationResult(
                     "Project must follow this convention: CLIENT-PROJECT.", new[] { "Project" }
                 );
             }
+            
             if (Entries.Count != 0)
             {
                 foreach (var entry in Entries)
