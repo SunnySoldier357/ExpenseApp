@@ -7,14 +7,16 @@ namespace ExpenseApp.ViewModels
 {
     public class ApproverEditViewModel
     {
+        // Public Properties
+        public bool ApproverTransferAllowed => null != PossibleReplacements;
+        public bool RemovingApproverStatus { get; set; }
+
         public Employee ApproverAdded { get; set; }
         public Employee ApproverRemoved { get; set; }
 
         public List<Employee> PossibleReplacements { get; set; }
 
-        public bool RemovingApproverStatus { get; set; }
-        public bool ApproverTransferAllowed => null != PossibleReplacements;
-
+        // Constructors
         public ApproverEditViewModel()
         {
             ApproverAdded = new Employee();
@@ -43,6 +45,7 @@ namespace ExpenseApp.ViewModels
             PossibleReplacements = employees;
         }
 
+        // Public Methods
         public void PupulateFields(ExpenseDBDataContext db)
         {
             ApproverAdded = db.Employees
