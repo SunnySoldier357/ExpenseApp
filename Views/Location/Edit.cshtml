@@ -3,7 +3,7 @@
 @section Title { Location Edit }
 
 @section Header {
-<h2>@Html.ActionLink("Admin", "Index", "Admin") > @Html.ActionLink("Locations", "List", "Location") > Edit Location</h2>
+  <h1>@Html.ActionLink("Admin", "Index", "Admin") > @Html.ActionLink("Locations", "List", "Location") > Edit Location</h1>
 }
 
 <h4>Location</h4>
@@ -16,12 +16,9 @@
   <div class="input-container field-group">
     <label class="label"
            asp-for="Name"></label>
-    <div>
-      <input class="input-field"
-             type="text"
-             asp-for="Name" />
-    </div>
-
+    <input class="input-field"
+           asp-for="Name"
+           type="text" />
     <span class="error-label"
           asp-validation-for="Name"></span>
   </div>

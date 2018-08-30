@@ -1,40 +1,41 @@
 ﻿<!doctype html>
 <html>
-  
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1">
-    <title>@RenderSection("Title", true)</title>
-    
-    <link rel="stylesheet"
-          type="text/css"
-          href="@Url.Content("~/css/team.css")">
-    <link rel="stylesheet"
-          type="text/css"
-          href="@Url.Content("~/css/main.css?version=3")">
 
-    <script src="@Url.Content("~/scripts/MicrosoftTeams.min.js")"
-            type="text/javascript"
-            defer></script>
-    <script src="@Url.Content("~/scripts/team.js")"
-            type="text/javascript"
-            defer></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <title>@RenderSection("Title", true)</title>
 
-    @RenderSection("Scripts", false)
-  </head>
-  
-  <body class="theme-light">
-    <div class="surface">
-      <div class="panel">
-        <div class="panel-header">
-          @RenderSection("Header", false)
-        </div>
-        
-        <div class="panel-body">
-          @RenderBody()
-        </div>
+  <link rel="stylesheet"
+        type="text/css"
+        href="@Url.Content("~/css/team.css")">
+  <link rel="stylesheet"
+        type="text/css"
+        href="@Url.Content("~/css/main.css?version=3")">
+
+  <script src="@Url.Content("~/scripts/MicrosoftTeams.min.js")"
+          type="text/javascript"
+          defer></script>
+  <script src="@Url.Content("~/scripts/team.js")"
+          type="text/javascript"
+          defer></script>
+
+  @RenderSection("Scripts", false)
+</head>
+
+<body class="theme-light">
+  <div class="surface">
+    <div class="panel">
+      <div class="panel-header">
+        @RenderSection("Header", false)
+      </div>
+
+      <div class="panel-body">
+        @RenderBody()
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
