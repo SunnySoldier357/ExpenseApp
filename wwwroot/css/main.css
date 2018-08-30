@@ -298,6 +298,26 @@ th, td {
     color: #ED183E;
 }
 
+.theme-dark select, .theme-dark input[type="date"] {
+    background-color: #2B2B30;
+    color: #C8C8C9;
+}
+
+.theme-dark select:hover:inactive:enabled, .theme-dark input[type="date"]:hover:inactive:enabled {
+    background: #2B2B30;
+    border-bottom-color: transparent;
+}
+
+.theme-dark select:disabled, .theme-dark input[type="date"]:disabled {
+    background: #35353A;
+    border-bottom-color: transparent;
+    color: #48484D;
+}
+
+.theme-dark select:active:enabled, .theme-dark select:focus, .theme-dark input[type="date"]:active:enabled, .theme-dark input[type="date"]:focus {
+    background: #2B2B30;
+}
+
 /* Tables */
 
 .theme-dark table, .theme-dark th, .theme-dark td {
@@ -366,6 +386,24 @@ th, td {
 
 .theme-contrast .highlight-negative {
     color: #ED183E;
+}
+
+.theme-contrast select, .theme-contrast input[type="date"] {
+    background-color: black;
+    color: white;
+}
+
+.theme-dark select:hover:inactive:enabled, .theme-dark input[type="date"]:hover:inactive:enabled {
+    background: black;
+}
+
+.theme-dark select:disabled, .theme-dark input[type="date"]:disabled {
+    background: #30F42C;
+    color: white;
+}
+
+.theme-dark select:active:enabled, .theme-dark select:focus, .theme-dark input[type="date"]:active:enabled, .theme-dark input[type="date"]:focus {
+    background: black;
 }
 
 /* Tables */
