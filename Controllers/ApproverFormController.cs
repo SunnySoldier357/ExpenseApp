@@ -30,7 +30,7 @@ namespace ExpenseApp.Controllers
             var forms = _db.ExpenseForms
                 .Include(ef => ef.Employee)
                     .ThenInclude(ef => ef.Location)
-                .Where(ef => ef.Employee.Location == SignedInApprover.Location && 
+                .Where(ef => ef.Employee.Location == SignedInApprover.Location &&
                     ef.Status != Status.Saved && ef.Status != Status.Rejected)
                 .OrderByDescending(ef => ef.StatementNumber.Substring(2, 2))
                 .ThenByDescending(ef => ef.StatementNumber.Substring(0, 2))
@@ -46,7 +46,7 @@ namespace ExpenseApp.Controllers
             return View(listings);
         }
 
-        [Route("{statementNumber}")]
+        [HttpGet, Route("{statementNumber}")]
         public IActionResult Details(string statementNumber)
         {
             ExpenseForm form = _db.ExpenseForms
@@ -60,6 +60,23 @@ namespace ExpenseApp.Controllers
                 .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
 
             return View(form);
+        }
+
+        [HttpPost, Route("{statementNumber}")]
+        public IActionResult Details(string statementNumber, ExpenseForm approved)
+        {
+            ExpenseForm form = _db.ExpenseForms
+                .Find(statementNumber);
+
+            if (approved.StatementNumber == form.StatementNumber)
+            {
+                form.Status = Status.Approved;
+                _db.SaveChanges();
+
+                return RedirectToAction("List", "ApproverForm", statementNumber);
+            }
+            else
+                return NotFound();
         }
     }
 }
