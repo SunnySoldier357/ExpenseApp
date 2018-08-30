@@ -197,7 +197,7 @@
             @Model.Entries[i].Date.ToShortDateString()
           </td>
           <td>
-            @Html.HiddenFor(model => model.Entries[i].Account)
+            @Html.HiddenFor(model => model.Entries[i].Account.Name)
 
             @Model.Entries[i].Account.Name
           </td>
