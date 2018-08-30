@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using ExpenseApp.Models.DB;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +28,7 @@ namespace ExpenseApp.Controllers
         }
 
         [HttpPost, Route("create")]
-        public IActionResult Create(string statementNumber, ExpenseEntry entry)
+        public async Task<IActionResult> Create(string statementNumber, ExpenseEntry entry)
         {
             if (!ModelState.IsValid)
             {
@@ -40,6 +43,21 @@ namespace ExpenseApp.Controllers
             entry.Form = _db.ExpenseForms.Find(statementNumber);
             entry.Account = _db.Accounts
                 .Find(entry.Account.Name);
+
+            if (entry.ImageFormFile == null)
+                entry.Receipt = null;
+            else
+            {
+                if (entry.ImageFormFile.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await entry.ImageFormFile.CopyToAsync(memoryStream);
+                        entry.Receipt.FileName = entry.ImageFormFile.FileName;
+                        entry.Receipt.ReceiptImage = memoryStream.ToArray();
+                    }
+                }
+            }
 
             _db.ExpenseEntries.Add(entry);
             _db.SaveChanges();
@@ -65,7 +83,7 @@ namespace ExpenseApp.Controllers
         }
 
         [HttpPost, Route("edit/{id}")]
-        public IActionResult Edit(string statementNumber, string id, ExpenseEntry updated)
+        public async Task<IActionResult> Edit(string statementNumber, string id, ExpenseEntry updated)
         {
             ExpenseEntry entry = _db.ExpenseEntries
                 .Include(ee => ee.Account)
@@ -86,7 +104,23 @@ namespace ExpenseApp.Controllers
             entry.Cost = updated.Cost;
             entry.Date = updated.Date;
             entry.Description = updated.Description;
-            entry.Receipt = updated.Receipt;
+
+            if (entry.ImageFormFile == null)
+            {
+                entry.Receipt = null;
+            }
+            else
+            {
+                if (entry.ImageFormFile.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await entry.ImageFormFile.CopyToAsync(memoryStream);
+                        entry.Receipt.FileName = entry.ImageFormFile.FileName;
+                        entry.Receipt.ReceiptImage = memoryStream.ToArray();
+                    }
+                }
+            }
 
             _db.SaveChanges();
 

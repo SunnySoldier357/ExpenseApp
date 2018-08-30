@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 namespace ExpenseApp.Models.DB
 {
@@ -28,6 +29,10 @@ namespace ExpenseApp.Models.DB
 
         [InverseProperty("Entries")]
         public ExpenseForm Form { get; set; }
+
+        [NotMapped]
+        public IFormFile ImageFormFile { get; set; }
+
         public string Cost
         {
             get => _cost;
@@ -142,6 +147,13 @@ namespace ExpenseApp.Models.DB
                 yield return new ValidationResult(
                     "At least one of the types of expenses (Hotel, Transport, Fuel," +
                         " Meals, Phone, Entertainment, Misc.) has to be filled in."
+                );
+            }
+
+            if (Total > 50 && ImageFormFile == null)
+            {
+                yield return new ValidationResult(
+                    "A receipt is required if the entry being claimed is more than USD$50."
                 );
             }
         }

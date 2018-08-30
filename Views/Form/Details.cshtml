@@ -121,11 +121,14 @@
                    disabled>
           </td>
           <td>
-            @Html.ActionLink("See Image", "Details", "Entry", new
+            @if (entry.Receipt != null)
             {
-                statementNumber = ViewBag.StatementNumber,
-                id = entry.Id
-            })
+              @Html.ActionLink("See Image", "Details", "Entry", new
+              {
+                  statementNumber = ViewBag.StatementNumber,
+                  id = entry.Id
+              })
+            }
           </td>
         </tr>
       }
@@ -168,7 +171,7 @@
           <td>
             @Model.Entries.Sum(ee => ee.Total)
           </td>
-          <td class="table-header" 
+          <td class="table-header"
               colspan="2"></td>
         </tr>
       }
@@ -212,7 +215,7 @@
   <a class="button-secondary"
      href="@Url.Action("Index", "Form")">Back to Home</a>
   @if (Model.Status == ExpenseApp.Models.DB.Status.Saved ||
-     Model.Status == ExpenseApp.Models.DB.Status.Rejected)
+    Model.Status == ExpenseApp.Models.DB.Status.Rejected)
   {
     <a class="button-primary"
        href="@Url.Action("Edit", "Form", new

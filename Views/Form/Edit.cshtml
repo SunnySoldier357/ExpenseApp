@@ -231,12 +231,16 @@
                 statementNumber = ViewBag.StatementNumber,
                 id = Model.Entries[i].Id
             }) |
-            @Html.ActionLink("See Image", "Details", "Entry", new
+            @if (Model.Entries[i].Receipt != null)
             {
-              statementNumber = ViewBag.StatementNumber,
-              id = Model.Entries[i].Id,
-              returnUrl = "/form/edit/" + ViewBag.StatementNumber
-            }) |
+              @Html.ActionLink("See Image", "Details", "Entry", new
+              {
+                statementNumber = ViewBag.StatementNumber,
+                id = Model.Entries[i].Id,
+                returnUrl = "/form/edit/" + ViewBag.StatementNumber
+              })
+              <span> | </span>
+            }
             @Html.ActionLink("Delete", "Delete", "Entry", new
             {
                 statementNumber = ViewBag.StatementNumber,
