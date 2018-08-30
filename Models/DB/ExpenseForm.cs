@@ -52,7 +52,7 @@ namespace ExpenseApp.Models.DB
         }
 
         // Interface Implementations
-        IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
             if (From.Month != To.Month)
             {

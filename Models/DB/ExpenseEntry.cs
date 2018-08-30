@@ -155,7 +155,7 @@ namespace ExpenseApp.Models.DB
         public ExpenseEntry() => _cost = "";
 
         // Interface Implementations
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
             if (_hotel == 0 && _transport == 0 && _fuel == 0 && _meals == 0 &&
                 _phone == 0 && _entertainment == 0 && _misc == 0)
