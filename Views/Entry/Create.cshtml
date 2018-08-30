@@ -15,16 +15,18 @@
   <div class="error-label"
        asp-validation-summary="ModelOnly"></div>
 
+  <!-- Date -->
   <div class="input-container field-group">
     <label class="label"
            asp-for="Date"></label>
     <input class="input-field"
-           type="date"
-           asp-for="Date" />
+           asp-for="Date"
+           type="date" />
     <span class="error-label"
           asp-validation-for="Date"></span>
   </div>
 
+  <!-- Account Drop-down list -->
   <div class="input-container field-group">
     <label class="label"
            asp-for="Account.Name"></label>
@@ -35,6 +37,7 @@
           asp-validation-for="Account.Name"></span>
   </div>
 
+  <!-- Description -->
   <div class="textarea-container field-group">
     <label class="label"
            asp-for="Description"></label>
@@ -44,79 +47,86 @@
           asp-validation-for="Description"></span>
   </div>
 
+  <!-- Hotel Category -->
   <div class="input-container field-group">
     <label class="label"
            asp-for="Hotel"></label>
     <input class="input-field"
+           asp-for="Hotel"
            type="number"
-           step=".01"
-           asp-for="Hotel" />
+           step=".01" />
     <span class="error-label"
           asp-validation-for="Hotel"></span>
   </div>
 
+  <!-- Transport Category -->
   <div class="input-container field-group">
     <label class="label"
            asp-for="Transport"></label>
     <input class="input-field"
+           asp-for="Transport"
            type="number"
-           step=".01"
-           asp-for="Transport" />
+           step=".01" />
     <span class="error-label"
           asp-validation-for="Transport"></span>
   </div>
 
+  <!-- Fuel Category -->
   <div class="input-container field-group">
     <label class="label"
            asp-for="Fuel"></label>
     <input class="input-field"
+           asp-for="Fuel"
            type="number"
-           step=".01"
-           asp-for="Fuel" />
+           step=".01" />
     <span class="error-label"
           asp-validation-for="Fuel"></span>
   </div>
 
+  <!-- Meals Category -->
   <div class="input-container field-group">
     <label class="label"
            asp-for="Meals"></label>
     <input class="input-field"
+           asp-for="Meals"
            type="number"
-           step=".01"
-           asp-for="Meals" />
+           step=".01" />
     <span class="error-label"
           asp-validation-for="Meals"></span>
   </div>
 
+  <!-- Phone Category -->
   <div class="input-container field-group">
     <label class="label"
            asp-for="Phone"></label>
     <input class="input-field"
+           asp-for="Phone"
            type="number"
-           step=".01"
-           asp-for="Phone" />
+           step=".01" />
     <span class="error-label"
           asp-validation-for="Phone"></span>
   </div>
 
+  <!-- Entertainment Category -->
   <div class="input-container field-group">
     <label class="label"
            asp-for="Entertainment"></label>
     <input class="input-field"
+           asp-for="Entertainment"
            type="number"
-           step=".01"
-           asp-for="Entertainment" />
+           step=".01" />
     <span class="error-label"
           asp-validation-for="Entertainment"></span>
   </div>
 
+  <!-- Miscellaneous Category -->
   <div class="input-container field-group">
     <label class="label"
            asp-for="Misc"></label>
     <input class="input-field"
+           asp-for="Misc"
            type="number"
-           step=".01"
-           asp-for="Misc" />
+           step=".01" />
     <span class="error-label"
           asp-validation-for="Misc"></span>
   </div>
@@ -124,11 +134,12 @@
   @Html.HiddenFor(model => model.Receipt.FileName)
   @Html.HiddenFor(model => model.Receipt.ReceiptImage)
 
+  <!-- Receipt Image -->
   <div class="input-container field-group">
     <label class="label"
            asp-for="ImageFormFile"></label>
-    <input type="file"
-           asp-for="ImageFormFile" />
+    <input asp-for="ImageFormFile"
+           type="file" />
     <span class="error-label"
           asp-validation-for="ImageFormFile"></span>
   </div>
