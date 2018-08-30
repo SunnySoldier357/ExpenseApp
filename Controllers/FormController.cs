@@ -225,6 +225,8 @@ namespace ExpenseApp.Controllers
             if (form.Status == Status.Saved)
                 replaceTempValues(form, true);
 
+            ViewBag.StatementNumber = statementNumber;
+
             return View(form);
         }
 

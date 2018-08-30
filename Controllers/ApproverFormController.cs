@@ -45,5 +45,21 @@ namespace ExpenseApp.Controllers
 
             return View(listings);
         }
+
+        [Route("{statementNumber}")]
+        public IActionResult Details(string statementNumber)
+        {
+            ExpenseForm form = _db.ExpenseForms
+                .Include(ef => ef.Entries)
+                    .ThenInclude(ee => ee.Account)
+                .Include(ef => ef.Entries)
+                    .ThenInclude(ee => ee.Receipt)
+                .Include(ef => ef.Employee)
+                    .ThenInclude(e => e.Approver)
+                .Include(ef => ef.Employee.Location)
+                .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
+
+            return View(form);
+        }
     }
 }
