@@ -1,0 +1,43 @@
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model ExpenseApp.Models.DB.ExpenseForm
+
+@{
+  Layout = "_Layout";
+}
+
+@section Title { Expense Report Reject }
+
+@section Header {
+  <h1>Reject Expense Report</h1>
+}
+
+<form asp-action="Reject">
+  <h4>
+    Please include a comment detailing why you decided to reject the Expense Report.
+  </h4>
+
+  <div class="error-label validation-summary-errors"
+       asp-validation-summary="ModelOnly"></div>
+
+  @Html.HiddenFor(model => model.StatementNumber)
+
+  <div class="textarea-container grid-item">
+    <label class="label"
+           asp-for="RejectionComment"></label>
+    <textarea class="input-field textarea-field"
+              asp-for="RejectionComment"></textarea>
+    <span class="error-label"
+          asp-validation-for="RejectionComment"></span>
+  </div>
+
+  <div class="button-group">
+    <a class="button-secondary"
+       href="@Url.Action("Details", "ApproverForm", new
+        {
+            statementNumber = Model.StatementNumber
+        })">Cancel</a>
+    <input class="button-primary"
+           value="Reject"
+           type="submit" />
+  </div>
+</form>

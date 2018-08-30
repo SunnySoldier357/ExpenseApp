@@ -209,7 +209,10 @@
     @if (Model.Status == ExpenseApp.Models.DB.Status.Submitted)
     {
       <a class="button-cancel"
-         href="#">Reject</a>
+         href="@Url.Action("Reject", "ApproverForm", new
+          {
+              statementNumber = Model.StatementNumber
+          })">Reject</a>
     }
     <a class="button-secondary"
        href="@Url.Action("List", "ApproverForm")">Back to Home</a>

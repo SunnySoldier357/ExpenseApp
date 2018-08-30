@@ -78,5 +78,38 @@ namespace ExpenseApp.Controllers
             else
                 return NotFound();
         }
+
+        [HttpGet, Route("{statementNumber}/reject")]
+        public IActionResult Reject(string statementNumber)
+        {
+            ExpenseForm form = _db.ExpenseForms
+                .Find(statementNumber);
+
+            return View(form);
+        }
+
+        [HttpPost, Route("{statementNumber}/reject")]
+        public IActionResult Reject(string statementNumber, ExpenseForm rejected)
+        {
+            ExpenseForm form = _db.ExpenseForms
+                .Find(statementNumber);
+            
+            if (null == rejected.RejectionComment)
+            {
+                ModelState.AddModelError("", "The rejection comment is a required field.");
+                return View(rejected);
+            }
+                
+            if (rejected.StatementNumber == form.StatementNumber)
+            {
+                form.Status = Status.Rejected;
+                form.RejectionComment = rejected.RejectionComment;
+                _db.SaveChanges();
+
+                return RedirectToAction("List", "ApproverForm");
+            }
+            else
+                return NotFound();
+        }
     }
 }

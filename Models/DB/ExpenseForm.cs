@@ -49,6 +49,8 @@ namespace ExpenseApp.Models.DB
         public string Project { get; set; }
         
         public string Comment { get; set; }
+
+        [Display(Name = "Rejection Comment")]
         public string RejectionComment { get; set; }
         public Status Status { get; set; }
         
