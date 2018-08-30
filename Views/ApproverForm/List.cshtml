@@ -1,0 +1,130 @@
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model IEnumerable<ExpenseApp.ViewModels.ExpenseListViewModel>
+@{
+  Layout = "_Layout";
+}
+
+@section Title { Approver Home Page }
+
+@section Header {
+  <h1>All Expenses</h1>
+}
+
+@section Scripts {
+  <script src="~/scripts/ui.js"
+          type="text/javascript"
+          defer></script>
+}
+
+<main>
+  <div>
+    <label>Search:</label>
+    <input id="search-input"
+           type="search"
+           placeholder="Search...">
+
+    <div id="expense-search-type"
+         class="radio-container">
+      <div class="radio-group">
+        <input class="radio-button"
+               type="radio"
+               name="search-type"
+               value="statementNumber"
+               onchange="search()"
+               checked>
+        <span class="radio-label">Statement Number</span>
+      </div>
+
+      <div class="radio-group">
+        <input id="title-radio-button"
+               class="radio-button"
+               type="radio"
+               name="search-type"
+               value="title"
+               onchange="search()">
+        <span class="radio-label">Title</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter">
+    <h2>Filter</h2>
+    <h3>Status</h3>
+
+    <div class="radio-container">
+      <div class="radio-group">
+        <input class="radio-button"
+               type="radio"
+               name="sort-type"
+               value="none"
+               onchange="search()"
+               checked />
+        <label class="radio-label">None</label>
+      </div>
+
+      <div class="radio-group">
+        <input class="radio-button"
+               type="radio"
+               name="sort-type"
+               value="submitted"
+               onchange="search()" />
+        <label class="radio-label">Submitted</label>
+      </div>
+
+      <div class="radio-group">
+        <input class="radio-button"
+               type="radio"
+               name="sort-type"
+               value="approved"
+               onchange="search()" />
+        <label class="radio-label">Approved</label>
+      </div>
+
+      <div class="radio-group">
+        <input class="radio-button"
+               type="radio"
+               name="sort-type"
+               value="paid"
+               onchange="search()" />
+        <label class="radio-label">Paid</label>
+      </div>
+    </div>
+  </div>
+
+  <table id="expense-table">
+    <thead>
+      <tr>
+        <th>Statement Number</th>
+        <th>Title</th>
+        <th>Employee</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var listing in Model)
+      {
+        <tr id="@listing.StatementNumber">
+          <td>@listing.StatementNumber</td>
+          <td>@listing.Title</td>
+          <td>@listing.EmployeeName</td>
+          <td>@listing.Status</td>
+          <td>
+            @Html.ActionLink("Details", "Details", "Form", new
+            {
+              statementNumber = listing.StatementNumber
+            })
+          </td>
+        </tr>
+      }
+      @if (Model.Count() == 0)
+      {
+        <tr>
+          <td colspan="5">
+            <div class="empty-list-label">There are no Expense Reports.</div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</main>
