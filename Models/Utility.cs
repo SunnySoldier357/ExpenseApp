@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace ExpenseApp.Models
 {
@@ -34,6 +35,12 @@ namespace ExpenseApp.Models
             slug = Regex.Replace(slug, @"\s", "-");
 
             return slug;
+        }
+        
+        public static string ToTitleCase(string text)
+        {
+            TextInfo textInfo = new CultureInfo("en-US", true).TextInfo;
+            return textInfo.ToTitleCase(text.Trim());
         }
     }
 }

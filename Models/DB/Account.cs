@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Globalization;
 using static ExpenseApp.Models.Utility;
 
 namespace ExpenseApp.Models.DB
@@ -17,11 +16,7 @@ namespace ExpenseApp.Models.DB
         public string Name
         {
             get => _name;
-            set
-            {
-                TextInfo textInfo = new CultureInfo("en-US", true).TextInfo;
-                _name = textInfo.ToTitleCase(value.Trim());
-            }
+            set => _name = ToTitleCase(value);
         }
 
         [NotMapped]

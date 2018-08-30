@@ -5,6 +5,7 @@ using ExpenseApp.Models.DB;
 using ExpenseApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static ExpenseApp.Models.Utility;
 
 namespace ExpenseApp.Controllers
 {
@@ -108,18 +109,12 @@ namespace ExpenseApp.Controllers
             }
             else if (command == "Submit")
             {
-                ViewBag.ShowErrors = true;
-
+                // The form is saved if the user adds an entry so when this is called
+                // there is always an error
                 if (form.Entries.Count() == 0)
                     ModelState.AddModelError("", "There must be at least 1 Expense Entry");
 
-                if (!ModelState.IsValid)
-                    return View(form);
-
-                _db.ExpenseForms.Add(form);
-                _db.SaveChanges();
-
-                return RedirectToAction("Index", "Form", form.StatementNumber);
+                return View(form);
             }
             else
             {
@@ -204,11 +199,11 @@ namespace ExpenseApp.Controllers
                 fillInTempValues(updated, true);
 
                 form.StatementNumber = updated.StatementNumber;
-                form.Title = updated.Title;
+                form.Title = ToTitleCase(updated.Title);
                 form.Comment = updated.Comment;
                 form.From = updated.From;
                 form.To = updated.To;
-                form.Project = updated.Project;
+                form.Project = updated.Project.ToUpper();
                 form.Purpose = updated.Purpose;
                 form.Status = Status.Saved;
 
@@ -238,11 +233,11 @@ namespace ExpenseApp.Controllers
                 _db.SaveChanges();
 
                 form.StatementNumber = getNewStatementNumber(updated, true);
-                form.Title = updated.Title;
+                form.Title = ToTitleCase(updated.Title);
                 form.Comment = updated.Comment;
                 form.From = updated.From;
                 form.To = updated.To;
-                form.Project = updated.Project;
+                form.Project = updated.Project.ToUpper();
                 form.Purpose = updated.Purpose;
                 form.Status = Status.Submitted;
 
