@@ -8,8 +8,7 @@ namespace ExpenseApp.Models.DB
 {
     public class ExpenseEntry : IValidatableObject
     {
-        private string _cost;
-
+        // Private Properties
         private decimal _hotel;
         private decimal _transport;
         private decimal _fuel;
@@ -18,21 +17,36 @@ namespace ExpenseApp.Models.DB
         private decimal _entertainment;
         private decimal _misc;
 
+        private string _cost;
+
+        // Public Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        public DateTime Date { get; set; }
         public Account Account { get; set; }
-        public string Description { get; set; }
-        public Receipt Receipt { get; set; }
+
+        public DateTime Date { get; set; }
 
         [InverseProperty("Entries")]
         public ExpenseForm Form { get; set; }
 
-        [NotMapped]
-        public IFormFile ImageFormFile { get; set; }
+        public Receipt Receipt { get; set; }
 
+        public string Description { get; set; }
+
+        // Syntax: 'A100.00;'
+        //     - The letter represents the type of expense
+        //         - A = Hotel
+        //         - B = Transport
+        //         - C = Fuel
+        //         - D = Meals
+        //         - E = Phone
+        //         - F = Entertainment
+        //         - G = Miscellaneous
+        //    - The string can include any number of these cost groups but only
+        //      one for each type can exist. The order does not matter
+        //    - The number included is automatically formatted to 2 decimal places
         public string Cost
         {
             get => _cost;
@@ -134,11 +148,13 @@ namespace ExpenseApp.Models.DB
                 + Entertainment + Misc;
         }
 
-        public ExpenseEntry()
-        {
-            _cost = "";
-        }
+        [NotMapped]
+        public IFormFile ImageFormFile { get; set; }
 
+        // Constructor
+        public ExpenseEntry() => _cost = "";
+
+        // Interface Implementations
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (_hotel == 0 && _transport == 0 && _fuel == 0 && _meals == 0 &&
@@ -158,6 +174,7 @@ namespace ExpenseApp.Models.DB
             }
         }
 
+        // Private Properties
         private void addCostGroup(char group, decimal? cost)
         {
             if (null == cost || cost == 0)
@@ -167,6 +184,7 @@ namespace ExpenseApp.Models.DB
             {
                 int index = _cost.IndexOf(group);
                 int endIndex = _cost.IndexOf(';', index);
+                
                 Cost = Cost.Replace(
                     _cost.Substring(index, endIndex - index + 1),
                     string.Format("{0}{1:0.00};", group, cost));

@@ -7,8 +7,7 @@ namespace ExpenseApp.Models.DB
 {
     public class Employee
     {
-        public Employee() => Forms = new List<ExpenseForm>();
-
+        // Public Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
@@ -32,5 +31,8 @@ namespace ExpenseApp.Models.DB
         [NotMapped]
         [Display(Name = "Approver")]
         public string FullName => FirstName + " " + LastName;
+
+        // Constructors
+        public Employee() => Forms = new List<ExpenseForm>();
     }
 }

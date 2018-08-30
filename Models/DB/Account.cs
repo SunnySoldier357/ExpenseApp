@@ -7,8 +7,10 @@ namespace ExpenseApp.Models.DB
 {
     public class Account
     {
+        // Private Properties
         private string _name;
 
+        // Public Properties
         [Key]
         [Required]
         [Display(Name = "Account")]

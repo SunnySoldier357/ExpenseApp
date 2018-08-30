@@ -4,6 +4,7 @@ namespace ExpenseApp.Models.DB
 {
     public class ExpenseDBDataContext : DbContext
     {
+        // Public Properties
         public DbSet<Employee> Employees { get; set; }
         public DbSet<ExpenseForm> ExpenseForms { get; set; }
         public DbSet<ExpenseEntry> ExpenseEntries { get; set; }
@@ -11,12 +12,11 @@ namespace ExpenseApp.Models.DB
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Location> Locations { get; set; }
 
+        // Constructors
         public ExpenseDBDataContext(DbContextOptions<ExpenseDBDataContext> options)
-            : base(options)
-        {
-            Database.EnsureCreated();
-        }
+            : base(options) => Database.EnsureCreated();
 
+        // Overridden Methods
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>()
@@ -37,7 +37,7 @@ namespace ExpenseApp.Models.DB
                 .Property(r => r.Id)
                 .HasDefaultValueSql("NEWID()");
 
-            // Use properties not fields
+            // Use properties not fields as there is business logic in setter
             modelBuilder.Entity<ExpenseEntry>()
                 .Property(ee => ee.Cost)
                 .HasField("_cost")
