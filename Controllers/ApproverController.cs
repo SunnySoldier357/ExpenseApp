@@ -20,12 +20,15 @@ namespace ExpenseApp.Controllers
         [Route("approvers")]
         public IActionResult List()
         {
-            var employees = _db.Employees
+            var test = _db.Employees
                 .Include(e => e.Location)
+                .Include(e => e.Approver).ToList();
+
+            var employees = test
                 .OrderBy(e => e.Location.Name)
-                .ThenByDescending(e => e.IsAnApprover)
-                .ThenBy(e => e.LastName)
-                .ThenBy(e => e.FirstName)
+                    .ThenBy(e => e.IsAnApprover ? 0 : 1)
+                    .ThenBy(e => e.LastName)
+                    .ThenBy(e => e.FirstName)
                 .ToList();
 
             return View(employees);
