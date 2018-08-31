@@ -16,15 +16,7 @@ namespace ExpenseApp.ViewModels
         {
             StatementNumber = form.StatementNumber;
             Title = form.Title;
-            if (!approverController)
-            {
-                if (form.Status == Status.Paid)
-                    Status = Status.Approved;
-                else
-                    Status = form.Status;
-            }
-            else
-                Status = form.Status;
+            Status = form.Status;
 
             if (approverController)
                 EmployeeName = form.EmployeeName;

@@ -21,7 +21,7 @@
   </p>
 
   <div class="error-label"
-       asp-validation-summary="ModelOnly"></div>
+       asp-validation-summary="All"></div>
 
   <div class="grid-container">
 
@@ -98,16 +98,6 @@
   </div>
 
   <h2>Consultant Information</h2>
-
-  @Html.HiddenFor(model => model.Employee.FirstName)
-  @Html.HiddenFor(model => model.Employee.Id)
-  @Html.HiddenFor(model => model.Employee.LastName)
-
-  @Html.HiddenFor(model => model.Employee.Approver.FirstName)
-  @Html.HiddenFor(model => model.Employee.Approver.LastName)
-  @Html.HiddenFor(model => model.Employee.Approver.Id)
-  @Html.HiddenFor(model => model.Employee.Approver.LastName)
-  @Html.HiddenFor(model => model.Employee.Approver.Location.Name)
 
   <div class="grid-container">
 

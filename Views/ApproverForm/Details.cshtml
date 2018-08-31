@@ -193,6 +193,16 @@
       }
     </dd>
 
+    @if (Model.Status == Status.Paid)
+    {
+      <dt>
+        @Html.DisplayNameFor(model => model.PaymentReceiptNumber):
+      </dt>
+      <dd>
+        @Html.DisplayFor(model => model.PaymentReceiptNumber)
+      </dd>
+    }
+
     <dt>
       @Html.DisplayNameFor(model => model.Status):
     </dt>
@@ -221,7 +231,10 @@
     @if (Model.Status == ExpenseApp.Models.DB.Status.Approved)
     {
       <a class="button-primary"
-         href="#">Mark as Paid</a>
+         href="@Url.Action("Pay", "ApproverForm", new
+          {
+              statementNumber = Model.StatementNumber
+          })">Mark as Paid</a>
     }
   </div>
 

@@ -67,6 +67,15 @@ namespace ExpenseApp.Controllers
                 return rerouteSignedInUser(employee, (ReturnLocation)returnLocation);
             }
 
+            if (string.IsNullOrWhiteSpace(employee.FirstName))
+                ModelState.AddModelError("", "First Name is a required field.");
+            
+            if (string.IsNullOrWhiteSpace(employee.LastName))
+                ModelState.AddModelError("", "Last Name is a required field.");
+            
+            if (string.IsNullOrWhiteSpace(employee.Location.Name))
+                ModelState.AddModelError("", "Location is a required field.");
+
             if (!ModelState.IsValid)
             {
                 ViewBag.FirstEmployee = _db.Employees.Count() == 0;
@@ -76,7 +85,6 @@ namespace ExpenseApp.Controllers
 
                 return View(newEmployee);
             }
-
 
             if (_db.Locations.Count() != 0)
                 newEmployee.Location = _db.Locations

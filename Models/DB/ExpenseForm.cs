@@ -34,6 +34,9 @@ namespace ExpenseApp.Models.DB
         [Display(Name = "Rejection Comment")]
         public string RejectionComment { get; set; }
 
+        [Display(Name = "Payment Receipt Number")]
+        public string PaymentReceiptNumber { get; set; }
+
         public Status Status { get; set; }
 
         [InverseProperty("Form")]

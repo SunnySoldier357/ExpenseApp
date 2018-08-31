@@ -165,13 +165,6 @@ namespace ExpenseApp.Models.DB
                         " Meals, Phone, Entertainment, Misc.) has to be filled in."
                 );
             }
-
-            if (Total > 50 && ImageFormFile == null)
-            {
-                yield return new ValidationResult(
-                    "A receipt is required if the entry being claimed is more than USD$50."
-                );
-            }
         }
 
         // Private Properties

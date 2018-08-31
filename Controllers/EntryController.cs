@@ -41,6 +41,12 @@ namespace ExpenseApp.Controllers
             if (!AuthController.SignedIn)
                 return RedirectToAction("AccessDenied", "Auth");
 
+            if (entry.Total > 50 && entry.ImageFormFile == null)
+            {
+                ModelState.AddModelError("",
+                    "A receipt is required if the entry being claimed is more than USD$50.");
+            }
+
             if (!ModelState.IsValid)
             {
                 ViewBag.StatementNumber = statementNumber;

@@ -1,15 +1,15 @@
 @model ExpenseForm
 
-@section Title { Expense Report Reject }
+@section Title { Expense Report Pay }
 
 @section Header {
-  <h1>Reject Expense Report</h1>
+  <h1>Pay Expense Report</h1>
 }
 
 <form asp-controller="ApproverForm"
-      asp-action="Reject">
+      asp-action="Pay">
   <h4>
-    Please include a comment detailing why you decided to reject the Expense Report.
+    Please include the receipt number of the receipt use to pay this expense report.
   </h4>
 
   <div class="error-label"
@@ -17,13 +17,14 @@
 
   @Html.HiddenFor(model => model.StatementNumber)
 
-  <div class="textarea-container grid-item">
+  <div class="input-container grid-item">
     <label class="label"
-           asp-for="RejectionComment"></label>
-    <textarea class="input-field textarea-field"
-              asp-for="RejectionComment"></textarea>
+           asp-for="PaymentReceiptNumber"></label>
+    <input class="input-field"
+           asp-for="PaymentReceiptNumber"
+           type="text" />
     <span class="error-label"
-          asp-validation-for="RejectionComment"></span>
+          asp-validation-for="PaymentReceiptNumber"></span>
   </div>
 
   <div class="button-group">
@@ -33,7 +34,7 @@
             statementNumber = Model.StatementNumber
         })">Cancel</a>
     <input class="button-primary"
-           value="Reject"
+           value="Mark as Paid"
            type="submit" />
   </div>
 </form>

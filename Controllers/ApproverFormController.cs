@@ -22,9 +22,12 @@ namespace ExpenseApp.Controllers
         {
             _db = db;
 
-            SignedInApprover = _db.Employees
+            if (AuthController.SignedIn)
+            {
+                SignedInApprover = _db.Employees
                 .Include(e => e.Location)
                 .FirstOrDefault(e => e.Id == SignedInApprover.Id);
+            }
         }
 
         // Public Methods
@@ -83,6 +86,8 @@ namespace ExpenseApp.Controllers
                     .ThenInclude(e => e.Approver)
                 .Include(ef => ef.Employee.Location)
                 .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
+
+            ViewBag.StatementNumber = statementNumber;
 
             return View(form);
         }
@@ -144,6 +149,47 @@ namespace ExpenseApp.Controllers
                 _db.SaveChanges();
 
                 return RedirectToAction("List", "ApproverForm");
+            }
+            else
+                return NotFound();
+        }
+
+        [HttpGet]
+        [Route("{statementNumber}/pay")]
+        public IActionResult Pay(string statementNumber)
+        {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
+            ExpenseForm form = _db.ExpenseForms
+                .Find(statementNumber);
+
+            return View(form);
+        }
+
+        [HttpPost]
+        [Route("{statementNumber}/pay")]
+        public IActionResult Pay(string statementNumber, ExpenseForm paid)
+        {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
+            ExpenseForm form = _db.ExpenseForms
+                .Find(statementNumber);
+
+            if (null == paid.PaymentReceiptNumber)
+            {
+                ModelState.AddModelError("", "The receipt number is a required field.");
+                return View(paid);
+            }
+
+            if (paid.StatementNumber == form.StatementNumber)
+            {
+                form.Status = Status.Paid;
+                form.PaymentReceiptNumber = paid.PaymentReceiptNumber;
+                _db.SaveChanges();
+
+                return RedirectToAction("List", "ApproverForm", paid.StatementNumber);
             }
             else
                 return NotFound();

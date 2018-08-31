@@ -247,6 +247,11 @@ namespace ExpenseApp.Controllers
             }
             else if (command == "Submit")
             {
+                updated.Employee = _db.Employees
+                    .Include(e => e.Approver)
+                    .Include(e => e.Location)
+                    .FirstOrDefault(e => e.Id == SignedInEmployee.Id);
+
                 ViewBag.ShowErrors = true;
 
                 if (form.Entries.Count() == 0)
