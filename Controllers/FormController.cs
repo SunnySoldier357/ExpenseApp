@@ -15,20 +15,14 @@ namespace ExpenseApp.Controllers
         private readonly DateTime TEMP_PLACEHOLDER_DATE = new DateTime(3333, 5, 11);
         private const string TEMP_PLACEHOLDER_STRING = "aqw(*&^%$#@!#$%^TYUI<>>>,.";
 
+        // Static Properties
+        public static Employee SignedInEmployee;
+
         // Private Properties
         private readonly ExpenseDBDataContext _db;
 
-        // Public Properties
-        public Employee SignedInEmployee;
-
         // Constructors
-        public FormController(ExpenseDBDataContext db)
-        {
-            _db = db;
-
-            SignedInEmployee = _db.Employees.Find(
-                new Guid("4c21f8bf-8d79-48fb-bc05-8e846714a006"));
-        }
+        public FormController(ExpenseDBDataContext db) => _db = db;
 
         // Public Methods
         [Route("")]
@@ -36,6 +30,14 @@ namespace ExpenseApp.Controllers
         [Route("form/index")]
         public IActionResult Index()
         {
+            if (!AuthController.SignedIn)
+            {
+                return RedirectToAction("Register", "Auth", new
+                {
+                    returnLocation = (int)ReturnLocation.UserHomePage
+                });
+            }
+
             // Ordering each ExpenseForm by
             //     - The Year in the StatementNumber in descending order so the 
             //       latest year is on the top
@@ -68,6 +70,9 @@ namespace ExpenseApp.Controllers
         [Route("form/create")]
         public IActionResult Create()
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             var signedInUser = _db.Employees
                 .Include(e => e.Approver)
                 .Include(e => e.Location)
@@ -82,6 +87,9 @@ namespace ExpenseApp.Controllers
         [Route("form/create")]
         public IActionResult Create(ExpenseForm form, string command)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             if (command == "Save" || command == "Create New Entry")
             {
                 if (string.IsNullOrWhiteSpace(form.Title))
@@ -127,6 +135,9 @@ namespace ExpenseApp.Controllers
         [Route("form/details/{statementNumber}")]
         public IActionResult Details(string statementNumber)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ExpenseForm form = _db.ExpenseForms
                 .Include(ef => ef.Entries)
                     .ThenInclude(ee => ee.Account)
@@ -149,6 +160,9 @@ namespace ExpenseApp.Controllers
         [Route("form/edit/{statementNumber}/{message?}")]
         public IActionResult Edit(string statementNumber, string message)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ViewBag.ShowErrors = true;
             ViewBag.StatementNumber = statementNumber;
             ViewBag.Message = message;
@@ -176,6 +190,9 @@ namespace ExpenseApp.Controllers
         [Route("form/edit/{statementNumber}/{message?}")]
         public IActionResult Edit(string statementNumber, ExpenseForm updated, string command)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ExpenseForm form = _db.ExpenseForms
                 .Include(ef => ef.Entries)
                     .ThenInclude(ee => ee.Account)
@@ -255,8 +272,13 @@ namespace ExpenseApp.Controllers
 
         [HttpGet]
         [Route("form/getnextidnumber/{statementNumber}")]
-        public IActionResult GetNextIdNumber(string statementNumber) =>
-            Json(data: getNextIdNumber(statementNumber));
+        public IActionResult GetNextIdNumber(string statementNumber)
+        {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
+            return Json(data: getNextIdNumber(statementNumber));
+        }
 
         // Private Methods
         private void fillInTempValues(ExpenseForm form, bool edit = false)

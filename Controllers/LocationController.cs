@@ -19,6 +19,9 @@ namespace ExpenseApp.Controllers
         [Route("locations/{message?}")]
         public IActionResult List(string message)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             if (message != null)
             {
                 // Decoding message sent by Delete Action
@@ -34,12 +37,21 @@ namespace ExpenseApp.Controllers
 
         [HttpGet]
         [Route("locations/create")]
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
+            return View();
+        }
 
         [HttpPost]
         [Route("locations/create")]
         public IActionResult Create(Location location)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             if (!ModelState.IsValid)
                 return View();
 
@@ -67,6 +79,9 @@ namespace ExpenseApp.Controllers
         [Route("locations/edit/{slug}")]
         public IActionResult Edit(string slug)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             Location location = _db.Locations.FirstOrDefault(l => l.Slug == slug);
 
             if (null == location)
@@ -79,6 +94,9 @@ namespace ExpenseApp.Controllers
         [Route("locations/edit/{slug}")]
         public IActionResult Edit(string slug, Location updated)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             Location location = _db.Locations.FirstOrDefault(l => l.Slug == slug);
 
             if (null == location)
@@ -110,6 +128,9 @@ namespace ExpenseApp.Controllers
         [Route("locations/delete/{slug}")]
         public IActionResult Delete(string slug)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             Location location = _db.Locations
                 .FirstOrDefault(l => l.Slug == slug);
 
@@ -120,6 +141,9 @@ namespace ExpenseApp.Controllers
         [Route("locations/delete/{slug}")]
         public IActionResult Delete(string slug, Location deleted)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             Location location = _db.Locations
                 .FirstOrDefault(l => l.Slug == slug &&
                     l.Name == deleted.Name);

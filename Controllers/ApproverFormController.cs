@@ -14,23 +14,27 @@ namespace ExpenseApp.Controllers
         // Private Properties
         private readonly ExpenseDBDataContext _db;
 
-        // Public Properties
-        public Employee SignedInApprover;
+        // Static Properties
+        public static Employee SignedInApprover;
 
         // Constructors
-        public ApproverFormController(ExpenseDBDataContext db)
-        {
-            _db = db;
-
-            SignedInApprover = _db.Employees
-                .Include(e => e.Location)
-                .FirstOrDefault(e => e.Id == new Guid("9adada3b-2032-4b9d-b23d-afa8e07666da"));
-        }
+        public ApproverFormController(ExpenseDBDataContext db) => _db = db;
 
         // Public Methods
         [Route("")]
         public IActionResult List()
         {
+            if (!AuthController.SignedIn)
+            {
+                return RedirectToAction("Register", "Auth", new
+                {
+                    returnLocation = (int)ReturnLocation.ApproverHomePage
+                });
+            }
+
+            if (!AuthController.IsApprover)
+                return RedirectToAction("AccessDenied", "Auth");
+
             var forms = _db.ExpenseForms
                 .Include(ef => ef.Employee)
                     .ThenInclude(ef => ef.Location)
@@ -40,13 +44,13 @@ namespace ExpenseApp.Controllers
                 .ThenByDescending(ef => ef.StatementNumber.Substring(0, 2))
                 .ThenBy(ef => ef.StatementNumber.Substring(5, ef.StatementNumber.Length - 8))
                 .ThenByDescending(ef => ef.StatementNumber.Substring(ef.StatementNumber.Length - 2))
-                .Select(ef => new 
-                    { 
-                        ef.StatementNumber, 
-                        ef.Title, 
-                        ef.Status, 
-                        EmployeeName = ef.Employee.FullName 
-                    });
+                .Select(ef => new
+                {
+                    ef.StatementNumber,
+                    ef.Title,
+                    ef.Status,
+                    EmployeeName = ef.Employee.FullName
+                });
 
             var listings = new List<ExpenseListViewModel>();
 
@@ -60,6 +64,9 @@ namespace ExpenseApp.Controllers
         [Route("{statementNumber}")]
         public IActionResult Details(string statementNumber)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ExpenseForm form = _db.ExpenseForms
                 .Include(ef => ef.Entries)
                     .ThenInclude(ee => ee.Account)
@@ -77,6 +84,9 @@ namespace ExpenseApp.Controllers
         [Route("{statementNumber}")]
         public IActionResult Details(string statementNumber, ExpenseForm approved)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ExpenseForm form = _db.ExpenseForms
                 .Find(statementNumber);
 
@@ -95,6 +105,9 @@ namespace ExpenseApp.Controllers
         [Route("{statementNumber}/reject")]
         public IActionResult Reject(string statementNumber)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ExpenseForm form = _db.ExpenseForms
                 .Find(statementNumber);
 
@@ -105,15 +118,18 @@ namespace ExpenseApp.Controllers
         [Route("{statementNumber}/reject")]
         public IActionResult Reject(string statementNumber, ExpenseForm rejected)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ExpenseForm form = _db.ExpenseForms
                 .Find(statementNumber);
-            
+
             if (null == rejected.RejectionComment)
             {
                 ModelState.AddModelError("", "The rejection comment is a required field.");
                 return View(rejected);
             }
-                
+
             if (rejected.StatementNumber == form.StatementNumber)
             {
                 form.Status = Status.Rejected;

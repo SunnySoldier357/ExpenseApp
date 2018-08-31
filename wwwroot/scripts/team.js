@@ -18,7 +18,7 @@
     });
 
     // Methods
-    
+
     // Sets the theme according to user preference
     function setTheme(theme)
     {

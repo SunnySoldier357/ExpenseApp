@@ -20,6 +20,9 @@ namespace ExpenseApp.Controllers
         [Route("approvers")]
         public IActionResult List()
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             var test = _db.Employees
                 .Include(e => e.Location)
                 .Include(e => e.Approver).ToList();
@@ -37,6 +40,9 @@ namespace ExpenseApp.Controllers
         [Route("approvers/{id}")]
         public IActionResult Details(string id)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             Employee employee = _db.Employees
                 .Include(e => e.Approver)
                 .Include(e => e.Location)
@@ -52,6 +58,9 @@ namespace ExpenseApp.Controllers
         [Route("approvers/edit/{id}")]
         public IActionResult Edit(string id)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             Employee employee = _db.Employees
                 .Include(e => e.Approver)
                 .Include(e => e.Location)
@@ -78,6 +87,9 @@ namespace ExpenseApp.Controllers
         [Route("approvers/edit/{id}")]
         public IActionResult Edit(string id, ApproverEditViewModel viewModel)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             Employee employee = _db.Employees.Find(new Guid(id));
 
             viewModel.PupulateFields(_db);

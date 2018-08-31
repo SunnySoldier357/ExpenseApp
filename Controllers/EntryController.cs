@@ -23,6 +23,9 @@ namespace ExpenseApp.Controllers
         [Route("create")]
         public IActionResult Create(string statementNumber)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ViewBag.StatementNumber = statementNumber;
             ViewBag.Accounts = _db.Accounts
                 .OrderBy(a => a.Name)
@@ -35,6 +38,9 @@ namespace ExpenseApp.Controllers
         [Route("create")]
         public async Task<IActionResult> Create(string statementNumber, ExpenseEntry entry)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             if (!ModelState.IsValid)
             {
                 ViewBag.StatementNumber = statementNumber;
@@ -80,6 +86,9 @@ namespace ExpenseApp.Controllers
         [Route("{id}/{returnUrl}")]
         public IActionResult Details(string statementNumber, string id, string returnUrl)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ExpenseEntry entry = _db.ExpenseEntries
                 .Include(ee => ee.Receipt)
                 .FirstOrDefault(ee => ee.Id == new Guid(id));
@@ -94,6 +103,9 @@ namespace ExpenseApp.Controllers
         [Route("edit/{id}")]
         public IActionResult Edit(string statementNumber, string id)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ExpenseEntry entry = _db.ExpenseEntries
                 .Find(new Guid(id));
 
@@ -110,6 +122,9 @@ namespace ExpenseApp.Controllers
         public async Task<IActionResult> Edit(string statementNumber, string id,
             ExpenseEntry updated)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ExpenseEntry entry = _db.ExpenseEntries
                 .Include(ee => ee.Account)
                 .FirstOrDefault(ee => ee.Id == new Guid(id));
@@ -161,6 +176,9 @@ namespace ExpenseApp.Controllers
         [Route("delete/{id}")]
         public IActionResult Delete(string statementNumber, string id)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ExpenseEntry entry = _db.ExpenseEntries
                 .Include(ee => ee.Account)
                 .FirstOrDefault(ee => ee.Id == new Guid(id));
@@ -174,6 +192,9 @@ namespace ExpenseApp.Controllers
         [Route("delete/{id}")]
         public IActionResult Delete(string statementNumber, string id, ExpenseEntry deleted)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             ExpenseEntry entry = _db.ExpenseEntries
                 .Include(ee => ee.Account)
                 .FirstOrDefault(ee => ee.Id == new Guid(id));

@@ -19,12 +19,15 @@ namespace ExpenseApp.Controllers
         [Route("accounts/{message?}")]
         public IActionResult List(string message)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             if (message != null)
             {
                 // Decoding message sent by Delete Action
                 ViewBag.Message = message.Replace('?', '/');
             }
-               
+
 
             var accounts = _db.Accounts
                 .OrderBy(a => a.Name)
@@ -35,12 +38,21 @@ namespace ExpenseApp.Controllers
 
         [HttpGet]
         [Route("accounts/create")]
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
+            return View();
+        }
 
         [HttpPost]
         [Route("accounts/create")]
         public IActionResult Create(Account account)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             if (!ModelState.IsValid)
                 return View();
 
@@ -51,7 +63,7 @@ namespace ExpenseApp.Controllers
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError("", 
+                ModelState.AddModelError("",
                     "Database Error! The Name entered is already in the database!");
                 return View();
             }
@@ -68,6 +80,9 @@ namespace ExpenseApp.Controllers
         [Route("accounts/edit/{slug}")]
         public IActionResult Edit(string slug)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             Account account = _db.Accounts
                 .FirstOrDefault(a => a.Slug == slug);
 
@@ -81,6 +96,9 @@ namespace ExpenseApp.Controllers
         [Route("accounts/edit/{slug}")]
         public IActionResult Edit(string slug, Account updated)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             Account account = _db.Accounts
                 .FirstOrDefault(a => a.Slug == slug);
 
@@ -98,9 +116,9 @@ namespace ExpenseApp.Controllers
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError("", 
+                ModelState.AddModelError("",
                     "Database Error! The Name entered is already in the database!");
-                
+
                 return View();
             }
             catch (Exception e)
@@ -116,9 +134,12 @@ namespace ExpenseApp.Controllers
         [Route("accounts/delete/{slug}")]
         public IActionResult Delete(string slug)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             Account account = _db.Accounts
                 .FirstOrDefault(a => a.Slug == slug);
-            
+
             return View(account);
         }
 
@@ -126,8 +147,11 @@ namespace ExpenseApp.Controllers
         [Route("accounts/delete/{slug}")]
         public IActionResult Delete(string slug, Account deleted)
         {
+            if (!AuthController.SignedIn)
+                return RedirectToAction("AccessDenied", "Auth");
+
             Account account = _db.Accounts
-                .FirstOrDefault(a => a.Slug == slug && 
+                .FirstOrDefault(a => a.Slug == slug &&
                     a.Name == deleted.Name);
 
             if (account != null)

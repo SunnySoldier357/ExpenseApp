@@ -7,6 +7,20 @@ namespace ExpenseApp.Controllers
     public class AdminController : Controller
     {
         // Public Methods
-        public IActionResult Index() => View();
+        public IActionResult Index()
+        {
+            if (!AuthController.SignedIn)
+            {
+                return RedirectToAction("Register", "Auth", new 
+                {
+                    returnLocation = (int) ReturnLocation.AdminHomePage
+                });
+            }
+
+            if (!AuthController.IsApprover)
+                return RedirectToAction("AccessDenied", "Auth");
+
+            return View();
+        }
     }
 }

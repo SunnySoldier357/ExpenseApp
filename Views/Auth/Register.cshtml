@@ -1,0 +1,82 @@
+@model Employee
+
+@section Title { Employee Registration }
+
+@section Header {
+  <h1>Register new Employee</h1>
+}
+
+@section Scripts {
+  <script src="~/scripts/authenticate.js"
+          type="text/javascript"
+          defer></script>
+}
+
+<h4>Employee</h4>
+<hr />
+<form id="register-user-form"
+      asp-controller="Auth"
+      asp-action="Register">
+  <input id="user-id-field"
+         asp-for="Id"
+         type="hidden" />
+
+  <div class="error-label"
+       asp-validation-summary="ModelOnly"></div>
+
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="FirstName"></label>
+    <input class="input-field"
+           asp-for="FirstName"
+           type="text" />
+    <span class="error-label"
+          asp-validation-for="FirstName"></span>
+  </div>
+
+  <div class="input-container field-group">
+    <label class="label"
+           asp-for="LastName"></label>
+    <input class="input-field"
+           asp-for="LastName"
+           type="text" />
+    <span class="error-label"
+          asp-validation-for="LastName"></span>
+  </div>
+
+  <div class="input-container field-group">
+
+    @if (ViewBag.FirstEmployee)
+    {
+      <p>
+        SInce you are the first Employee, you need to create a new Location. Please type in a name
+        that you would like to call the location you are working in.
+      </p>
+
+      <label class="label"
+             asp-for="Location.Name"></label>
+      <input class="input-field"
+             asp-for="Location.Name"
+             type="text" />
+    }
+    else
+    {
+      <label class="label"
+             asp-for="Location.Name"></label>
+      <select class="input-field"
+              asp-for="Location.Name"
+              asp-items="@{new SelectList(ViewBag.Locations, "Name", "Name")}"></select>
+    }
+
+    <span class="error-label"
+          asp-validation-for="Location.Name"></span>
+  </div>
+
+  <div class="button-group">
+    <button class="button-primary"
+            type="submit">
+      Register
+    </button>
+  </div>
+
+</form>
