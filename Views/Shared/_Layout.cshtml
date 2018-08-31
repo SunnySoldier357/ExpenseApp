@@ -12,7 +12,7 @@
         href="@Url.Content("~/css/team.css")">
   <link rel="stylesheet"
         type="text/css"
-        href="@Url.Content("~/css/main.css?version=3")">
+        href="@Url.Content("~/css/main.css")">
 
   <script src="@Url.Content("~/scripts/MicrosoftTeams.min.js")"
           type="text/javascript"
@@ -26,6 +26,10 @@
 
 <body class="theme-light">
   <div class="surface">
+    <nav>
+      @await Html.PartialAsync("_LoginPartial")
+    </nav>
+
     <div class="panel">
       <div class="panel-header">
         @RenderSection("Header", false)

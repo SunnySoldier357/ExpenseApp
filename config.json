@@ -1,5 +1,12 @@
 {
-  "FeatureToggles": {
-    "EnableDeveloperExceptions": "False"
-  }
+    "AzureAd": {
+        "Instance": "https://login.microsoftonline.com/",
+        "Domain": "skillup.tech",
+        "TenantId": "common",
+        "ClientId": "6adc9672-616f-4369-bad5-d1ca1129e98f",
+        "CallbackPath": "/form/index"
+    },
+    "FeatureToggles": {
+        "EnableDeveloperExceptions": "False"
+    }
 }

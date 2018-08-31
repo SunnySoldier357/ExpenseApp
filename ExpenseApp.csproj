@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Views\ApproverForm\" />
+    <Folder Include="Views\Auth\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
