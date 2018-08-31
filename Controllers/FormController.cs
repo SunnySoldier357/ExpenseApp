@@ -102,6 +102,9 @@ namespace ExpenseApp.Controllers
 
                 fillInTempValues(form);
 
+                form.Employee = _db.Employees
+                    .Find(form.Employee.Id);
+
                 _db.ExpenseForms.Add(form);
                 _db.SaveChanges();
 
@@ -117,11 +120,17 @@ namespace ExpenseApp.Controllers
             }
             else if (command == "Submit")
             {
+                form.Employee = _db.Employees
+                    .Include(e => e.Approver)
+                    .Include(e => e.Location)
+                    .FirstOrDefault(e => e.Id == SignedInEmployee.Id);
+
                 // The form is saved if the user adds an entry so when this is called
                 // there is always an error
                 if (form.Entries.Count() == 0)
                     ModelState.AddModelError("", "There must be at least 1 Expense Entry");
 
+                ViewBag.ShowErrors = true;
                 return View(form);
             }
             else
@@ -220,7 +229,7 @@ namespace ExpenseApp.Controllers
                 form.Comment = updated.Comment;
                 form.From = updated.From;
                 form.To = updated.To;
-                form.Project = updated.Project.ToUpper();
+                form.Project = updated.Project;
                 form.Purpose = updated.Purpose;
                 form.Status = Status.Saved;
 

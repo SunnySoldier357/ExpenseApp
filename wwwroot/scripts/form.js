@@ -25,7 +25,7 @@ function statementNumber()
     string += "-";
 
     if (PROJECT_FIELD.value != "")
-        string += PROJECT_FIELD.value;
+        string += PROJECT_FIELD.value.toUpperCase();
     else
     {
         string += "CLIENT-PROJECT";

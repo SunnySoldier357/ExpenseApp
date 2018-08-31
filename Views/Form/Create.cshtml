@@ -148,10 +148,20 @@
     <div class="input-container grid-item">
       <label class="label"
              asp-for="Employee.Approver.FullName"></label>
-      <input class="input-field"
-             asp-for="Employee.Approver.FullName"
-             type="text"
-             readonly />
+      @if (Model.Employee.IsAnApprover)
+      {
+        <input class="input-field"
+               type="text"
+               value="@Model.Employee.FullName"
+               readonly />
+      }
+      else
+      {
+        <input class="input-field"
+               asp-for="Employee.Approver.FullName"
+               type="text"
+               readonly />
+      }
     </div>
   </div>
 

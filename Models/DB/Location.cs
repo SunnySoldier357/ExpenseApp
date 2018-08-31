@@ -19,8 +19,7 @@ namespace ExpenseApp.Models.DB
             get => _name;
             set
             {
-                TextInfo textInfo = new CultureInfo("en-US", true).TextInfo;
-                _name = textInfo.ToTitleCase(value.Trim());
+                _name = ToTitleCase(value);
             }
         }
 

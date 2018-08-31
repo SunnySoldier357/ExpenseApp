@@ -100,6 +100,10 @@ img {
     max-width: 500px;
 }
 
+.error-label {
+    text-align: center;
+}
+
 .button-group {
     float: right;
     margin-top: 10px;

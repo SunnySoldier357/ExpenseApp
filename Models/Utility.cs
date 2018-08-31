@@ -39,6 +39,9 @@ namespace ExpenseApp.Models
         
         public static string ToTitleCase(string text)
         {
+            if (null == text)
+                return null;
+
             TextInfo textInfo = new CultureInfo("en-US", true).TextInfo;
             return textInfo.ToTitleCase(text.Trim());
         }
