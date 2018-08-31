@@ -1,8 +1,5 @@
-﻿using ExpenseApp.Extensions;
-using ExpenseApp.Models;
+﻿using ExpenseApp.Models;
 using ExpenseApp.Models.DB;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +17,8 @@ namespace ExpenseApp
         public Startup(IHostingEnvironment env)
         {
             configuration = new ConfigurationBuilder()
-                .AddJsonFile(env.ContentRootPath + "/config.json")
-                .AddJsonFile(env.ContentRootPath + "/config.development.json", true)
+                .AddJsonFile(env.ContentRootPath + "/appsettings.json")
+                .AddJsonFile(env.ContentRootPath + $"/appsettings.{env.EnvironmentName.ToLower()}.json", true)
                 .Build();
         }
 
@@ -42,14 +39,6 @@ namespace ExpenseApp
                     .GetConnectionString("EmployeeDataContext");
                 options.UseSqlServer(connectionString);
             });
-
-            services.AddAuthentication(sharedOptions =>
-            {
-                sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                sharedOptions.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            })
-                .AddAzureAd(options => configuration.Bind("AzureAd", options))
-                .AddCookie();
 
             services.AddMvc().AddRazorPagesOptions(options =>
             {
@@ -75,8 +64,6 @@ namespace ExpenseApp
 
                 await next();
             });
-
-            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
