@@ -18,7 +18,14 @@ namespace ExpenseApp.Controllers
         public static Employee SignedInApprover;
 
         // Constructors
-        public ApproverFormController(ExpenseDBDataContext db) => _db = db;
+        public ApproverFormController(ExpenseDBDataContext db)
+        {
+            _db = db;
+
+            SignedInApprover = _db.Employees
+                .Include(e => e.Location)
+                .FirstOrDefault(e => e.Id == SignedInApprover.Id);
+        }
 
         // Public Methods
         [Route("")]
