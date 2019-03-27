@@ -149,6 +149,7 @@ namespace ExpenseApp.Models.DB
         }
 
         [NotMapped]
+        [Display(Name = "Image")]
         public IFormFile ImageFormFile { get; set; }
 
         // Constructor
