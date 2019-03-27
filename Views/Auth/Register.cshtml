@@ -45,6 +45,16 @@
   </div>
 
   <div class="input-container field-group">
+    <label class="label"
+           asp-for="Email"></label>
+    <input class="input-field"
+           asp-for="Email"
+           type="email" />
+    <span class="error-label"
+          asp-validation-for="Email"></span>
+  </div>
+
+  <div class="input-container field-group">
 
     @if (ViewBag.FirstEmployee)
     {

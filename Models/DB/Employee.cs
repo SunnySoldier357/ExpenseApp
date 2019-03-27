@@ -22,6 +22,8 @@ namespace ExpenseApp.Models.DB
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        public string Email { get; set; }
+
         public Location Location { get; set; }
 
         [NotMapped]

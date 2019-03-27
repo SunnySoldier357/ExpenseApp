@@ -69,12 +69,15 @@ namespace ExpenseApp.Controllers
 
             if (string.IsNullOrWhiteSpace(employee.FirstName))
                 ModelState.AddModelError("", "First Name is a required field.");
-            
+
             if (string.IsNullOrWhiteSpace(employee.LastName))
                 ModelState.AddModelError("", "Last Name is a required field.");
-            
+
             if (string.IsNullOrWhiteSpace(employee.Location.Name))
                 ModelState.AddModelError("", "Location is a required field.");
+
+            if (string.IsNullOrWhiteSpace(employee.Email))
+                ModelState.AddModelError("", "Email is a required field.");
 
             if (!ModelState.IsValid)
             {
