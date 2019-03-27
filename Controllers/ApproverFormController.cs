@@ -2,9 +2,9 @@
 using ExpenseApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using static ExpenseApp.Models.Utility;
 
 namespace ExpenseApp.Controllers
 {
@@ -100,12 +100,17 @@ namespace ExpenseApp.Controllers
                 return RedirectToAction("AccessDenied", "Auth");
 
             ExpenseForm form = _db.ExpenseForms
-                .Find(statementNumber);
+                .Include(ef => ef.Employee)
+                    .ThenInclude(e => e.Approver)
+                .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
 
             if (approved.StatementNumber == form.StatementNumber)
             {
                 form.Status = Status.Approved;
                 _db.SaveChanges();
+
+                // TODO: Uncomment this
+                // SendEmailToUser(form);
 
                 return RedirectToAction("List", "ApproverForm", statementNumber);
             }
@@ -134,7 +139,9 @@ namespace ExpenseApp.Controllers
                 return RedirectToAction("AccessDenied", "Auth");
 
             ExpenseForm form = _db.ExpenseForms
-                .Find(statementNumber);
+                .Include(ef => ef.Employee)
+                    .ThenInclude(e => e.Approver)
+                .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
 
             if (null == rejected.RejectionComment)
             {
@@ -147,6 +154,9 @@ namespace ExpenseApp.Controllers
                 form.Status = Status.Rejected;
                 form.RejectionComment = rejected.RejectionComment;
                 _db.SaveChanges();
+
+                // TODO: Uncomment this
+                // SendEmailToUser(form);
 
                 return RedirectToAction("List", "ApproverForm");
             }
@@ -175,7 +185,9 @@ namespace ExpenseApp.Controllers
                 return RedirectToAction("AccessDenied", "Auth");
 
             ExpenseForm form = _db.ExpenseForms
-                .Find(statementNumber);
+                .Include(ef => ef.Employee)
+                    .ThenInclude(e => e.Approver)
+                .FirstOrDefault(ef => ef.StatementNumber == statementNumber);
 
             if (null == paid.PaymentReceiptNumber)
             {
@@ -188,6 +200,9 @@ namespace ExpenseApp.Controllers
                 form.Status = Status.Paid;
                 form.PaymentReceiptNumber = paid.PaymentReceiptNumber;
                 _db.SaveChanges();
+
+                // TODO: Uncomment this
+                // SendEmailToUser(form);
 
                 return RedirectToAction("List", "ApproverForm", paid.StatementNumber);
             }

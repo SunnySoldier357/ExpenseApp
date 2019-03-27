@@ -275,6 +275,14 @@ namespace ExpenseApp.Controllers
                 _db.ExpenseForms.Add(form);
                 _db.SaveChanges();
 
+                // TODO: Uncomment this
+                // ExpenseForm form2 = _db.ExpenseForms
+                //    .Include(ef => ef.Employee)
+                //        .ThenInclude(e => e.Approver)
+                //    .FirstOrDefault(ef => ef.StatementNumber == form.StatementNumber);
+                //
+                // SendEmailToUser(form);
+
                 return RedirectToAction("Index", "Form", form.StatementNumber);
             }
             else
